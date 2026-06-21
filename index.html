@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>中央競馬 傾向 2026-06-13</title>
+<title>中央競馬 傾向 2026-06-20</title>
 <style>
 :root{--bg:#f5f6f8;--ink:#17202a;--muted:#64748b;--line:#d8e0ea;--card:#fff;--soft:#f1f5f9;--blue:#174ea6;--blue-bg:#e8f0fe;--warn:#fff7ed;--warn-line:#fed7aa;--accent:#2563eb}
 *{box-sizing:border-box}
@@ -14,7 +14,7 @@ p,li,td,th,strong,span,div,a{overflow-wrap:anywhere}
 .hero{background:#0f172a;color:#fff;padding:18px 16px;border-radius:0 0 12px 12px}
 .hero h1{font-size:20px;line-height:1.3;margin:0 0 8px;letter-spacing:0}
 .meta{color:#cbd5e1;font-size:13px}
-.nav{position:sticky;top:0;background:rgba(245,246,248,.96);backdrop-filter:blur(8px);z-index:5;padding:10px 0;display:flex;gap:8px;overflow-x:auto}
+.nav{position:sticky;top:0;background:rgba(245,246,248,.96);backdrop-filter:blur(8px);z-index:5;padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;overflow-x:visible}
 .nav a{flex:0 0 auto;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:8px;padding:7px 10px;font-size:13px;line-height:1.2}
 .section{margin:18px 0}
 .section h2{font-size:16px;margin:0 0 10px}
@@ -64,6 +64,8 @@ details.race summary::-webkit-details-marker{display:none}
 .race-group-body{padding:0 12px 12px}
 .race-overview-card{margin-top:10px}
 .race-overview{display:grid;gap:6px}
+.pick-jump{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.pick-jump a{display:inline-flex;align-items:center;text-decoration:none;color:#0f172a;background:#f8fbff;border:1px solid #bfdbfe;border-radius:6px;padding:5px 8px;font-size:12px;font-weight:800;line-height:1.2}
 .race-row{display:grid;grid-template-columns:minmax(118px,1.1fr) 52px 98px minmax(0,1.5fr);gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff}
 .race-row.no-pick{background:#f8fafc;color:var(--muted)}
 .race-row.has-pick{background:#f8fbff;border-color:#bfdbfe}
@@ -94,13 +96,13 @@ details.race summary::-webkit-details-marker{display:none}
 .small{font-size:12px;color:var(--muted)}
 .empty{background:var(--warn);border-color:var(--warn-line)}
 @media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:520px){.wrap{padding:10px}.card{padding:10px}.summary-main{grid-template-columns:minmax(0,1fr)}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:2px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:3px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:5px}}
+@media(max-width:520px){.wrap{padding:10px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{font-size:12px;padding:6px 8px}.summary-main{grid-template-columns:minmax(0,1fr)}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:2px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:3px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:5px}}
 </style>
 </head>
 <body>
 <div class="hero">
-<h1>中央競馬 傾向レポート<br>2026-06-13</h1>
-<div class="meta">生成 2026-06-14 09:01 / 対象 36R / 元DB keiba.db</div>
+<h1>中央競馬 傾向レポート<br>2026-06-20</h1>
+<div class="meta">生成 2026-06-21 11:43 / 対象 36R / 元DB keiba.db</div>
 </div>
 <main class="wrap">
 <nav class="nav"><a href="#overview">概要</a><a href="#picks">レース別おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">当日結果</a></nav>
@@ -108,22 +110,1348 @@ details.race summary::-webkit-details-marker{display:none}
 <h2>概要</h2>
 <article class="card dashboard empty">
 <div class="dashboard-grid">
-<div class="metric"><b>集計日</b><span>2026-06-13</span></div>
+<div class="metric"><b>集計日</b><span>2026-06-20</span></div>
 <div class="metric"><b>対象R</b><span>36R</span></div>
-<div class="metric"><b>おすすめ</b><span>13件</span></div>
+<div class="metric"><b>推奨馬</b><span>10頭 / 9R</span></div>
 <div class="metric"><b>出馬表</b><span>36R</span></div>
-<div class="metric"><b>出走馬</b><span>485頭</span></div>
-<div class="metric"><b>オッズ</b><span>482/485頭(99%)</span></div>
-<div class="metric"><b>人気</b><span>482/485頭(99%)</span></div>
-<div class="metric"><b>追い切り</b><span>381/485頭(79%)</span></div>
-<div class="metric"><b>DM</b><span>0/485頭(0%)</span></div>
+<div class="metric"><b>出走馬</b><span>501頭</span></div>
+<div class="metric"><b>オッズ</b><span>501/501頭(100%)</span></div>
+<div class="metric"><b>人気</b><span>501/501頭(100%)</span></div>
+<div class="metric"><b>追い切り</b><span>0/501頭(0%)</span></div>
+<div class="metric"><b>DM</b><span>0/501頭(0%)</span></div>
 </div>
 <div class="decision"><b>最初に見るポイント</b>
-<span>推奨13件、対象10R。まずレース別おすすめの推奨あり詳細を確認してください。</span></div>
+<span>推奨馬10頭（9R）。レース別おすすめで、推奨ありの詳細を確認できます。</span></div>
+<p class="sub"><strong>注意</strong>: 追い切りが未取得です。推奨自体は作成できますが、個別追い切り評価は入りません。</p>
 <p class="sub"><strong>注意</strong>: データマイニング順位が未取得です。DM評価は今回のスコアから外しています。</p>
 </article>
 </section>
-<section id="notice" class="section"><article class="card empty"><strong>注意</strong><br>2026-06-14 は出馬表 36R / 485頭 がDBにありますが、着順・払戻がまだ入っていません。JRA-VANの結果データ配信後に再同期してください。 最新確定日の 2026-06-13 に切り替えます。</article></section>
+<section id="picks" class="section">
+<h2>翌日レース別おすすめ馬</h2>
+<p class="sub">対象日 2026-06-21。評価62点以上を各レース最大3頭表示。</p>
+<article class="card">
+<h3>前提データ</h3>
+<div class="stat">
+<b>対象日</b><span>2026-06-21</span>
+<b>出馬表</b><span>36R / 501頭</span>
+<b>オッズ</b><span>501/501頭(100%)</span>
+<b>人気</b><span>501/501頭(100%)</span>
+<b>追い切り</b><span>0/501頭(0%)</span>
+<b>データマイニング</b><span>0/501頭(0%)</span>
+<b>推奨馬</b><span>10頭 / 9R</span>
+</div>
+<p class="sub"><strong>注意</strong>: 追い切りが未取得です。推奨自体は作成できますが、個別追い切り評価は入りません。</p>
+<p class="sub"><strong>注意</strong>: データマイニング順位が未取得です。DM評価は今回のスコアから外しています。</p>
+</article>
+<article class="card race-overview-card">
+<h3>対象レース早見</h3>
+<div class="race-overview">
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-02-01">函館 1R</a></div>
+<div class="race-cell time">09:50</div>
+<div class="race-cell condition">芝1200m</div>
+<div class="race-cell pick">参考 ◎8 ファインコンダクト(58点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">函館 2R</span></div>
+<div class="race-cell time">10:20</div>
+<div class="race-cell condition">ダート2400m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-02-03">函館 3R</a></div>
+<div class="race-cell time">10:50</div>
+<div class="race-cell condition">ダート1000m</div>
+<div class="race-cell pick">参考 ◎4 マーマレードスカイ(61点) / ○3 エコロデュラン(61点) / ▲8 コウユーネロガ(59点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-02-04">函館 4R</a></div>
+<div class="race-cell time">11:20</div>
+<div class="race-cell condition">芝1800m</div>
+<div class="race-cell pick">参考 ◎16 コワンニシタガウ(61点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">函館 5R</span></div>
+<div class="race-cell time">12:10</div>
+<div class="race-cell condition">芝1200m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-02-06">函館 6R</a></div>
+<div class="race-cell time">12:40</div>
+<div class="race-cell condition">ダート1700m</div>
+<div class="race-cell pick">◎6 ウインカトリーヌ(62点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">函館 7R</span></div>
+<div class="race-cell time">13:10</div>
+<div class="race-cell condition">芝1200m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-02-08">函館 8R</a></div>
+<div class="race-cell time">13:40</div>
+<div class="race-cell condition">ダート1700m</div>
+<div class="race-cell pick">参考 ◎11 フェニーチェドーロ(61点) / ○3 テイクオンミー(61点) / ▲9 ナクライト(58点)</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-02-09">函館 9R 遊楽部特別</a></div>
+<div class="race-cell time">14:10</div>
+<div class="race-cell condition">芝2000m</div>
+<div class="race-cell pick">◎10 ソングオブザバード(62点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-02-10">函館 10R 檜山特別</a></div>
+<div class="race-cell time">14:45</div>
+<div class="race-cell condition">ダート1700m</div>
+<div class="race-cell pick">参考 ◎9 ライフゲート(58点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-02-11">函館 11R ＵＨＢ杯</a></div>
+<div class="race-cell time">15:20</div>
+<div class="race-cell condition">芝1200m</div>
+<div class="race-cell pick">参考 ◎11 ヴェサリウス(61点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">函館 12R</span></div>
+<div class="race-cell time">16:05</div>
+<div class="race-cell condition">芝1800m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">東京 1R</span></div>
+<div class="race-cell time">10:05</div>
+<div class="race-cell condition">障害3000m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-05-02">東京 2R</a></div>
+<div class="race-cell time">10:40</div>
+<div class="race-cell condition">ダート1600m</div>
+<div class="race-cell pick">◎2 ダノンマスタング(62点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">東京 3R</span></div>
+<div class="race-cell time">11:10</div>
+<div class="race-cell condition">ダート2100m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-05-04">東京 4R</a></div>
+<div class="race-cell time">11:40</div>
+<div class="race-cell condition">芝1400m</div>
+<div class="race-cell pick">参考 ◎6 タクティシアン(61点) / ○10 コールドスリープ(59点)</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-05-05">東京 5R</a></div>
+<div class="race-cell time">12:30</div>
+<div class="race-cell condition">芝1800m</div>
+<div class="race-cell pick">◎9 ラガリーガ(63点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-05-06">東京 6R</a></div>
+<div class="race-cell time">13:00</div>
+<div class="race-cell condition">芝1600m</div>
+<div class="race-cell pick">参考 ◎16 シャルムグリーン(61点) / ○8 ダノンアスコルティ(61点) / ▲11 エヴァンスベイ(61点)</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-05-07">東京 7R</a></div>
+<div class="race-cell time">13:30</div>
+<div class="race-cell condition">ダート1600m</div>
+<div class="race-cell pick">◎5 ヴンダーバール(62点)</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-05-08">東京 8R</a></div>
+<div class="race-cell time">14:00</div>
+<div class="race-cell condition">芝1600m</div>
+<div class="race-cell pick">◎3 ラベルセーヌ(64点) / ○15 オルグジェシダ(63点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">東京 9R 甲州街道特別</span></div>
+<div class="race-cell time">14:35</div>
+<div class="race-cell condition">ダート1400m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-05-10">東京 10R 多摩川ステークス</a></div>
+<div class="race-cell time">15:10</div>
+<div class="race-cell condition">芝1400m</div>
+<div class="race-cell pick">参考 ◎9 レッドキングリー(61点) / ○5 ユハンヌス(59点)</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-05-11">東京 11R 府中牝馬ステークス</a></div>
+<div class="race-cell time">15:45</div>
+<div class="race-cell condition">芝1800m</div>
+<div class="race-cell pick">◎6 ヴァルキリーバース(62点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">東京 12R</span></div>
+<div class="race-cell time">16:30</div>
+<div class="race-cell condition">ダート1400m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-01">阪神 1R</a></div>
+<div class="race-cell time">09:55</div>
+<div class="race-cell condition">ダート1400m</div>
+<div class="race-cell pick">参考 ◎16 オアシスアラン(58点)</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-09-02">阪神 2R</a></div>
+<div class="race-cell time">10:30</div>
+<div class="race-cell condition">芝1600m</div>
+<div class="race-cell pick">◎6 ビタールート(62点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-03">阪神 3R</a></div>
+<div class="race-cell time">11:00</div>
+<div class="race-cell condition">ダート1800m</div>
+<div class="race-cell pick">参考 ◎1 ジャスティンゴッホ(61点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-04">阪神 4R</a></div>
+<div class="race-cell time">11:30</div>
+<div class="race-cell condition">芝2400m</div>
+<div class="race-cell pick">参考 ◎4 レッドフレーザー(61点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-05">阪神 5R</a></div>
+<div class="race-cell time">12:20</div>
+<div class="race-cell condition">芝1600m</div>
+<div class="race-cell pick">参考 ◎1 ジーティーキャメル(61点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-06">阪神 6R</a></div>
+<div class="race-cell time">12:50</div>
+<div class="race-cell condition">芝1400m</div>
+<div class="race-cell pick">参考 ◎11 ウォーターブビンガ(58点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-07">阪神 7R</a></div>
+<div class="race-cell time">13:20</div>
+<div class="race-cell condition">ダート1400m</div>
+<div class="race-cell pick">参考 ◎4 ハッコウイチウ(61点) / ○1 インピッシュ(58点)</div>
+</div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">阪神 8R</span></div>
+<div class="race-cell time">13:50</div>
+<div class="race-cell condition">芝2000m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-09">阪神 9R 高砂特別</a></div>
+<div class="race-cell time">14:20</div>
+<div class="race-cell condition">芝2000m</div>
+<div class="race-cell pick">参考 ◎4 ミカエルパシャ(61点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-10">阪神 10R 姫路ステークス</a></div>
+<div class="race-cell time">14:55</div>
+<div class="race-cell condition">ダート1800m</div>
+<div class="race-cell pick">参考 ◎3 アークドール(61点)</div>
+</div>
+<div class="race-row has-reference">
+<div class="race-cell main"><a class="race-link" href="#race-09-11">阪神 11R しらさぎステークス</a></div>
+<div class="race-cell time">15:30</div>
+<div class="race-cell condition">芝1600m</div>
+<div class="race-cell pick">参考 ◎8 サイルーン(58点) / ○1 スマートワイス(58点)</div>
+</div>
+<div class="race-row has-pick">
+<div class="race-cell main"><a class="race-link" href="#race-09-12">阪神 12R</a></div>
+<div class="race-cell time">16:15</div>
+<div class="race-cell condition">ダート1800m</div>
+<div class="race-cell pick">◎10 ダディーズトリップ(62点)</div>
+</div>
+</div></article>
+<div class="pick-jump">
+<a href="#race-02-06">函館 6R</a>
+<a href="#race-02-09">函館 9R 遊楽部特別</a>
+<a href="#race-05-02">東京 2R</a>
+<a href="#race-05-05">東京 5R</a>
+<a href="#race-05-07">東京 7R</a>
+<a href="#race-05-08">東京 8R</a>
+<a href="#race-05-11">東京 11R 府中牝馬ステークス</a>
+<a href="#race-09-02">阪神 2R</a>
+<a href="#race-09-12">阪神 12R</a>
+</div>
+<h3>推奨あり詳細</h3>
+<details id="race-02-06" class="race recommended" open>
+<summary>
+<div class="summary-main">
+<div><strong>函館 6R</strong><div class="summary-condition">12:40 ダート1700m</div><div class="summary-picks">◎6 ウインカトリーヌ(62点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 6 ウインカトリーヌ</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 62点</span><span class="chip">5枠</span><span class="chip">岩田康誠</span><span class="chip">7人気</span><span class="chip">12.4倍</span>
+<span class="chip wide">騎手同コース 10走 1勝 3着内4回(40%)</span>
+<span class="chip wide">父 ベンバトル</span>
+<span class="chip wide">母父 ダイワメジャー</span>
+</div>
+<ul class="reason">
+<li>中枠の馬券内率31%（低信頼・加点抑制）</li>
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内40%（10走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-02-09" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>函館 9R 遊楽部特別</strong><div class="summary-condition">14:10 芝2000m</div><div class="summary-picks">◎10 ソングオブザバード(62点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 10 ソングオブザバード</div><div class="sub">芝2000m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 62点</span><span class="chip">7枠</span><span class="chip">横山武史</span><span class="chip">6人気</span><span class="chip">8.4倍</span>
+<span class="chip wide">騎手同コース 11走 2勝 3着内6回(55%)</span>
+<span class="chip wide">父 シルバーステート</span>
+<span class="chip wide">母父 ダイワメジャー</span>
+</div>
+<ul class="reason">
+<li>7枠が当日2勝（低信頼・加点抑制）</li>
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内55%（11走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-02" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>東京 2R</strong><div class="summary-condition">10:40 ダート1600m</div><div class="summary-picks">◎2 ダノンマスタング(62点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 2 ダノンマスタング</div><div class="sub">ダート1600m / 傾向: ダートマイル</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 62点</span><span class="chip">1枠</span><span class="chip">ルメール</span><span class="chip">1人気</span><span class="chip">2.2倍</span>
+<span class="chip wide">騎手同コース 44走 12勝 3着内28回(64%)</span>
+<span class="chip wide">父 Not This Time</span>
+<span class="chip wide">母父 Saintly Look</span>
+</div>
+<ul class="reason">
+<li>内枠の馬券内率28%（低信頼・加点抑制）</li>
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内64%（44走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-05" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>東京 5R</strong><div class="summary-condition">12:30 芝1800m</div><div class="summary-picks">◎9 ラガリーガ(63点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 9 ラガリーガ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 63点</span><span class="chip">6枠</span><span class="chip">ルメール</span><span class="chip">1人気</span><span class="chip">2.4倍</span>
+<span class="chip wide">騎手同コース 37走 15勝 3着内27回(73%)</span>
+<span class="chip wide">父 キズナ</span>
+<span class="chip wide">母父 Kingsalsa</span>
+</div>
+<ul class="reason">
+<li>堅め傾向に合う上位人気</li>
+<li>父キズナの馬券内率40%（低信頼・加点抑制）</li>
+<li>騎手同コース3着内73%（37走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-07" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>東京 7R</strong><div class="summary-condition">13:30 ダート1600m</div><div class="summary-picks">◎5 ヴンダーバール(62点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 5 ヴンダーバール</div><div class="sub">ダート1600m / 傾向: ダートマイル</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 62点</span><span class="chip">3枠</span><span class="chip">戸崎圭太</span><span class="chip">1人気</span><span class="chip">2.3倍</span>
+<span class="chip wide">騎手同コース 49走 3勝 3着内19回(39%)</span>
+<span class="chip wide">父 ナダル</span>
+<span class="chip wide">母父 オルフェーヴル</span>
+</div>
+<ul class="reason">
+<li>内枠の馬券内率28%（低信頼・加点抑制）</li>
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内39%（49走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-08" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>東京 8R</strong><div class="summary-condition">14:00 芝1600m</div><div class="summary-picks">◎3 ラベルセーヌ(64点) / ○15 オルグジェシダ(63点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 3 ラベルセーヌ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 64点</span><span class="chip">2枠</span><span class="chip">荻野極</span><span class="chip">1人気</span><span class="chip">2.9倍</span>
+<span class="chip wide">騎手同コース 26走 6勝 3着内13回(50%)</span>
+<span class="chip wide">父 キズナ</span>
+<span class="chip wide">母父 Power</span>
+</div>
+<ul class="reason">
+<li>内枠の馬券内率32%（低信頼・加点抑制）</li>
+<li>堅め傾向に合う上位人気</li>
+<li>父キズナの馬券内率40%（低信頼・加点抑制）</li>
+<li>騎手同コース3着内50%（26走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 15 オルグジェシダ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 63点</span><span class="chip">8枠</span><span class="chip">ルメール</span><span class="chip">3人気</span><span class="chip">5.8倍</span>
+<span class="chip wide">騎手同コース 42走 16勝 3着内27回(64%)</span>
+<span class="chip wide">父 モーリス</span>
+<span class="chip wide">母父 キングカメハメハ</span>
+</div>
+<ul class="reason">
+<li>堅め傾向に合う上位人気</li>
+<li>母父キングカメハメハの馬券内率50%（低信頼・加点抑制）</li>
+<li>騎手同コース3着内64%（42走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-11" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>東京 11R 府中牝馬ステークス</strong><div class="summary-condition">15:45 芝1800m</div><div class="summary-picks">◎6 ヴァルキリーバース(62点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 6 ヴァルキリーバース</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 62点</span><span class="chip">3枠</span><span class="chip">ルメール</span><span class="chip">1人気</span><span class="chip">3.0倍</span>
+<span class="chip wide">騎手同コース 37走 15勝 3着内27回(73%)</span>
+<span class="chip wide">父 エピファネイア</span>
+<span class="chip wide">母父 ハーツクライ</span>
+</div>
+<ul class="reason">
+<li>内枠の馬券内率32%（低信頼・加点抑制）</li>
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内73%（37走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-02" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 2R</strong><div class="summary-condition">10:30 芝1600m</div><div class="summary-picks">◎6 ビタールート(62点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 6 ビタールート</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 62点</span><span class="chip">3枠</span><span class="chip">北村友一</span><span class="chip">9人気</span><span class="chip">27.5倍</span>
+<span class="chip wide">騎手同コース 29走 3勝 3着内12回(41%)</span>
+<span class="chip wide">父 インディチャンプ</span>
+<span class="chip wide">母父 Oasis Dream</span>
+</div>
+<ul class="reason">
+<li>3枠が当日2勝（低信頼・加点抑制）</li>
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内41%（29走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-12" class="race recommended">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 12R</strong><div class="summary-condition">16:15 ダート1800m</div><div class="summary-picks">◎10 ダディーズトリップ(62点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 10 ダディーズトリップ</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 62点</span><span class="chip">7枠</span><span class="chip">岩田望来</span><span class="chip">6人気</span><span class="chip">22.2倍</span>
+<span class="chip wide">騎手同コース 64走 7勝 3着内25回(39%)</span>
+<span class="chip wide">父 ドリームジャーニー</span>
+<span class="chip wide">母父 Danehill</span>
+</div>
+<ul class="reason">
+<li>外枠の馬券内率25%（低信頼・加点抑制）</li>
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内39%（64走）</li>
+</ul>
+</div>
+</div></details>
+<h3>参考候補（58-61点）</h3>
+<details id="race-02-01" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>函館 1R</strong><div class="summary-condition">09:50 芝1200m</div><div class="summary-picks">◎8 ファインコンダクト(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 8 ファインコンダクト</div><div class="sub">芝1200m / 傾向: 芝短距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">4枠</span><span class="chip">横山武史</span><span class="chip">4人気</span><span class="chip">8.4倍</span>
+<span class="chip wide">騎手同コース 34走 8勝 3着内17回(50%)</span>
+<span class="chip wide">父 ファインニードル</span>
+<span class="chip wide">母父 Henrythenavigator</span>
+</div>
+<ul class="reason">
+<li>人気面は許容範囲</li>
+<li>騎手同コース3着内50%（34走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-02-03" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>函館 3R</strong><div class="summary-condition">10:50 ダート1000m</div><div class="summary-picks">◎4 マーマレードスカイ(61点) / ○3 エコロデュラン(61点) / ▲8 コウユーネロガ(59点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 4 マーマレードスカイ</div><div class="sub">ダート1000m / 傾向: ダート全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">4枠</span><span class="chip">佐々木大</span><span class="chip">2人気</span><span class="chip">6.2倍</span>
+<span class="chip wide">騎手同コース 14走 1勝 3着内6回(43%)</span>
+<span class="chip wide">父 レッドファルクス</span>
+<span class="chip wide">母父 オルフェーヴル</span>
+</div>
+<ul class="reason">
+<li>中枠の馬券内率32%（低信頼・加点抑制）</li>
+<li>4枠が当日2勝（低信頼・加点抑制）</li>
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内43%（14走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 3 エコロデュラン</div><div class="sub">ダート1000m / 傾向: ダート全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">3枠</span><span class="chip">古川奈穂</span><span class="chip">6人気</span><span class="chip">21.4倍</span>
+<span class="chip wide">騎手同コース 14走 3勝 3着内5回(36%)</span>
+<span class="chip wide">父 Caravaggio</span>
+<span class="chip wide">母父 Lizard Island</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内36%（14走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">▲ 8 コウユーネロガ</div><div class="sub">ダート1000m / 傾向: ダート全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 59点</span><span class="chip">6枠</span><span class="chip">小林美駒</span><span class="chip">4人気</span><span class="chip">8.6倍</span>
+<span class="chip wide">騎手同コース 26走 4勝 3着内13回(50%)</span>
+<span class="chip wide">父 ネロ</span>
+<span class="chip wide">母父 キンシャサノキセキ</span>
+</div>
+<ul class="reason">
+<li>中枠の馬券内率32%（低信頼・加点抑制）</li>
+<li>堅め傾向で人気面は許容</li>
+<li>騎手同コース3着内50%（26走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-02-04" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>函館 4R</strong><div class="summary-condition">11:20 芝1800m</div><div class="summary-picks">◎16 コワンニシタガウ(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 16 コワンニシタガウ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">8枠</span><span class="chip">武豊</span><span class="chip">6人気</span><span class="chip">13.3倍</span>
+<span class="chip wide">騎手同コース 17走 4勝 3着内9回(53%)</span>
+<span class="chip wide">父 スワーヴリチャード</span>
+<span class="chip wide">母父 Distorted Humor</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内53%（17走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-02-06-ref" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>函館 6R</strong><div class="summary-condition">12:40 ダート1700m</div><div class="summary-picks">◎13 ガダニーニ(61点) / ○2 メイショウセンドウ(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 13 ガダニーニ</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">8枠</span><span class="chip">横山武史</span><span class="chip">5人気</span><span class="chip">10.4倍</span>
+<span class="chip wide">騎手同コース 27走 4勝 3着内10回(37%)</span>
+<span class="chip wide">父 Upstart</span>
+<span class="chip wide">母父 Harlan&#x27;s Holiday</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内37%（27走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 2 メイショウセンドウ</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">2枠</span><span class="chip">吉田隼人</span><span class="chip">8人気</span><span class="chip">13.8倍</span>
+<span class="chip wide">騎手同コース 14走 2勝 3着内6回(43%)</span>
+<span class="chip wide">父 ホッコータルマエ</span>
+<span class="chip wide">母父 ヴィクトワールピサ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内43%（14走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-02-08" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>函館 8R</strong><div class="summary-condition">13:40 ダート1700m</div><div class="summary-picks">◎11 フェニーチェドーロ(61点) / ○3 テイクオンミー(61点) / ▲9 ナクライト(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 11 フェニーチェドーロ</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">8枠</span><span class="chip">荻野琢真</span><span class="chip">6人気</span><span class="chip">10.4倍</span>
+<span class="chip wide">騎手同コース 7走 1勝 3着内3回(43%)</span>
+<span class="chip wide">父 ナダル</span>
+<span class="chip wide">母父 ブライアンズタイム</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内43%（7走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 3 テイクオンミー</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">3枠</span><span class="chip">丹内祐次</span><span class="chip">7人気</span><span class="chip">11.4倍</span>
+<span class="chip wide">騎手同コース 33走 2勝 3着内13回(39%)</span>
+<span class="chip wide">父 シルバーステート</span>
+<span class="chip wide">母父 Siyouni</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内39%（33走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">▲ 9 ナクライト</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">7枠</span><span class="chip">横山武史</span><span class="chip">4人気</span><span class="chip">8.0倍</span>
+<span class="chip wide">騎手同コース 27走 4勝 3着内10回(37%)</span>
+<span class="chip wide">父 アドマイヤマーズ</span>
+<span class="chip wide">母父 First Dude</span>
+</div>
+<ul class="reason">
+<li>人気面は許容範囲</li>
+<li>騎手同コース3着内37%（27走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-02-10" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>函館 10R 檜山特別</strong><div class="summary-condition">14:45 ダート1700m</div><div class="summary-picks">◎9 ライフゲート(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 9 ライフゲート</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">8枠</span><span class="chip">丹内祐次</span><span class="chip">2人気</span><span class="chip">10.3倍</span>
+<span class="chip wide">騎手同コース 33走 2勝 3着内13回(39%)</span>
+<span class="chip wide">父 マインドユアビスケッツ</span>
+<span class="chip wide">母父 セイントアレックス</span>
+</div>
+<ul class="reason">
+<li>人気面は許容範囲</li>
+<li>騎手同コース3着内39%（33走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-02-11" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>函館 11R ＵＨＢ杯</strong><div class="summary-condition">15:20 芝1200m</div><div class="summary-picks">◎11 ヴェサリウス(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 11 ヴェサリウス</div><div class="sub">芝1200m / 傾向: 芝短距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">横山武史</span><span class="chip">5人気</span><span class="chip">9.6倍</span>
+<span class="chip wide">騎手同コース 34走 8勝 3着内17回(50%)</span>
+<span class="chip wide">父 ロゴタイプ</span>
+<span class="chip wide">母父 ダイワメジャー</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内50%（34走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-02-ref" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 2R</strong><div class="summary-condition">10:40 ダート1600m</div><div class="summary-picks">◎9 キーチジャステン(61点) / ○13 ラッキーモア(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 9 キーチジャステン</div><div class="sub">ダート1600m / 傾向: ダートマイル</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">5枠</span><span class="chip">西村淳也</span><span class="chip">8人気</span><span class="chip">32.6倍</span>
+<span class="chip wide">騎手同コース 10走 0勝 3着内4回(40%)</span>
+<span class="chip wide">父 タワーオブロンドン</span>
+<span class="chip wide">母父 キャプテンスティーヴ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内40%（10走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 13 ラッキーモア</div><div class="sub">ダート1600m / 傾向: ダートマイル</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">7枠</span><span class="chip">戸崎圭太</span><span class="chip">5人気</span><span class="chip">11.7倍</span>
+<span class="chip wide">騎手同コース 49走 3勝 3着内19回(39%)</span>
+<span class="chip wide">父 Lucky Vega</span>
+<span class="chip wide">母父 Galileo</span>
+</div>
+<ul class="reason">
+<li>堅め傾向で人気面は許容</li>
+<li>騎手同コース3着内39%（49走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-04" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 4R</strong><div class="summary-condition">11:40 芝1400m</div><div class="summary-picks">◎6 タクティシアン(61点) / ○10 コールドスリープ(59点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 6 タクティシアン</div><div class="sub">芝1400m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">ルメール</span><span class="chip">1人気</span><span class="chip">1.9倍</span>
+<span class="chip wide">騎手同コース 29走 10勝 3着内19回(66%)</span>
+<span class="chip wide">父 サリオス</span>
+<span class="chip wide">母父 Dubawi</span>
+</div>
+<ul class="reason">
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内66%（29走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 10 コールドスリープ</div><div class="sub">芝1400m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 59点</span><span class="chip">8枠</span><span class="chip">菊沢一樹</span><span class="chip">9人気</span><span class="chip">70.6倍</span>
+<span class="chip wide">騎手同コース 17走 2勝 3着内6回(35%)</span>
+<span class="chip wide">父 アルアイン</span>
+<span class="chip wide">母父 ルーラーシップ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内35%（17走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-05-ref" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 5R</strong><div class="summary-condition">12:30 芝1800m</div><div class="summary-picks">◎8 アヴィアトーレ(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 8 アヴィアトーレ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">ゴンサル</span><span class="chip">8人気</span><span class="chip">19.0倍</span>
+<span class="chip wide">騎手同コース 5走 0勝 3着内2回(40%)</span>
+<span class="chip wide">父 シスキン</span>
+<span class="chip wide">母父 マンハッタンカフェ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内40%（5走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-06" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 6R</strong><div class="summary-condition">13:00 芝1600m</div><div class="summary-picks">◎16 シャルムグリーン(61点) / ○8 ダノンアスコルティ(61点) / ▲11 エヴァンスベイ(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 16 シャルムグリーン</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">8枠</span><span class="chip">津村明秀</span><span class="chip">1人気</span><span class="chip">3.8倍</span>
+<span class="chip wide">騎手同コース 51走 7勝 3着内18回(35%)</span>
+<span class="chip wide">父 スワーヴリチャード</span>
+<span class="chip wide">母父 タニノギムレット</span>
+</div>
+<ul class="reason">
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内35%（51走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 8 ダノンアスコルティ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">4枠</span><span class="chip">ルメール</span><span class="chip">1人気</span><span class="chip">3.8倍</span>
+<span class="chip wide">騎手同コース 42走 16勝 3着内27回(64%)</span>
+<span class="chip wide">父 キタサンブラック</span>
+<span class="chip wide">母父 Danehill Dancer</span>
+</div>
+<ul class="reason">
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内64%（42走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">▲ 11 エヴァンスベイ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">戸崎圭太</span><span class="chip">7人気</span><span class="chip">12.8倍</span>
+<span class="chip wide">騎手同コース 41走 1勝 3着内15回(37%)</span>
+<span class="chip wide">父 イスラボニータ</span>
+<span class="chip wide">母父 Dubai Destination</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内37%（41走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-07-ref" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 7R</strong><div class="summary-condition">13:30 ダート1600m</div><div class="summary-picks">◎6 シオンダンサー(59点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 6 シオンダンサー</div><div class="sub">ダート1600m / 傾向: ダートマイル</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 59点</span><span class="chip">3枠</span><span class="chip">西村淳也</span><span class="chip">4人気</span><span class="chip">11.7倍</span>
+<span class="chip wide">騎手同コース 10走 0勝 3着内4回(40%)</span>
+<span class="chip wide">父 ナダル</span>
+<span class="chip wide">母父 Orb</span>
+</div>
+<ul class="reason">
+<li>内枠の馬券内率28%（低信頼・加点抑制）</li>
+<li>堅め傾向で人気面は許容</li>
+<li>騎手同コース3着内40%（10走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-08-ref" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 8R</strong><div class="summary-condition">14:00 芝1600m</div><div class="summary-picks">◎12 モートンアイランド(61点) / ○14 マツリダイコ(61点) / ▲1 ポッドロルフ(60点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 12 モートンアイランド</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">戸崎圭太</span><span class="chip">2人気</span><span class="chip">4.0倍</span>
+<span class="chip wide">騎手同コース 41走 1勝 3着内15回(37%)</span>
+<span class="chip wide">父 モーリス</span>
+<span class="chip wide">母父 Fastnet Rock</span>
+</div>
+<ul class="reason">
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内37%（41走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 14 マツリダイコ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">7枠</span><span class="chip">津村明秀</span><span class="chip">6人気</span><span class="chip">16.5倍</span>
+<span class="chip wide">騎手同コース 51走 7勝 3着内18回(35%)</span>
+<span class="chip wide">父 キタサンブラック</span>
+<span class="chip wide">母父 Refuse To Bend</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内35%（51走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">▲ 1 ポッドロルフ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 60点</span><span class="chip">1枠</span><span class="chip">三浦皇成</span><span class="chip">10人気</span><span class="chip">37.6倍</span>
+<span class="chip wide">騎手同コース 36走 4勝 3着内13回(36%)</span>
+<span class="chip wide">父 モズアスコット</span>
+<span class="chip wide">母父 ロードカナロア</span>
+</div>
+<ul class="reason">
+<li>内枠の馬券内率32%（低信頼・加点抑制）</li>
+<li>1枠が当日2勝（低信頼・加点抑制）</li>
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内36%（36走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-10" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 10R 多摩川ステークス</strong><div class="summary-condition">15:10 芝1400m</div><div class="summary-picks">◎9 レッドキングリー(61点) / ○5 ユハンヌス(59点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 9 レッドキングリー</div><div class="sub">芝1400m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">5枠</span><span class="chip">ルメール</span><span class="chip">1人気</span><span class="chip">3.1倍</span>
+<span class="chip wide">騎手同コース 29走 10勝 3着内19回(66%)</span>
+<span class="chip wide">父 サートゥルナーリア</span>
+<span class="chip wide">母父 Smart Strike</span>
+</div>
+<ul class="reason">
+<li>堅め傾向に合う上位人気</li>
+<li>騎手同コース3着内66%（29走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 5 ユハンヌス</div><div class="sub">芝1400m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 59点</span><span class="chip">3枠</span><span class="chip">菊沢一樹</span><span class="chip">10人気</span><span class="chip">21.0倍</span>
+<span class="chip wide">騎手同コース 17走 2勝 3着内6回(35%)</span>
+<span class="chip wide">父 Frankel</span>
+<span class="chip wide">母父 Tanino Gimlet</span>
+</div>
+<ul class="reason">
+<li>内枠の馬券内率32%（低信頼・加点抑制）</li>
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内35%（17走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-05-11-ref" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>東京 11R 府中牝馬ステークス</strong><div class="summary-condition">15:45 芝1800m</div><div class="summary-picks">◎11 テレサ(61点) / ○9 テリオスララ(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 11 テレサ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">戸崎圭太</span><span class="chip">9人気</span><span class="chip">21.2倍</span>
+<span class="chip wide">騎手同コース 37走 6勝 3着内18回(49%)</span>
+<span class="chip wide">父 アドマイヤマーズ</span>
+<span class="chip wide">母父 Nathaniel</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内49%（37走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 9 テリオスララ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">5枠</span><span class="chip">ゴンサル</span><span class="chip">12人気</span><span class="chip">26.2倍</span>
+<span class="chip wide">騎手同コース 5走 0勝 3着内2回(40%)</span>
+<span class="chip wide">父 シスキン</span>
+<span class="chip wide">母父 マンハッタンカフェ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内40%（5走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-01" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 1R</strong><div class="summary-condition">09:55 ダート1400m</div><div class="summary-picks">◎16 オアシスアラン(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 16 オアシスアラン</div><div class="sub">ダート1400m / 傾向: ダート全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">8枠</span><span class="chip">坂井瑠星</span><span class="chip">4人気</span><span class="chip">8.9倍</span>
+<span class="chip wide">騎手同コース 37走 5勝 3着内17回(46%)</span>
+<span class="chip wide">父 レイデオロ</span>
+<span class="chip wide">母父 シニスターミニスター</span>
+</div>
+<ul class="reason">
+<li>人気面は許容範囲</li>
+<li>騎手同コース3着内46%（37走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-02-ref" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 2R</strong><div class="summary-condition">10:30 芝1600m</div><div class="summary-picks">◎9 オレンジフィールド(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 9 オレンジフィールド</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">5枠</span><span class="chip">亀田温心</span><span class="chip">7人気</span><span class="chip">14.0倍</span>
+<span class="chip wide">騎手同コース 10走 2勝 3着内5回(50%)</span>
+<span class="chip wide">父 サトノクラウン</span>
+<span class="chip wide">母父 Quality Road</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内50%（10走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-03" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 3R</strong><div class="summary-condition">11:00 ダート1800m</div><div class="summary-picks">◎1 ジャスティンゴッホ(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 1 ジャスティンゴッホ</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">1枠</span><span class="chip">松山弘平</span><span class="chip">6人気</span><span class="chip">9.8倍</span>
+<span class="chip wide">騎手同コース 61走 10勝 3着内25回(41%)</span>
+<span class="chip wide">父 ヴァンゴッホ</span>
+<span class="chip wide">母父 アッミラーレ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内41%（61走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-04" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 4R</strong><div class="summary-condition">11:30 芝2400m</div><div class="summary-picks">◎4 レッドフレーザー(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 4 レッドフレーザー</div><div class="sub">芝2400m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">2枠</span><span class="chip">坂井瑠星</span><span class="chip">5人気</span><span class="chip">13.4倍</span>
+<span class="chip wide">騎手同コース 11走 4勝 3着内8回(73%)</span>
+<span class="chip wide">父 ドレフォン</span>
+<span class="chip wide">母父 ハーツクライ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内73%（11走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-05" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 5R</strong><div class="summary-condition">12:20 芝1600m</div><div class="summary-picks">◎1 ジーティーキャメル(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 1 ジーティーキャメル</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">1枠</span><span class="chip">岩田望来</span><span class="chip">7人気</span><span class="chip">16.5倍</span>
+<span class="chip wide">騎手同コース 37走 8勝 3着内14回(38%)</span>
+<span class="chip wide">父 ロードカナロア</span>
+<span class="chip wide">母父 Equiano</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内38%（37走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-06" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 6R</strong><div class="summary-condition">12:50 芝1400m</div><div class="summary-picks">◎11 ウォーターブビンガ(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 11 ウォーターブビンガ</div><div class="sub">芝1400m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">6枠</span><span class="chip">田山旺佑</span><span class="chip">8人気</span><span class="chip">32.5倍</span>
+<span class="chip wide">騎手同コース 11走 2勝 3着内2回(18%)</span>
+<span class="chip wide">父 ダノンキングリー</span>
+<span class="chip wide">母父 ロードカナロア</span>
+</div>
+<ul class="reason">
+<li>6枠が当日2勝（低信頼・加点抑制）</li>
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース勝率18%（11走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-07" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 7R</strong><div class="summary-condition">13:20 ダート1400m</div><div class="summary-picks">◎4 ハッコウイチウ(61点) / ○1 インピッシュ(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 4 ハッコウイチウ</div><div class="sub">ダート1400m / 傾向: ダート全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">2枠</span><span class="chip">坂井瑠星</span><span class="chip">5人気</span><span class="chip">13.5倍</span>
+<span class="chip wide">騎手同コース 37走 5勝 3着内17回(46%)</span>
+<span class="chip wide">父 スワーヴリチャード</span>
+<span class="chip wide">母父 ヴィクトワールピサ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内46%（37走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 1 インピッシュ</div><div class="sub">ダート1400m / 傾向: ダート全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">1枠</span><span class="chip">池添謙一</span><span class="chip">12人気</span><span class="chip">31.4倍</span>
+<span class="chip wide">騎手同コース 11走 1勝 3着内4回(36%)</span>
+<span class="chip wide">父 カレンブラックヒル</span>
+<span class="chip wide">母父 ワイルドラッシュ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内36%（11走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-09" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 9R 高砂特別</strong><div class="summary-condition">14:20 芝2000m</div><div class="summary-picks">◎4 ミカエルパシャ(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 4 ミカエルパシャ</div><div class="sub">芝2000m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">4枠</span><span class="chip">北村友一</span><span class="chip">6人気</span><span class="chip">11.9倍</span>
+<span class="chip wide">騎手同コース 11走 2勝 3着内4回(36%)</span>
+<span class="chip wide">父 エピファネイア</span>
+<span class="chip wide">母父 マイネルラヴ</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内36%（11走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-10" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 10R 姫路ステークス</strong><div class="summary-condition">14:55 ダート1800m</div><div class="summary-picks">◎3 アークドール(61点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 3 アークドール</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 61点</span><span class="chip">2枠</span><span class="chip">Ｍ．デム</span><span class="chip">7人気</span><span class="chip">14.1倍</span>
+<span class="chip wide">騎手同コース 6走 1勝 3着内3回(50%)</span>
+<span class="chip wide">父 Golden Horn</span>
+<span class="chip wide">母父 Deep Impact</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内50%（6走）</li>
+</ul>
+</div>
+</div></details>
+<details id="race-09-11" class="race reference">
+<summary>
+<div class="summary-main">
+<div><strong>阪神 11R しらさぎステークス</strong><div class="summary-condition">15:30 芝1600m</div><div class="summary-picks">◎8 サイルーン(58点) / ○1 スマートワイス(58点)</div></div>
+<span class="pill">詳細</span>
+</div>
+</summary>
+<div class="detail-body">
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">◎ 8 サイルーン</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">4枠</span><span class="chip">岩田望来</span><span class="chip">4人気</span><span class="chip">8.7倍</span>
+<span class="chip wide">騎手同コース 37走 8勝 3着内14回(38%)</span>
+<span class="chip wide">父 ディープインパクト</span>
+<span class="chip wide">母父 キングカメハメハ</span>
+</div>
+<ul class="reason">
+<li>人気面は許容範囲</li>
+<li>騎手同コース3着内38%（37走）</li>
+</ul>
+</div>
+<div class="pick-mini">
+<div class="race-title">
+<div><div class="horse">○ 1 スマートワイス</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
+</div>
+<div class="chips">
+<span class="chip strong">評価 58点</span><span class="chip">1枠</span><span class="chip">川田将雅</span><span class="chip">10人気</span><span class="chip">18.9倍</span>
+<span class="chip wide">騎手同コース 29走 5勝 3着内14回(48%)</span>
+<span class="chip wide">父 ロードカナロア</span>
+<span class="chip wide">母父 ディープインパクト</span>
+</div>
+<ul class="reason">
+<li>荒れ気味の日で人気薄も許容</li>
+<li>騎手同コース3着内48%（29走）</li>
+</ul>
+</div>
+</div></details>
+</section>
 <section id="track" class="section">
 <h2>場別傾向</h2>
 <article class="card quick-card">
@@ -139,8 +1467,8 @@ details.race summary::-webkit-details-marker{display:none}
 </div>
 <ul class="notes">
 <li>枠: 強い偏りなし</li>
-<li>脚質: 前目が強め（67/164頭）</li>
-<li>人気/オッズ: 中穴許容（高配当17/36R）</li>
+<li>脚質: 前目が強め（74/163頭）</li>
+<li>人気/オッズ: 中穴許容（高配当19/36R）</li>
 <li>データマイニング: 前日内サンプル不足で標準</li>
 <li>血統: 表示条件を満たす系統あり</li>
 <li>調教: 個別補助として弱めに反映</li>
@@ -150,13 +1478,13 @@ details.race summary::-webkit-details-marker{display:none}
 <h3>傾向早見</h3>
 <div class="table-wrap">
 <table class="table trend-table"><thead><tr><th>場/馬場</th><th>R</th><th>予測に使う要点</th><th>結果確認</th></tr></thead><tbody>
-<tr><td><strong>函館 ダート</strong></td><td>5</td><td>外枠の馬券内率高め（7/20頭、35%） / 前目脚質の馬券内率高め（逃げ・先行 10/21頭、48%）</td><td>結果確認: 上がり3位内が3着内の67%</td></tr>
-<tr><td><strong>函館 芝</strong></td><td>7</td><td>前目脚質の馬券内率高め（逃げ・先行 11/30頭、37%） / 荒れ気味（高配当レース 3/7）</td><td>-</td></tr>
-<tr><td><strong>東京 ダート</strong></td><td>6</td><td>前目脚質の馬券内率高め（逃げ・先行 10/25頭、40%） / 荒れ気味（高配当レース 4/6）</td><td>結果確認: 上がり3位内が3着内の61%</td></tr>
-<tr><td><strong>東京 芝</strong></td><td>5</td><td>内枠の馬券内率高め（7/21頭、33%） / 前目脚質の馬券内率高め（逃げ・先行 10/25頭、40%）</td><td>-</td></tr>
-<tr><td><strong>東京 障害</strong></td><td>1</td><td>サンプル1R/10頭のため傾向断定不可</td><td>-</td></tr>
-<tr><td><strong>阪神 ダート</strong></td><td>6</td><td>前目脚質の馬券内率高め（逃げ・先行 14/28頭、50%） / 勝ち馬人気は堅め（平均2.7人気）</td><td>-</td></tr>
-<tr><td><strong>阪神 芝</strong></td><td>6</td><td>中枠の馬券内率高め（9/31頭、29%） / 前目脚質の馬券内率高め（逃げ・先行 9/29頭、31%）</td><td>結果確認: 上がり3位内が3着内の67%</td></tr>
+<tr><td><strong>函館 ダート</strong></td><td>5</td><td>中枠の馬券内率高め（8/25頭、32%） / 前目脚質の馬券内率高め（逃げ・先行 13/22頭、59%）</td><td>結果確認: 上がり3位内が3着内の60%</td></tr>
+<tr><td><strong>函館 芝</strong></td><td>7</td><td>中枠の馬券内率高め（10/35頭、29%） / 前目脚質の馬券内率高め（逃げ・先行 13/30頭、43%）</td><td>-</td></tr>
+<tr><td><strong>東京 ダート</strong></td><td>6</td><td>内枠の馬券内率高め（10/35頭、29%） / 前目脚質の馬券内率高め（逃げ・先行 15/30頭、50%）</td><td>結果確認: 上がり3位内が3着内の61%</td></tr>
+<tr><td><strong>東京 芝</strong></td><td>6</td><td>内枠の馬券内率高め（8/25頭、32%） / 前目脚質の馬券内率高め（逃げ・先行 12/26頭、46%）</td><td>結果確認: 上がり3位内が3着内の72%</td></tr>
+<tr><td><strong>阪神 ダート</strong></td><td>5</td><td>前目脚質の馬券内率高め（逃げ・先行 9/23頭、39%） / 荒れ気味（高配当レース 3/5）</td><td>結果確認: 上がり3位内が3着内の73%</td></tr>
+<tr><td><strong>阪神 芝</strong></td><td>6</td><td>前目脚質の馬券内率高め（逃げ・先行 9/27頭、33%） / 荒れ気味（高配当レース 3/6）</td><td>結果確認: 上がり3位内が3着内の56%</td></tr>
+<tr><td><strong>阪神 障害</strong></td><td>1</td><td>サンプル1R/7頭のため傾向断定不可</td><td>-</td></tr>
 </tbody></table></div></article>
 <h3>傾向詳細</h3>
 <div class="grid cols">
@@ -164,27 +1492,28 @@ details.race summary::-webkit-details-marker{display:none}
 <h3>函館 ダート</h3>
 <div class="usage-label pred">予測利用可</div>
 <ul class="notes">
-<li>[持ち越し信頼度: 低] 外枠の馬券内率高め（7/20頭、35%）</li>
-<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 10/21頭、48%）</li>
+<li>[持ち越し信頼度: 低] 中枠の馬券内率高め（8/25頭、32%）</li>
+<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 13/22頭、59%）</li>
 <li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 2/5）</li>
 </ul>
 <div class="usage-label result">結果確認</div>
 <ul class="notes">
-<li>[持ち越し対象外] 結果確認: 上がり3位内が3着内の67%</li>
+<li>[持ち越し対象外] 結果確認: 上がり3位内が3着内の60%</li>
 </ul>
 <div class="stat">
 <b>R数</b><span>5</span>
-<b>枠別率</b><span>外:7/20頭(35%) / 中:5/26頭(19%) / 内:3/16頭(19%)</span>
-<b>脚質率</b><span>逃げ:3/5頭(60%) / 先行:7/16頭(44%) / 差し:3/21頭(14%) / 追込:2/20頭(10%)</span>
-<b>上がり</b><span>結果確認 3着内10/15頭(67%)</span>
+<b>枠別率</b><span>中:8/25頭(32%) / 外:4/20頭(20%) / 内:3/17頭(18%)</span>
+<b>脚質率</b><span>逃げ:3/5頭(60%) / 先行:10/17頭(59%) / 差し:2/19頭(11%) / 追込:0/21頭(0%)</span>
+<b>上がり</b><span>結果確認 3着内9/15頭(60%)</span>
 </div>
 </article>
 <article class="card">
 <h3>函館 芝</h3>
 <div class="usage-label pred">予測利用可</div>
 <ul class="notes">
-<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 11/30頭、37%）</li>
-<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 3/7）</li>
+<li>[持ち越し信頼度: 低] 中枠の馬券内率高め（10/35頭、29%）</li>
+<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 13/30頭、43%）</li>
+<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 4/7）</li>
 </ul>
 <div class="usage-label result">結果確認</div>
 <ul class="notes">
@@ -192,8 +1521,8 @@ details.race summary::-webkit-details-marker{display:none}
 </ul>
 <div class="stat">
 <b>R数</b><span>7</span>
-<b>枠別率</b><span>中:10/35頭(29%) / 内:7/28頭(25%) / 外:4/26頭(15%)</span>
-<b>脚質率</b><span>逃げ:4/9頭(44%) / 先行:7/21頭(33%) / 差し:9/32頭(28%) / 追込:1/27頭(4%)</span>
+<b>枠別率</b><span>中:10/35頭(29%) / 内:7/33頭(21%) / 外:4/26頭(15%)</span>
+<b>脚質率</b><span>逃げ:4/8頭(50%) / 先行:9/22頭(41%) / 差し:8/34頭(24%) / 追込:0/30頭(0%)</span>
 <b>上がり</b><span>結果確認 3着内10/21頭(48%)</span>
 </div>
 </article>
@@ -201,7 +1530,8 @@ details.race summary::-webkit-details-marker{display:none}
 <h3>東京 ダート</h3>
 <div class="usage-label pred">予測利用可</div>
 <ul class="notes">
-<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 10/25頭、40%）</li>
+<li>[持ち越し信頼度: 低] 内枠の馬券内率高め（10/35頭、29%）</li>
+<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 15/30頭、50%）</li>
 <li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 4/6）</li>
 </ul>
 <div class="usage-label result">結果確認</div>
@@ -210,8 +1540,8 @@ details.race summary::-webkit-details-marker{display:none}
 </ul>
 <div class="stat">
 <b>R数</b><span>6</span>
-<b>枠別率</b><span>中:9/36頭(25%) / 内:6/34頭(18%) / 外:3/24頭(12%)</span>
-<b>脚質率</b><span>逃げ:3/6頭(50%) / 先行:7/19頭(37%) / 差し:5/39頭(13%) / 追込:3/30頭(10%)</span>
+<b>枠別率</b><span>内:10/35頭(29%) / 中:5/36頭(14%) / 外:3/24頭(12%)</span>
+<b>脚質率</b><span>逃げ:4/6頭(67%) / 先行:11/24頭(46%) / 差し:3/40頭(8%) / 追込:0/25頭(0%)</span>
 <b>上がり</b><span>結果確認 3着内11/18頭(61%)</span>
 </div>
 </article>
@@ -219,27 +1549,62 @@ details.race summary::-webkit-details-marker{display:none}
 <h3>東京 芝</h3>
 <div class="usage-label pred">予測利用可</div>
 <ul class="notes">
-<li>[持ち越し信頼度: 低] 内枠の馬券内率高め（7/21頭、33%）</li>
-<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 10/25頭、40%）</li>
-<li>[持ち越し信頼度: 中] 勝ち馬人気は堅め（平均2.2人気）</li>
-<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 2/5）</li>
+<li>[持ち越し信頼度: 低] 内枠の馬券内率高め（8/25頭、32%）</li>
+<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 12/26頭、46%）</li>
+<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 3/6）</li>
 </ul>
 <div class="usage-label result">結果確認</div>
 <ul class="notes">
-<li>該当なし</li>
+<li>[持ち越し対象外] 結果確認: 上がり3位内が3着内の72%</li>
 </ul>
 <div class="stat">
-<b>R数</b><span>5</span>
-<b>枠別率</b><span>内:7/21頭(33%) / 中:6/24頭(25%) / 外:2/20頭(10%)</span>
-<b>脚質率</b><span>逃げ:4/5頭(80%) / 先行:6/20頭(30%) / 差し:4/20頭(20%) / 追込:1/20頭(5%)</span>
-<b>上がり</b><span>結果確認 3着内8/15頭(53%)</span>
+<b>R数</b><span>6</span>
+<b>枠別率</b><span>内:8/25頭(32%) / 外:5/24頭(21%) / 中:5/28頭(18%)</span>
+<b>脚質率</b><span>逃げ:5/6頭(83%) / 先行:7/20頭(35%) / 差し:5/27頭(19%) / 追込:1/24頭(4%)</span>
+<b>上がり</b><span>結果確認 3着内13/18頭(72%)</span>
 </div>
 </article>
 <article class="card">
-<h3>東京 障害</h3>
+<h3>阪神 ダート</h3>
 <div class="usage-label pred">予測利用可</div>
 <ul class="notes">
-<li>[持ち越し対象外] サンプル1R/10頭のため傾向断定不可</li>
+<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 9/23頭、39%）</li>
+<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 3/5）</li>
+</ul>
+<div class="usage-label result">結果確認</div>
+<ul class="notes">
+<li>[持ち越し対象外] 結果確認: 上がり3位内が3着内の73%</li>
+</ul>
+<div class="stat">
+<b>R数</b><span>5</span>
+<b>枠別率</b><span>内:7/29頭(24%) / 外:4/20頭(20%) / 中:4/30頭(13%)</span>
+<b>脚質率</b><span>先行:8/18頭(44%) / 差し:6/30頭(20%) / 逃げ:1/5頭(20%) / 追込:0/26頭(0%)</span>
+<b>上がり</b><span>結果確認 3着内11/15頭(73%)</span>
+</div>
+</article>
+<article class="card">
+<h3>阪神 芝</h3>
+<div class="usage-label pred">予測利用可</div>
+<ul class="notes">
+<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 9/27頭、33%）</li>
+<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 3/6）</li>
+</ul>
+<div class="usage-label result">結果確認</div>
+<ul class="notes">
+<li>[持ち越し対象外] 結果確認: 上がり3位内が3着内の56%</li>
+</ul>
+<div class="stat">
+<b>R数</b><span>6</span>
+<b>枠別率</b><span>外:6/28頭(21%) / 中:6/29頭(21%) / 内:6/30頭(20%)</span>
+<b>脚質率</b><span>先行:7/20頭(35%) / 逃げ:2/7頭(29%) / 差し:7/34頭(21%) / 追込:2/26頭(8%)</span>
+<b>上がり</b><span>結果確認 3着内10/18頭(56%)</span>
+</div>
+</article>
+<article class="card">
+<h3>阪神 障害</h3>
+<div class="usage-label pred">予測利用可</div>
+<ul class="notes">
+<li>[持ち越し対象外] サンプル1R/7頭のため傾向断定不可</li>
 </ul>
 <div class="usage-label result">結果確認</div>
 <ul class="notes">
@@ -247,1650 +1612,13 @@ details.race summary::-webkit-details-marker{display:none}
 </ul>
 <div class="stat">
 <b>R数</b><span>1</span>
-<b>枠3着内</b><span>外:1頭 / 内:1頭 / 中:1頭</span>
+<b>枠3着内</b><span>外:2頭 / 中:1頭 / 内:0頭</span>
 <b>脚質3着内</b><span>先行:2頭 / 逃げ:1頭 / 追込:0頭 / 差し:0頭</span>
 <b>上がり</b><span>結果確認 3着内3頭（率非表示）</span>
 <b>率表示</b><span>サンプル不足のため非表示</span>
 </div>
 </article>
-<article class="card">
-<h3>阪神 ダート</h3>
-<div class="usage-label pred">予測利用可</div>
-<ul class="notes">
-<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 14/28頭、50%）</li>
-<li>[持ち越し信頼度: 中] 勝ち馬人気は堅め（平均2.7人気）</li>
-<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 3/6）</li>
-</ul>
-<div class="usage-label result">結果確認</div>
-<ul class="notes">
-<li>該当なし</li>
-</ul>
-<div class="stat">
-<b>R数</b><span>6</span>
-<b>枠別率</b><span>内:7/33頭(21%) / 外:5/24頭(21%) / 中:6/36頭(17%)</span>
-<b>脚質率</b><span>逃げ:4/6頭(67%) / 先行:10/22頭(45%) / 差し:4/33頭(12%) / 追込:0/32頭(0%)</span>
-<b>上がり</b><span>結果確認 3着内9/18頭(50%)</span>
 </div>
-</article>
-<article class="card">
-<h3>阪神 芝</h3>
-<div class="usage-label pred">予測利用可</div>
-<ul class="notes">
-<li>[持ち越し信頼度: 低] 中枠の馬券内率高め（9/31頭、29%）</li>
-<li>[持ち越し信頼度: 中] 前目脚質の馬券内率高め（逃げ・先行 9/29頭、31%）</li>
-<li>[持ち越し信頼度: 中] 荒れ気味（高配当レース 2/6）</li>
-</ul>
-<div class="usage-label result">結果確認</div>
-<ul class="notes">
-<li>[持ち越し対象外] 結果確認: 上がり3位内が3着内の67%</li>
-</ul>
-<div class="stat">
-<b>R数</b><span>6</span>
-<b>枠別率</b><span>中:9/31頭(29%) / 外:5/25頭(20%) / 内:4/27頭(15%)</span>
-<b>脚質率</b><span>逃げ:2/6頭(33%) / 先行:7/23頭(30%) / 差し:5/29頭(17%) / 追込:4/25頭(16%)</span>
-<b>上がり</b><span>結果確認 3着内12/18頭(67%)</span>
-</div>
-</article>
-</div>
-</section>
-<section id="picks" class="section">
-<h2>翌日レース別おすすめ馬</h2>
-<p class="sub">対象日 2026-06-14。評価62点以上を各レース最大3頭表示。</p>
-<article class="card">
-<h3>前提データ</h3>
-<div class="stat">
-<b>対象日</b><span>2026-06-14</span>
-<b>出馬表</b><span>36R / 485頭</span>
-<b>オッズ</b><span>482/485頭(99%)</span>
-<b>人気</b><span>482/485頭(99%)</span>
-<b>追い切り</b><span>381/485頭(79%)</span>
-<b>データマイニング</b><span>0/485頭(0%)</span>
-<b>推奨</b><span>13件 / 対象レース10R</span>
-</div>
-<p class="sub"><strong>注意</strong>: データマイニング順位が未取得です。DM評価は今回のスコアから外しています。</p>
-</article>
-<article class="card race-overview-card">
-<h3>対象レース早見</h3>
-<div class="race-overview">
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-02-01">函館 1R</a></div>
-<div class="race-cell time">09:50</div>
-<div class="race-cell condition">芝1200m</div>
-<div class="race-cell pick">参考 ◎6 ヴェンデボヌール(59点)</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-02-02">函館 2R</a></div>
-<div class="race-cell time">10:15</div>
-<div class="race-cell condition">ダート1700m</div>
-<div class="race-cell pick">参考 ◎8 ペガサスウィンド(61点) / ○9 ユマハム(59点)</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-02-03">函館 3R</a></div>
-<div class="race-cell time">10:45</div>
-<div class="race-cell condition">ダート1000m</div>
-<div class="race-cell pick">参考 ◎4 ヒューザー(61点) / ○7 ルクソンライト(59点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-02-04">函館 4R</a></div>
-<div class="race-cell time">11:15</div>
-<div class="race-cell condition">芝1800m</div>
-<div class="race-cell pick">◎3 エグジスタンス(62点)</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">函館 5R</span></div>
-<div class="race-cell time">12:05</div>
-<div class="race-cell condition">芝1000m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">函館 6R</span></div>
-<div class="race-cell time">12:35</div>
-<div class="race-cell condition">芝2000m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-02-07">函館 7R</a></div>
-<div class="race-cell time">13:05</div>
-<div class="race-cell condition">ダート1000m</div>
-<div class="race-cell pick">◎11 アルヘンティニータ(66点)</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">函館 8R</span></div>
-<div class="race-cell time">13:35</div>
-<div class="race-cell condition">芝1200m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-02-09">函館 9R 八雲特別</a></div>
-<div class="race-cell time">14:05</div>
-<div class="race-cell condition">芝1800m</div>
-<div class="race-cell pick">参考 ◎1 サウンドサンライズ(61点)</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">函館 10R 津軽海峡特別</span></div>
-<div class="race-cell time">14:40</div>
-<div class="race-cell condition">ダート1700m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">函館 11R 函館日刊スポーツ杯</span></div>
-<div class="race-cell time">15:15</div>
-<div class="race-cell condition">芝1200m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-02-12">函館 12R</a></div>
-<div class="race-cell time">16:05</div>
-<div class="race-cell condition">ダート1700m</div>
-<div class="race-cell pick">参考 ◎8 ストラーダ(59点)</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 1R</span></div>
-<div class="race-cell time">09:55</div>
-<div class="race-cell condition">ダート1300m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 2R</span></div>
-<div class="race-cell time">10:25</div>
-<div class="race-cell condition">ダート2100m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 3R</span></div>
-<div class="race-cell time">10:55</div>
-<div class="race-cell condition">芝1400m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 4R</span></div>
-<div class="race-cell time">11:25</div>
-<div class="race-cell condition">ダート1400m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-05-05">東京 5R</a></div>
-<div class="race-cell time">12:15</div>
-<div class="race-cell condition">芝1600m</div>
-<div class="race-cell pick">参考 ◎8 ルクスマグナ(61点)</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 6R</span></div>
-<div class="race-cell time">12:45</div>
-<div class="race-cell condition">ダート2100m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-05-07">東京 7R</a></div>
-<div class="race-cell time">13:15</div>
-<div class="race-cell condition">芝2000m</div>
-<div class="race-cell pick">◎3 シーギリヤロック(63点)</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 8R</span></div>
-<div class="race-cell time">13:45</div>
-<div class="race-cell condition">ダート1600m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-05-09">東京 9R 芦ノ湖特別</a></div>
-<div class="race-cell time">14:15</div>
-<div class="race-cell condition">芝1600m</div>
-<div class="race-cell pick">参考 ◎4 フジガイフウ(61点)</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 10R 江の島ステークス</span></div>
-<div class="race-cell time">14:50</div>
-<div class="race-cell condition">芝2400m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 11R ウッドバイン競馬場賞パラダイスステークス</span></div>
-<div class="race-cell time">15:25</div>
-<div class="race-cell condition">芝1400m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">東京 12R</span></div>
-<div class="race-cell time">16:15</div>
-<div class="race-cell condition">ダート1600m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-09-01">阪神 1R</a></div>
-<div class="race-cell time">10:05</div>
-<div class="race-cell condition">ダート1800m</div>
-<div class="race-cell pick">参考 ◎13 フィデリス(61点) / ○5 アクシュラ(59点) / ▲3 セントピュアベース(59点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-09-02">阪神 2R</a></div>
-<div class="race-cell time">10:35</div>
-<div class="race-cell condition">ダート1400m</div>
-<div class="race-cell pick">◎13 タガノプディング(64点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-09-03">阪神 3R</a></div>
-<div class="race-cell time">11:05</div>
-<div class="race-cell condition">ダート1800m</div>
-<div class="race-cell pick">◎3 ワルトシュタイン(62点)</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-09-04">阪神 4R</a></div>
-<div class="race-cell time">11:35</div>
-<div class="race-cell condition">芝2200m</div>
-<div class="race-cell pick">参考 ◎5 ダノンミッドナイト(58点) / ○9 マコトエウロペ(58点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-09-05">阪神 5R</a></div>
-<div class="race-cell time">12:25</div>
-<div class="race-cell condition">芝1800m</div>
-<div class="race-cell pick">◎4 ダイナマイク(63点) / ○6 インカルナータ(62点)</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-09-06">阪神 6R</a></div>
-<div class="race-cell time">12:55</div>
-<div class="race-cell condition">ダート1200m</div>
-<div class="race-cell pick">参考 ◎11 アームズレジェンド(61点) / ○8 カネコメファミリー(61点) / ▲7 グランデスフィーダ(59点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-09-07">阪神 7R</a></div>
-<div class="race-cell time">13:25</div>
-<div class="race-cell condition">芝2000m</div>
-<div class="race-cell pick">◎6 サイン(62点) / ○3 メイショウハンター(62点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-09-08">阪神 8R 逆瀬川特別</a></div>
-<div class="race-cell time">13:55</div>
-<div class="race-cell condition">ダート1800m</div>
-<div class="race-cell pick">◎1 ハギノコラソン(64点)</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-09-09">阪神 9R 武庫川特別</a></div>
-<div class="race-cell time">14:25</div>
-<div class="race-cell condition">芝1200m</div>
-<div class="race-cell pick">参考 ◎11 メイショウミリオレ(61点) / ○1 インフローレ(61点) / ▲5 ヤマニンレセディ(58点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-09-10">阪神 10R 花のみちステークス</a></div>
-<div class="race-cell time">15:00</div>
-<div class="race-cell condition">芝1600m</div>
-<div class="race-cell pick">◎8 ミナデオロ(64点) / ○10 アウフヘーベン(63点)</div>
-</div>
-<div class="race-row has-reference">
-<div class="race-cell main"><a class="race-link" href="#race-09-11">阪神 11R 宝塚記念</a></div>
-<div class="race-cell time">15:40</div>
-<div class="race-cell condition">芝2200m</div>
-<div class="race-cell pick">参考 ◎5 クロワデュノール(61点) / ○15 マイユニバース(61点) / ▲16 メイショウタバル(60点)</div>
-</div>
-<div class="race-row has-pick">
-<div class="race-cell main"><a class="race-link" href="#race-09-12">阪神 12R リボン賞</a></div>
-<div class="race-cell time">16:30</div>
-<div class="race-cell condition">ダート1200m</div>
-<div class="race-cell pick">◎15 ルクスデイジー(64点)</div>
-</div>
-</div></article>
-<h3>推奨あり詳細</h3>
-<details id="race-02-04" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>函館 4R</strong><div class="summary-condition">11:15 芝1800m</div><div class="summary-picks">◎3 エグジスタンス(62点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 3 エグジスタンス</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 62点</span><span class="chip">2枠</span><span class="chip">佐々木大</span><span class="chip">5人気</span><span class="chip">11.7倍</span>
-<span class="chip wide">騎手同コース 52走 7勝 3着内19回(37%)</span>
-<span class="chip wide">父 フィエールマン</span>
-<span class="chip wide">母父 Kingman</span>
-</div>
-<ul class="reason">
-<li>2枠が当日2勝（低信頼・加点抑制）</li>
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内37%（52走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-02-07" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>函館 7R</strong><div class="summary-condition">13:05 ダート1000m</div><div class="summary-picks">◎11 アルヘンティニータ(66点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 11 アルヘンティニータ</div><div class="sub">ダート1000m / 傾向: ダート全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 66点</span><span class="chip">8枠</span><span class="chip">小林美駒</span><span class="chip">6人気</span><span class="chip">15.3倍</span>
-<span class="chip wide">騎手同コース 31走 4勝 3着内16回(52%)</span>
-<span class="chip wide">父 Constitution</span>
-<span class="chip wide">母父 Tizway</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">美浦 WD左 2026-06-04<br>時計: 6F 92.0秒 / 5F 70.5秒 / 4F 53.2秒 / 3F 38.5秒 / 2F 24.7秒 / 1F 12.1秒<br>ラップ: 800-600 14.7秒 / 600-400 13.8秒 / 400-200 12.6秒 / 200-0 12.1秒</div>
-</details>
-<ul class="reason">
-<li>外枠の馬券内率35%（低信頼・加点抑制）</li>
-<li>荒れ気味の日で人気薄も許容</li>
-<li>調教: 終い良好・加速ラップ・長め負荷（加点抑制）</li>
-<li>騎手同コース3着内52%（31走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-05-07" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>東京 7R</strong><div class="summary-condition">13:15 芝2000m</div><div class="summary-picks">◎3 シーギリヤロック(63点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 3 シーギリヤロック</div><div class="sub">芝2000m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 63点</span><span class="chip">3枠</span><span class="chip">ディー</span><span class="chip">2人気</span><span class="chip">5.5倍</span>
-<span class="chip wide">騎手同コース 13走 3勝 3着内5回(38%)</span>
-<span class="chip wide">父 リオンディーズ</span>
-<span class="chip wide">母父 ゼンノロブロイ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">美浦 WD右 2026-06-13<br>時計: 4F 64.4秒 / 3F 46.5秒 / 2F 30.1秒 / 1F 14.8秒<br>ラップ: 800-600 17.9秒 / 600-400 16.4秒 / 400-200 15.3秒 / 200-0 14.8秒</div>
-</details>
-<ul class="reason">
-<li>内枠の馬券内率33%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内38%（13走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-02" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 2R</strong><div class="summary-condition">10:35 ダート1400m</div><div class="summary-picks">◎13 タガノプディング(64点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 13 タガノプディング</div><div class="sub">ダート1400m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 64点</span><span class="chip">7枠</span><span class="chip">横山典弘</span><span class="chip">1人気</span><span class="chip">3.2倍</span>
-<span class="chip wide">騎手同コース 51走 5勝 3着内18回(35%)</span>
-<span class="chip wide">父 ミスチヴィアスアレックス</span>
-<span class="chip wide">母父 ヘニーヒューズ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 67.8秒 / 3F 48.4秒 / 2F 31.8秒 / 1F 15.6秒<br>ラップ: 800-600 19.4秒 / 600-400 16.6秒 / 400-200 16.2秒 / 200-0 15.6秒</div>
-</details>
-<ul class="reason">
-<li>外枠の馬券内率42%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内35%（51走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-03" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 3R</strong><div class="summary-condition">11:05 ダート1800m</div><div class="summary-picks">◎3 ワルトシュタイン(62点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 3 ワルトシュタイン</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 62点</span><span class="chip">2枠</span><span class="chip">坂井瑠星</span><span class="chip">8人気</span><span class="chip">24.6倍</span>
-<span class="chip wide">騎手同コース 232走 39勝 3着内92回(40%)</span>
-<span class="chip wide">父 マジェスティックウォリアー</span>
-<span class="chip wide">母父 スウェプトオーヴァーボード</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 60.0秒 / 3F 43.5秒 / 2F 28.1秒 / 1F 14.1秒<br>ラップ: 800-600 16.5秒 / 600-400 15.4秒 / 400-200 14.0秒 / 200-0 14.1秒</div>
-</details>
-<ul class="reason">
-<li>内枠の馬券内率28%（低信頼・加点抑制）</li>
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内40%（232走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-05" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 5R</strong><div class="summary-condition">12:25 芝1800m</div><div class="summary-picks">◎4 ダイナマイク(63点) / ○6 インカルナータ(62点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 4 ダイナマイク</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 63点</span><span class="chip">4枠</span><span class="chip">川田将雅</span><span class="chip">1人気</span><span class="chip">2.1倍</span>
-<span class="chip wide">騎手同コース 82走 20勝 3着内53回(65%)</span>
-<span class="chip wide">父 キタサンブラック</span>
-<span class="chip wide">母父 Laoban</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 68.6秒 / 3F 50.4秒 / 2F 33.9秒 / 1F 16.5秒<br>ラップ: 800-600 18.2秒 / 600-400 16.5秒 / 400-200 17.4秒 / 200-0 16.5秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>4枠が当日2勝（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内65%（82走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 6 インカルナータ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 62点</span><span class="chip">6枠</span><span class="chip">坂井瑠星</span><span class="chip">6人気</span><span class="chip">11.3倍</span>
-<span class="chip wide">騎手同コース 87走 12勝 3着内38回(44%)</span>
-<span class="chip wide">父 エフフォーリア</span>
-<span class="chip wide">母父 フジキセキ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 67.1秒 / 3F 49.9秒 / 2F 32.8秒 / 1F 16.0秒<br>ラップ: 800-600 17.2秒 / 600-400 17.1秒 / 400-200 16.8秒 / 200-0 16.0秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内44%（87走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-07" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 7R</strong><div class="summary-condition">13:25 芝2000m</div><div class="summary-picks">◎6 サイン(62点) / ○3 メイショウハンター(62点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 6 サイン</div><div class="sub">芝2000m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 62点</span><span class="chip">6枠</span><span class="chip">岩田望来</span><span class="chip">3人気</span><span class="chip">4.9倍</span>
-<span class="chip wide">騎手同コース 104走 6勝 3着内37回(36%)</span>
-<span class="chip wide">父 キセキ</span>
-<span class="chip wide">母父 ダイワメジャー</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 63.1秒 / 3F 45.6秒 / 2F 29.5秒 / 1F 14.5秒<br>ラップ: 800-600 17.5秒 / 600-400 16.1秒 / 400-200 15.0秒 / 200-0 14.5秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内36%（104走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 3 メイショウハンター</div><div class="sub">芝2000m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 62点</span><span class="chip">3枠</span><span class="chip">松山弘平</span><span class="chip">6人気</span><span class="chip">11.6倍</span>
-<span class="chip wide">騎手同コース 111走 15勝 3着内39回(35%)</span>
-<span class="chip wide">父 インディチャンプ</span>
-<span class="chip wide">母父 シニスターミニスター</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">長め負荷</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-13<br>時計: 6F 108.8秒 / 5F 90.3秒 / 4F 71.6秒 / 3F 52.5秒 / 2F 34.0秒 / 1F 17.0秒<br>ラップ: 800-600 19.1秒 / 600-400 18.5秒 / 400-200 17.0秒 / 200-0 17.0秒</div>
-</details>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>調教: 長め負荷（加点抑制）</li>
-<li>騎手同コース3着内35%（111走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-08" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 8R 逆瀬川特別</strong><div class="summary-condition">13:55 ダート1800m</div><div class="summary-picks">◎1 ハギノコラソン(64点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 1 ハギノコラソン</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 64点</span><span class="chip">1枠</span><span class="chip">岩田望来</span><span class="chip">3人気</span><span class="chip">6.2倍</span>
-<span class="chip wide">騎手同コース 329走 49勝 3着内138回(42%)</span>
-<span class="chip wide">父 ミッキーアイル</span>
-<span class="chip wide">母父 シンボリクリスエス</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">終い重点</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-10<br>時計: 4F 53.6秒 / 3F 38.1秒 / 2F 23.9秒 / 1F 11.8秒<br>ラップ: 800-600 15.5秒 / 600-400 14.2秒 / 400-200 12.1秒 / 200-0 11.8秒</div>
-</details>
-<ul class="reason">
-<li>内枠の馬券内率28%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>調教: 終い鋭い・加速ラップ・終い重点（加点抑制）</li>
-<li>騎手同コース3着内42%（329走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-10" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 10R 花のみちステークス</strong><div class="summary-condition">15:00 芝1600m</div><div class="summary-picks">◎8 ミナデオロ(64点) / ○10 アウフヘーベン(63点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 8 ミナデオロ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 64点</span><span class="chip">5枠</span><span class="chip">ルメール</span><span class="chip">3人気</span><span class="chip">7.3倍</span>
-<span class="chip wide">騎手同コース 53走 10勝 3着内26回(49%)</span>
-<span class="chip wide">父 レイデオロ</span>
-<span class="chip wide">母父 Unusual Heat</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-10<br>時計: 4F 53.8秒 / 3F 38.5秒 / 2F 24.8秒 / 1F 12.3秒<br>ラップ: 800-600 15.3秒 / 600-400 13.7秒 / 400-200 12.5秒 / 200-0 12.3秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>調教: 終い鋭い・加速ラップ・全体時計速い（加点抑制）</li>
-<li>騎手同コース3着内49%（53走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 10 アウフヘーベン</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 63点</span><span class="chip">6枠</span><span class="chip">レーン</span><span class="chip">1人気</span><span class="chip">3.9倍</span>
-<span class="chip wide">騎手同コース 5走 2勝 3着内3回(60%)</span>
-<span class="chip wide">父 サトノダイヤモンド</span>
-<span class="chip wide">母父 キングカメハメハ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">長め負荷</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-12<br>時計: 6F 102.9秒 / 5F 85.4秒 / 4F 68.1秒 / 3F 50.1秒 / 2F 32.9秒 / 1F 16.3秒<br>ラップ: 800-600 18.0秒 / 600-400 17.2秒 / 400-200 16.6秒 / 200-0 16.3秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>調教: 長め負荷（加点抑制）</li>
-<li>騎手同コース3着内60%（5走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-12" class="race recommended">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 12R リボン賞</strong><div class="summary-condition">16:30 ダート1200m</div><div class="summary-picks">◎15 ルクスデイジー(64点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 15 ルクスデイジー</div><div class="sub">ダート1200m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 64点</span><span class="chip">8枠</span><span class="chip">川田将雅</span><span class="chip">2人気</span><span class="chip">5.4倍</span>
-<span class="chip wide">騎手同コース 61走 19勝 3着内38回(62%)</span>
-<span class="chip wide">父 カリフォルニアクローム</span>
-<span class="chip wide">母父 ストラヴィンスキー</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-13<br>時計: 4F 74.2秒 / 3F 53.1秒 / 2F 33.3秒 / 1F 16.7秒<br>ラップ: 800-600 21.1秒 / 600-400 19.8秒 / 400-200 16.6秒 / 200-0 16.7秒</div>
-</details>
-<ul class="reason">
-<li>外枠の馬券内率42%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内62%（61走）</li>
-</ul>
-</div>
-</div></details>
-<h3>参考候補（58-61点）</h3>
-<details id="race-02-01" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>函館 1R</strong><div class="summary-condition">09:50 芝1200m</div><div class="summary-picks">◎6 ヴェンデボヌール(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 6 ヴェンデボヌール</div><div class="sub">芝1200m / 傾向: 芝短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">3枠</span><span class="chip">佐々木大</span><span class="chip">4人気</span><span class="chip">6.9倍</span>
-<span class="chip wide">騎手同コース 100走 12勝 3着内35回(35%)</span>
-<span class="chip wide">父 ダノンスマッシュ</span>
-<span class="chip wide">母父 ネオユニヴァース</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">美浦 WD左 2026-06-04<br>時計: 6F 85.0秒 / 5F 68.5秒 / 4F 53.4秒 / 3F 38.1秒 / 2F 23.9秒 / 1F 11.7秒<br>ラップ: 800-600 15.3秒 / 600-400 14.2秒 / 400-200 12.2秒 / 200-0 11.7秒</div>
-</details>
-<ul class="reason">
-<li>人気面は許容範囲</li>
-<li>調教: 終い鋭い・加速ラップ・全体時計速い（加点抑制）</li>
-<li>騎手同コース3着内35%（100走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-02-02" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>函館 2R</strong><div class="summary-condition">10:15 ダート1700m</div><div class="summary-picks">◎8 ペガサスウィンド(61点) / ○9 ユマハム(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 8 ペガサスウィンド</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">7枠</span><span class="chip">鮫島克駿</span><span class="chip">6人気</span><span class="chip">9.5倍</span>
-<span class="chip wide">騎手同コース 95走 10勝 3着内34回(36%)</span>
-<span class="chip wide">父 マインドユアビスケッツ</span>
-<span class="chip wide">母父 ハーツクライ</span>
-</div>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内36%（95走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 9 ユマハム</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">7枠</span><span class="chip">横山和生</span><span class="chip">4人気</span><span class="chip">6.6倍</span>
-<span class="chip wide">騎手同コース 109走 17勝 3着内40回(37%)</span>
-<span class="chip wide">父 コントレイル</span>
-<span class="chip wide">母父 Rainbow Quest</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">美浦 WD左 2026-06-04<br>時計: 6F 83.5秒 / 5F 67.0秒 / 4F 51.7秒 / 3F 37.7秒 / 2F 24.0秒 / 1F 11.6秒<br>ラップ: 800-600 14.0秒 / 600-400 13.7秒 / 400-200 12.4秒 / 200-0 11.6秒</div>
-</details>
-<ul class="reason">
-<li>人気面は許容範囲</li>
-<li>調教: 終い鋭い・加速ラップ・全体時計速い（加点抑制）</li>
-<li>騎手同コース3着内37%（109走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-02-03" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>函館 3R</strong><div class="summary-condition">10:45 ダート1000m</div><div class="summary-picks">◎4 ヒューザー(61点) / ○7 ルクソンライト(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 4 ヒューザー</div><div class="sub">ダート1000m / 傾向: ダート全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">4枠</span><span class="chip">古川奈穂</span><span class="chip">8人気</span><span class="chip">26.6倍</span>
-<span class="chip wide">騎手同コース 34走 7勝 3着内14回(41%)</span>
-<span class="chip wide">父 ヘニーヒューズ</span>
-<span class="chip wide">母父 アイルハヴアナザー</span>
-</div>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内41%（34走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 7 ルクソンライト</div><div class="sub">ダート1000m / 傾向: ダート全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">6枠</span><span class="chip">小林美駒</span><span class="chip">2人気</span><span class="chip">3.5倍</span>
-<span class="chip wide">騎手同コース 31走 4勝 3着内16回(52%)</span>
-<span class="chip wide">父 パイロ</span>
-<span class="chip wide">母父 ディープインパクト</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">美浦 坂路 2026-06-10<br>時計: 4F 55.0秒 / 3F 39.9秒 / 2F 25.1秒 / 1F 12.4秒<br>ラップ: 800-600 15.1秒 / 600-400 14.8秒 / 400-200 12.7秒 / 200-0 12.4秒</div>
-</details>
-<ul class="reason">
-<li>人気面は許容範囲</li>
-<li>調教: 終い鋭い・加速ラップ（加点抑制）</li>
-<li>騎手同コース3着内52%（31走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-02-04-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>函館 4R</strong><div class="summary-condition">11:15 芝1800m</div><div class="summary-picks">◎10 ショウナンアワード(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 10 ショウナンアワード</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">5枠</span><span class="chip">池添謙一</span><span class="chip">2人気</span><span class="chip">8.9倍</span>
-<span class="chip wide">騎手同コース 39走 7勝 3着内15回(38%)</span>
-<span class="chip wide">父 リアルスティール</span>
-<span class="chip wide">母父 キングカメハメハ</span>
-</div>
-<ul class="reason">
-<li>5枠が当日2勝（低信頼・加点抑制）</li>
-<li>人気面は許容範囲</li>
-<li>騎手同コース3着内38%（39走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-02-07-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>函館 7R</strong><div class="summary-condition">13:05 ダート1000m</div><div class="summary-picks">◎7 スパークルジョイ(61点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 7 スパークルジョイ</div><div class="sub">ダート1000m / 傾向: ダート全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">舟山瑠泉</span><span class="chip">8人気</span><span class="chip">20.5倍</span>
-<span class="chip wide">騎手同コース 12走 3勝 3着内5回(42%)</span>
-<span class="chip wide">父 レッドファルクス</span>
-<span class="chip wide">母父 タニノギムレット</span>
-</div>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内42%（12走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-02-09" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>函館 9R 八雲特別</strong><div class="summary-condition">14:05 芝1800m</div><div class="summary-picks">◎1 サウンドサンライズ(61点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 1 サウンドサンライズ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">1枠</span><span class="chip">佐々木大</span><span class="chip">8人気</span><span class="chip">31.2倍</span>
-<span class="chip wide">騎手同コース 52走 7勝 3着内19回(37%)</span>
-<span class="chip wide">父 モーリス</span>
-<span class="chip wide">母父 ディープインパクト</span>
-</div>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内37%（52走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-02-12" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>函館 12R</strong><div class="summary-condition">16:05 ダート1700m</div><div class="summary-picks">◎8 ストラーダ(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 8 ストラーダ</div><div class="sub">ダート1700m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">7枠</span><span class="chip">横山和生</span><span class="chip">5人気</span><span class="chip">6.8倍</span>
-<span class="chip wide">騎手同コース 109走 17勝 3着内40回(37%)</span>
-<span class="chip wide">父 ルヴァンスレーヴ</span>
-<span class="chip wide">母父 キングカメハメハ</span>
-</div>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内37%（109走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-05-05" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>東京 5R</strong><div class="summary-condition">12:15 芝1600m</div><div class="summary-picks">◎8 ルクスマグナ(61点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 8 ルクスマグナ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">8枠</span><span class="chip">荻野極</span><span class="chip">3人気</span><span class="chip">5.2倍</span>
-<span class="chip wide">騎手同コース 36走 6勝 3着内15回(42%)</span>
-<span class="chip wide">父 モーリス</span>
-<span class="chip wide">母父 ルーラーシップ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">美浦 坂路 2026-06-13<br>時計: 4F 67.4秒 / 3F 49.4秒 / 2F 32.6秒 / 1F 16.0秒<br>ラップ: 800-600 18.0秒 / 600-400 16.8秒 / 400-200 16.6秒 / 200-0 16.0秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内42%（36走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-05-09" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>東京 9R 芦ノ湖特別</strong><div class="summary-condition">14:15 芝1600m</div><div class="summary-picks">◎4 フジガイフウ(61点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 4 フジガイフウ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">4枠</span><span class="chip">荻野極</span><span class="chip">1人気</span><span class="chip">2.9倍</span>
-<span class="chip wide">騎手同コース 36走 6勝 3着内15回(42%)</span>
-<span class="chip wide">父 ミスターメロディ</span>
-<span class="chip wide">母父 サクラプレジデント</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">美浦 坂路 2026-06-13<br>時計: 4F 68.1秒 / 3F 49.9秒 / 2F 33.1秒 / 1F 16.7秒<br>ラップ: 800-600 18.2秒 / 600-400 16.8秒 / 400-200 16.4秒 / 200-0 16.7秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内42%（36走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-01" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 1R</strong><div class="summary-condition">10:05 ダート1800m</div><div class="summary-picks">◎13 フィデリス(61点) / ○5 アクシュラ(59点) / ▲3 セントピュアベース(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 13 フィデリス</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">7枠</span><span class="chip">川田将雅</span><span class="chip">1人気</span><span class="chip">3.9倍</span>
-<span class="chip wide">騎手同コース 128走 34勝 3着内79回(62%)</span>
-<span class="chip wide">父 オルフェーヴル</span>
-<span class="chip wide">母父 Candy Ride</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 65.5秒 / 3F 48.0秒 / 2F 31.6秒 / 1F 16.1秒<br>ラップ: 800-600 17.5秒 / 600-400 16.4秒 / 400-200 15.5秒 / 200-0 16.1秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内62%（128走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 5 アクシュラ</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">3枠</span><span class="chip">坂井瑠星</span><span class="chip">4人気</span><span class="chip">8.5倍</span>
-<span class="chip wide">騎手同コース 232走 39勝 3着内92回(40%)</span>
-<span class="chip wide">父 ドレフォン</span>
-<span class="chip wide">母父 Bernardini</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 65.6秒 / 3F 48.0秒 / 2F 31.8秒 / 1F 15.7秒<br>ラップ: 800-600 17.6秒 / 600-400 16.2秒 / 400-200 16.1秒 / 200-0 15.7秒</div>
-</details>
-<ul class="reason">
-<li>内枠の馬券内率28%（低信頼・加点抑制）</li>
-<li>堅め傾向で人気面は許容</li>
-<li>騎手同コース3着内40%（232走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">▲ 3 セントピュアベース</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">2枠</span><span class="chip">岩田望来</span><span class="chip">10人気</span><span class="chip">31.0倍</span>
-<span class="chip wide">騎手同コース 329走 49勝 3着内138回(42%)</span>
-<span class="chip wide">父 クリソベリル</span>
-<span class="chip wide">母父 スパイキュール</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-13<br>時計: 4F 71.5秒 / 3F 53.1秒 / 2F 35.0秒 / 1F 17.5秒<br>ラップ: 800-600 18.4秒 / 600-400 18.1秒 / 400-200 17.5秒 / 200-0 17.5秒</div>
-</details>
-<ul class="reason">
-<li>内枠の馬券内率28%（低信頼・加点抑制）</li>
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内42%（329走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-02-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 2R</strong><div class="summary-condition">10:35 ダート1400m</div><div class="summary-picks">◎4 ウイルソン(61点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 4 ウイルソン</div><div class="sub">ダート1400m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">2枠</span><span class="chip">松山弘平</span><span class="chip">2人気</span><span class="chip">3.8倍</span>
-<span class="chip wide">騎手同コース 198走 35勝 3着内78回(39%)</span>
-<span class="chip wide">父 コントレイル</span>
-<span class="chip wide">母父 キングカメハメハ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 68.6秒 / 3F 50.3秒 / 2F 33.3秒 / 1F 16.5秒<br>ラップ: 800-600 18.3秒 / 600-400 17.0秒 / 400-200 16.8秒 / 200-0 16.5秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内39%（198走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-03-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 3R</strong><div class="summary-condition">11:05 ダート1800m</div><div class="summary-picks">◎12 キープシャイニング(60点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 12 キープシャイニング</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 60点</span><span class="chip">6枠</span><span class="chip">岩田望来</span><span class="chip">3人気</span><span class="chip">6.5倍</span>
-<span class="chip wide">騎手同コース 329走 49勝 3着内138回(42%)</span>
-<span class="chip wide">父 イスラボニータ</span>
-<span class="chip wide">母父 ブライアンズタイム</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">長め負荷</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-13<br>時計: 6F 100.4秒 / 5F 83.9秒 / 4F 67.3秒 / 3F 49.9秒 / 2F 32.3秒 / 1F 16.1秒<br>ラップ: 800-600 17.4秒 / 600-400 17.6秒 / 400-200 16.2秒 / 200-0 16.1秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>調教: 長め負荷（加点抑制）</li>
-<li>騎手同コース3着内42%（329走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-04" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 4R</strong><div class="summary-condition">11:35 芝2200m</div><div class="summary-picks">◎5 ダノンミッドナイト(58点) / ○9 マコトエウロペ(58点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 5 ダノンミッドナイト</div><div class="sub">芝2200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 58点</span><span class="chip">3枠</span><span class="chip">川田将雅</span><span class="chip">4人気</span><span class="chip">8.1倍</span>
-<span class="chip wide">騎手同コース 21走 4勝 3着内9回(43%)</span>
-<span class="chip wide">父 コントレイル</span>
-<span class="chip wide">母父 キンシャサノキセキ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 69.1秒 / 3F 50.4秒 / 2F 33.2秒 / 1F 16.6秒<br>ラップ: 800-600 18.7秒 / 600-400 17.2秒 / 400-200 16.6秒 / 200-0 16.6秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向で人気面は許容</li>
-<li>騎手同コース3着内43%（21走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 9 マコトエウロペ</div><div class="sub">芝2200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 58点</span><span class="chip">5枠</span><span class="chip">横山典弘</span><span class="chip">7人気</span><span class="chip">30.6倍</span>
-<span class="chip wide">騎手同コース 5走 0勝 3着内3回(60%)</span>
-<span class="chip wide">父 サートゥルナーリア</span>
-<span class="chip wide">母父 ディープインパクト</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い良好</span>
-<span class="tag">終い失速</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-10<br>時計: 6F 81.7秒 / 5F 65.6秒 / 4F 51.0秒 / 3F 37.5秒 / 2F 24.4秒 / 1F 12.7秒<br>ラップ: 800-600 13.5秒 / 600-400 13.1秒 / 400-200 11.7秒 / 200-0 12.7秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>荒れ気味の日で人気薄も許容</li>
-<li>調教: 終い良好・全体時計速い・長め負荷（加点抑制）</li>
-<li>減点: 調教終い失速</li>
-<li>騎手同コース3着内60%（5走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-05-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 5R</strong><div class="summary-condition">12:25 芝1800m</div><div class="summary-picks">◎1 ジュンヴァグネル(61点) / ○5 ジーティーアツモリ(60点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 1 ジュンヴァグネル</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">1枠</span><span class="chip">岩田望来</span><span class="chip">8人気</span><span class="chip">35.7倍</span>
-<span class="chip wide">騎手同コース 127走 19勝 3着内52回(41%)</span>
-<span class="chip wide">父 ジャスタウェイ</span>
-<span class="chip wide">母父 ディープインパクト</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 70.3秒 / 3F 51.1秒 / 2F 33.7秒 / 1F 16.8秒<br>ラップ: 800-600 19.2秒 / 600-400 17.4秒 / 400-200 16.9秒 / 200-0 16.8秒</div>
-</details>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内41%（127走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 5 ジーティーアツモリ</div><div class="sub">芝1800m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 60点</span><span class="chip">5枠</span><span class="chip">松山弘平</span><span class="chip">3人気</span><span class="chip">7.6倍</span>
-<span class="chip wide">騎手同コース 106走 19勝 3着内39回(37%)</span>
-<span class="chip wide">父 ルーラーシップ</span>
-<span class="chip wide">母父 ワークフォース</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 62.3秒 / 3F 45.8秒 / 2F 30.1秒 / 1F 14.5秒<br>ラップ: 800-600 16.5秒 / 600-400 15.7秒 / 400-200 15.6秒 / 200-0 14.5秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内37%（106走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-06" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 6R</strong><div class="summary-condition">12:55 ダート1200m</div><div class="summary-picks">◎11 アームズレジェンド(61点) / ○8 カネコメファミリー(61点) / ▲7 グランデスフィーダ(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 11 アームズレジェンド</div><div class="sub">ダート1200m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">岩田望来</span><span class="chip">1人気</span><span class="chip">3.2倍</span>
-<span class="chip wide">騎手同コース 176走 27勝 3着内70回(40%)</span>
-<span class="chip wide">父 ダノンレジェンド</span>
-<span class="chip wide">母父 コロナドズクエスト</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 65.2秒 / 3F 47.5秒 / 2F 30.8秒 / 1F 15.2秒<br>ラップ: 800-600 17.7秒 / 600-400 16.7秒 / 400-200 15.6秒 / 200-0 15.2秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内40%（176走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 8 カネコメファミリー</div><div class="sub">ダート1200m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">4枠</span><span class="chip">松山弘平</span><span class="chip">7人気</span><span class="chip">15.0倍</span>
-<span class="chip wide">騎手同コース 156走 24勝 3着内59回(38%)</span>
-<span class="chip wide">父 ホッコータルマエ</span>
-<span class="chip wide">母父 アフリート</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 65.9秒 / 3F 49.1秒 / 2F 32.6秒 / 1F 16.2秒<br>ラップ: 800-600 16.8秒 / 600-400 16.5秒 / 400-200 16.4秒 / 200-0 16.2秒</div>
-</details>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内38%（156走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">▲ 7 グランデスフィーダ</div><div class="sub">ダート1200m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">4枠</span><span class="chip">戸崎圭太</span><span class="chip">2人気</span><span class="chip">6.3倍</span>
-<span class="chip wide">騎手同コース 13走 2勝 3着内5回(38%)</span>
-<span class="chip wide">父 ドゥラメンテ</span>
-<span class="chip wide">母父 Bellamy Road</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 60.0秒 / 3F 43.1秒 / 2F 27.8秒 / 1F 13.9秒<br>ラップ: 800-600 16.9秒 / 600-400 15.3秒 / 400-200 13.9秒 / 200-0 13.9秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内38%（13走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-07-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 7R</strong><div class="summary-condition">13:25 芝2000m</div><div class="summary-picks">◎9 ナリタエスペランサ(58点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 9 ナリタエスペランサ</div><div class="sub">芝2000m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 58点</span><span class="chip">7枠</span><span class="chip">ルメール</span><span class="chip">4人気</span><span class="chip">5.7倍</span>
-<span class="chip wide">騎手同コース 46走 8勝 3着内22回(48%)</span>
-<span class="chip wide">父 キタサンブラック</span>
-<span class="chip wide">母父 Invincible Spirit</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 WC右 2026-06-13<br>時計: 4F 85.9秒 / 3F 62.9秒 / 2F 41.8秒 / 1F 20.1秒<br>ラップ: 800-600 23.0秒 / 600-400 21.1秒 / 400-200 21.7秒 / 200-0 20.1秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向で人気面は許容</li>
-<li>騎手同コース3着内48%（46走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-08-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 8R 逆瀬川特別</strong><div class="summary-condition">13:55 ダート1800m</div><div class="summary-picks">◎6 アイブリンク(61点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 6 アイブリンク</div><div class="sub">ダート1800m / 傾向: ダート中距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">6枠</span><span class="chip">松山弘平</span><span class="chip">4人気</span><span class="chip">8.3倍</span>
-<span class="chip wide">騎手同コース 286走 51勝 3着内126回(44%)</span>
-<span class="chip wide">父 モズアスコット</span>
-<span class="chip wide">母父 ブラックタイド</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い良好</span>
-<span class="tag">全体時計速い</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-10<br>時計: 4F 52.4秒 / 3F 38.2秒 / 2F 25.0秒 / 1F 12.7秒<br>ラップ: 800-600 14.2秒 / 600-400 13.2秒 / 400-200 12.3秒 / 200-0 12.7秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向で人気面は許容</li>
-<li>調教: 終い良好・全体時計速い（加点抑制）</li>
-<li>騎手同コース3着内44%（286走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-09" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 9R 武庫川特別</strong><div class="summary-condition">14:25 芝1200m</div><div class="summary-picks">◎11 メイショウミリオレ(61点) / ○1 インフローレ(61点) / ▲5 ヤマニンレセディ(58点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 11 メイショウミリオレ</div><div class="sub">芝1200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">7枠</span><span class="chip">高杉吏麒</span><span class="chip">2人気</span><span class="chip">5.4倍</span>
-<span class="chip wide">騎手同コース 14走 0勝 3着内5回(36%)</span>
-<span class="chip wide">父 ルーラーシップ</span>
-<span class="chip wide">母父 ディープインパクト</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-12<br>時計: 4F 65.2秒 / 3F 48.2秒 / 2F 32.3秒 / 1F 16.1秒<br>ラップ: 800-600 17.0秒 / 600-400 15.9秒 / 400-200 16.2秒 / 200-0 16.1秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内36%（14走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 1 インフローレ</div><div class="sub">芝1200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">1枠</span><span class="chip">岩田望来</span><span class="chip">9人気</span><span class="chip">20.6倍</span>
-<span class="chip wide">騎手同コース 60走 11勝 3着内26回(43%)</span>
-<span class="chip wide">父 リオンディーズ</span>
-<span class="chip wide">母父 ハービンジャー</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 66.7秒 / 3F 49.0秒 / 2F 32.0秒 / 1F 16.1秒<br>ラップ: 800-600 17.7秒 / 600-400 17.0秒 / 400-200 15.9秒 / 200-0 16.1秒</div>
-</details>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内43%（60走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">▲ 5 ヤマニンレセディ</div><div class="sub">芝1200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 58点</span><span class="chip">4枠</span><span class="chip">松若風馬</span><span class="chip">7人気</span><span class="chip">16.1倍</span>
-<span class="chip wide">騎手同コース 50走 1勝 3着内5回(10%)</span>
-<span class="chip wide">父 エピファネイア</span>
-<span class="chip wide">母父 シニスターミニスター</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-10<br>時計: 4F 54.7秒 / 3F 39.5秒 / 2F 25.8秒 / 1F 12.7秒<br>ラップ: 800-600 15.2秒 / 600-400 13.7秒 / 400-200 13.1秒 / 200-0 12.7秒</div>
-</details>
-<ul class="reason">
-<li>中枠の馬券内率29%（低信頼・加点抑制）</li>
-<li>4枠が当日2勝（低信頼・加点抑制）</li>
-<li>荒れ気味の日で人気薄も許容</li>
-<li>調教: 終い良好・加速ラップ（加点抑制）</li>
-<li>騎手同コース経験50走</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-10-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 10R 花のみちステークス</strong><div class="summary-condition">15:00 芝1600m</div><div class="summary-picks">◎3 テラメリタ(58点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 3 テラメリタ</div><div class="sub">芝1600m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 58点</span><span class="chip">3枠</span><span class="chip">川田将雅</span><span class="chip">4人気</span><span class="chip">10.7倍</span>
-<span class="chip wide">騎手同コース 104走 25勝 3着内55回(53%)</span>
-<span class="chip wide">父 ブリックスアンドモルタル</span>
-<span class="chip wide">母父 ヴィクトワールピサ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 67.7秒 / 3F 48.6秒 / 2F 32.3秒 / 1F 16.0秒<br>ラップ: 800-600 19.1秒 / 600-400 16.3秒 / 400-200 16.3秒 / 200-0 16.0秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向で人気面は許容</li>
-<li>騎手同コース3着内53%（104走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-11" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 11R 宝塚記念</strong><div class="summary-condition">15:40 芝2200m</div><div class="summary-picks">◎5 クロワデュノール(61点) / ○15 マイユニバース(61点) / ▲16 メイショウタバル(60点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 5 クロワデュノール</div><div class="sub">芝2200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">3枠</span><span class="chip">北村友一</span><span class="chip">1人気</span><span class="chip">1.7倍</span>
-<span class="chip wide">騎手同コース 19走 1勝 3着内7回(37%)</span>
-<span class="chip wide">父 キタサンブラック</span>
-<span class="chip wide">母父 Cape Cross</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 72.3秒 / 3F 52.2秒 / 2F 33.5秒 / 1F 16.0秒<br>ラップ: 800-600 20.1秒 / 600-400 18.7秒 / 400-200 17.5秒 / 200-0 16.0秒</div>
-</details>
-<ul class="reason">
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内37%（19走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 15 マイユニバース</div><div class="sub">芝2200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">7枠</span><span class="chip">横山典弘</span><span class="chip">6人気</span><span class="chip">20.4倍</span>
-<span class="chip wide">騎手同コース 5走 0勝 3着内3回(60%)</span>
-<span class="chip wide">父 レイデオロ</span>
-<span class="chip wide">母父 ネオユニヴァース</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-13<br>時計: 4F 63.5秒 / 3F 46.4秒 / 2F 30.1秒 / 1F 14.8秒<br>ラップ: 800-600 17.1秒 / 600-400 16.3秒 / 400-200 15.3秒 / 200-0 14.8秒</div>
-</details>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内60%（5走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">▲ 16 メイショウタバル</div><div class="sub">芝2200m / 傾向: 芝全体</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 60点</span><span class="chip">8枠</span><span class="chip">武豊</span><span class="chip">2人気</span><span class="chip">7.1倍</span>
-<span class="chip wide">騎手同コース 26走 7勝 3着内10回(38%)</span>
-<span class="chip wide">父 ゴールドシップ</span>
-<span class="chip wide">母父 フレンチデピュティ</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-12<br>時計: 4F 64.2秒 / 3F 47.3秒 / 2F 31.3秒 / 1F 15.6秒<br>ラップ: 800-600 16.9秒 / 600-400 16.0秒 / 400-200 15.7秒 / 200-0 15.6秒</div>
-</details>
-<ul class="reason">
-<li>8枠が当日2勝（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>騎手同コース3着内38%（26走）</li>
-</ul>
-</div>
-</div></details>
-<details id="race-09-12-ref" class="race reference">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 12R リボン賞</strong><div class="summary-condition">16:30 ダート1200m</div><div class="summary-picks">◎5 ライジン(61点) / ○13 ベルギューン(59点)</div></div>
-<span class="pill">詳細</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">◎ 5 ライジン</div><div class="sub">ダート1200m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 61点</span><span class="chip">3枠</span><span class="chip">岩田望来</span><span class="chip">7人気</span><span class="chip">14.4倍</span>
-<span class="chip wide">騎手同コース 176走 27勝 3着内70回(40%)</span>
-<span class="chip wide">父 Speightstown</span>
-<span class="chip wide">母父 Kitten&#x27;s Joy</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">標準的</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-12<br>時計: 4F 64.1秒 / 3F 47.2秒 / 2F 30.9秒 / 1F 15.1秒<br>ラップ: 800-600 16.9秒 / 600-400 16.3秒 / 400-200 15.8秒 / 200-0 15.1秒</div>
-</details>
-<ul class="reason">
-<li>荒れ気味の日で人気薄も許容</li>
-<li>騎手同コース3着内40%（176走）</li>
-</ul>
-</div>
-<div class="pick-mini">
-<div class="race-title">
-<div><div class="horse">○ 13 ベルギューン</div><div class="sub">ダート1200m / 傾向: ダート短距離</div></div>
-</div>
-<div class="chips">
-<span class="chip strong">評価 59点</span><span class="chip">7枠</span><span class="chip">丹内祐次</span><span class="chip">3人気</span><span class="chip">5.6倍</span>
-<span class="chip wide">騎手同コース 5走 0勝 3着内1回(20%)</span>
-<span class="chip wide">父 ナダル</span>
-<span class="chip wide">母父 ヴァーミリアン</span>
-</div>
-<div class="tag-row">
-<span class="tag muted">調教</span>
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-</div>
-<details class="raw-training">
-<summary>調教時計</summary>
-<div class="raw-body">栗東 坂路 2026-06-10<br>時計: 4F 53.8秒 / 3F 39.4秒 / 2F 25.7秒 / 1F 12.6秒<br>ラップ: 800-600 14.4秒 / 600-400 13.7秒 / 400-200 13.1秒 / 200-0 12.6秒</div>
-</details>
-<ul class="reason">
-<li>外枠の馬券内率42%（低信頼・加点抑制）</li>
-<li>堅め傾向に合う上位人気</li>
-<li>調教: 終い良好・加速ラップ・全体時計速い（加点抑制）</li>
-<li>騎手同コース経験5走</li>
-</ul>
-</div>
-</div></details>
 </section>
 <section id="blood" class="section">
 <h2>血統傾向</h2>
@@ -1911,20 +1639,14 @@ details.race summary::-webkit-details-marker{display:none}
 <article class="card">
 <h3>東京 ダート</h3>
 <ul class="notes">
-<li>[持ち越し信頼度: 低] 父 ルヴァンスレーヴ: 3着内3/6頭（50%）、2勝</li>
-<li>[持ち越し信頼度: 低] 母父 マンハッタンカフェ: 3着内2/5頭（40%）</li>
+<li>[持ち越し対象外] 血統は表示できるサンプル不足（出走5頭以上、3着内2頭以上、全体比+10pt以上のみ表示）</li>
 </ul>
 </article>
 <article class="card">
 <h3>東京 芝</h3>
 <ul class="notes">
-<li>[持ち越し対象外] 血統は表示できるサンプル不足（出走5頭以上、3着内2頭以上、全体比+10pt以上のみ表示）</li>
-</ul>
-</article>
-<article class="card">
-<h3>東京 障害</h3>
-<ul class="notes">
-<li>[持ち越し対象外] 血統は表示できるサンプル不足（出走5頭以上、3着内2頭以上、全体比+10pt以上のみ表示）</li>
+<li>[持ち越し信頼度: 低] 父 キズナ: 3着内2/5頭（40%）</li>
+<li>[持ち越し信頼度: 低] 母父 キングカメハメハ: 3着内3/6頭（50%）</li>
 </ul>
 </article>
 <article class="card">
@@ -1939,1679 +1661,33 @@ details.race summary::-webkit-details-marker{display:none}
 <li>[持ち越し対象外] 血統は表示できるサンプル不足（出走5頭以上、3着内2頭以上、全体比+10pt以上のみ表示）</li>
 </ul>
 </article>
+<article class="card">
+<h3>阪神 障害</h3>
+<ul class="notes">
+<li>[持ち越し対象外] 血統は表示できるサンプル不足（出走5頭以上、3着内2頭以上、全体比+10pt以上のみ表示）</li>
+</ul>
+</article>
 </div>
 <details class="race-group">
 <summary>血統全体（参考）を見る</summary>
 <div class="race-group-body"><ul class="notes">
-<li>[持ち越し信頼度: 低] 父 ルヴァンスレーヴ: 3着内5/12頭（42%）、2勝</li>
-<li>[持ち越し信頼度: 低] 父 ナダル: 3着内3/6頭（50%）、1勝</li>
-<li>[持ち越し信頼度: 低] 父 パイロ: 3着内3/7頭（43%）、1勝</li>
-<li>[持ち越し信頼度: 低] 母父 ロードカナロア: 3着内5/11頭（45%）、2勝</li>
-<li>[持ち越し信頼度: 低] 母父 ヨハネスブルグ: 3着内4/6頭（67%）、1勝</li>
-<li>[持ち越し信頼度: 低] 母父 ゴールドアリュール: 3着内4/9頭（44%）、1勝</li>
+<li>[持ち越し信頼度: 低] 父 ドレフォン: 3着内7/13頭（54%）、1勝</li>
+<li>[持ち越し信頼度: 低] 父 コントレイル: 3着内4/11頭（36%）、1勝</li>
+<li>[持ち越し信頼度: 低] 父 ゴールドシップ: 3着内4/12頭（33%）</li>
+<li>[持ち越し信頼度: 低] 母父 キングカメハメハ: 3着内9/28頭（32%）、3勝</li>
+<li>[持ち越し信頼度: 低] 母父 ロードカナロア: 3着内5/11頭（45%）、1勝</li>
+<li>[持ち越し信頼度: 低] 母父 ルーラーシップ: 3着内4/10頭（40%）</li>
 </ul></div></details>
 </section>
 <section id="training" class="section">
 <h2>最終追い切り傾向</h2>
 <p class="sub">区分: 結果確認 / 持ち越し対象外。当日3着内馬ベースの後付け集計で、翌日予測へ直接使う材料ではありません。</p>
-<details class="race-group">
+<details class="race-group empty">
 <summary>追い切り全体メモを見る</summary>
 <div class="race-group-body"><ul class="notes">
-<li>追い切り取得済み出走馬416頭中、3着内馬84頭分の直近追い切りを比較</li>
-<li>比較: 終い良好39/84(46%) / 全体171/416(41%)、加速ラップ35/84(42%) / 全体156/416(38%)。</li>
-<li>負荷傾向: 全体速い20/84(24%) / 全体93/416(22%)、長め負荷24/84(29%) / 全体95/416(23%)、終い重点3/84(4%) / 全体13/416(3%)。</li>
-<li>判定基準: 加速ラップは終いまたは全体時計が基準内のものだけ集計。</li>
-<li>多かった型: 標準的41 / 加速35 / 終い鋭い27</li>
-<li>3着内馬の追い切り種別: 坂路:54頭 / ウッド:30頭</li>
+<li>対象日の3着内馬に紐づく直近追い切りデータがDBにありません。</li>
+<li>SLOP/WOOD（坂路・ウッド）を取り込めるようにすると、最終追い切りのコース・時計・ラップ傾向を表示できます。</li>
 </ul>
-<details class="raw-training"><summary>参考時計を見る</summary><div class="raw-body">
-参考時計 坂路平均: 4F 63.2秒 / 3F 46.1秒 / 2F 30.1秒 / 1F 14.8秒<br>
-参考ラップ 坂路平均: 800-600 17.1秒 / 600-400 16.1秒 / 400-200 15.3秒 / 200-0 14.8秒<br>
-参考時計 ウッド平均: 6F 87.3秒 / 5F 70.1秒 / 4F 55.5秒 / 1F 12.4秒<br>
-参考ラップ ウッド終い4F平均: 800-600 15.6秒 / 600-400 14.6秒 / 400-200 12.9秒 / 200-0 12.4秒<br>
-</div></details>
-</div></details>
-<p class="small">レース別欄は3着内馬だけの後付け確認です。出走全馬平均との差分ではありません。</p>
-<details class="race-group">
-<summary>函館 追い切りレース別詳細（8R分）</summary>
-<div class="race-group-body">
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 3R</strong><div class="summary-condition">ダート稍重1000m</div><div class="training-insight">馬券内馬の要約: 長め負荷1/1</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 クロナ</div>
-<div class="tag-row">
-<span class="tag">終い失速</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-04</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 100.4秒 / 5F 83.9秒 / 4F 66.7秒 / 3F 49.6秒 / 2F 31.9秒 / 1F 16.4秒<br>ラップ: 800-600 17.1秒 / 600-400 17.7秒 / 400-200 15.5秒 / 200-0 16.4秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 4R</strong><div class="summary-condition">芝稍重2600m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 クオンタムスター</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-06</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.8秒 / 3F 50.6秒 / 2F 33.0秒 / 1F 16.2秒<br>ラップ: 800-600 17.2秒 / 600-400 17.6秒 / 400-200 16.8秒 / 200-0 16.2秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ホウオウファミリー</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-04</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 80.5秒 / 5F 65.3秒 / 4F 50.5秒 / 3F 36.4秒 / 2F 23.4秒 / 1F 11.4秒<br>ラップ: 800-600 14.1秒 / 600-400 13.0秒 / 400-200 12.0秒 / 200-0 11.4秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ノリマル</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-03</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.0秒 / 3F 49.2秒 / 2F 32.8秒 / 1F 16.1秒<br>ラップ: 800-600 17.8秒 / 600-400 16.4秒 / 400-200 16.7秒 / 200-0 16.1秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 6R</strong><div class="summary-condition">ダート稍重1700m</div><div class="training-insight">馬券内馬の要約: 標準的中心（坂路1/1）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 オンザムービー</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-04</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 64.6秒 / 3F 47.8秒 / 2F 31.4秒 / 1F 15.3秒<br>ラップ: 800-600 16.8秒 / 600-400 16.4秒 / 400-200 16.1秒 / 200-0 15.3秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 7R</strong><div class="summary-condition">芝稍重1200m</div><div class="training-insight">馬券内馬の要約: 標準的中心（坂路2/2）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ホワイトドラゴン</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-06</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 63.0秒 / 3F 46.7秒 / 2F 31.3秒 / 1F 16.0秒<br>ラップ: 800-600 16.3秒 / 600-400 15.4秒 / 400-200 15.3秒 / 200-0 16.0秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ドリーミングアップ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-07</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 65.6秒 / 3F 48.0秒 / 2F 31.3秒 / 1F 15.2秒<br>ラップ: 800-600 17.6秒 / 600-400 16.7秒 / 400-200 16.1秒 / 200-0 15.2秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 8R</strong><div class="summary-condition">ダート稍重1000m</div><div class="training-insight">馬券内馬の要約: 終い良好2/2 / 加速ラップ2/2 / 全体時計速い2/2</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 デアプリームス</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-07</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 53.5秒 / 3F 39.3秒 / 2F 25.2秒 / 1F 12.5秒<br>ラップ: 800-600 14.2秒 / 600-400 14.1秒 / 400-200 12.7秒 / 200-0 12.5秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ビップムーラン</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-07</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 53.3秒 / 3F 39.2秒 / 2F 25.3秒 / 1F 12.5秒<br>ラップ: 800-600 14.1秒 / 600-400 13.9秒 / 400-200 12.8秒 / 200-0 12.5秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 10R 松前特別</strong><div class="summary-condition">芝稍重1800m</div><div class="training-insight">馬券内馬の要約: 終い良好1/1 / 加速ラップ1/1 / 長め負荷1/1</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 カテリーナ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-03</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 87.1秒 / 5F 71.4秒 / 4F 55.8秒 / 3F 38.9秒 / 2F 24.1秒 / 1F 11.8秒<br>ラップ: 800-600 16.9秒 / 600-400 14.8秒 / 400-200 12.3秒 / 200-0 11.8秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 11R 函館スプリントステークス</strong><div class="summary-condition">芝稍重1200m</div><div class="training-insight">馬券内馬の要約: 全体時計速い1/1</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">3着 レイピア</div>
-<div class="tag-row">
-<span class="tag">終い失速</span>
-<span class="tag">全体時計速い</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-03</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 53.9秒 / 3F 38.6秒 / 2F 26.0秒 / 1F 13.8秒<br>ラップ: 800-600 15.3秒 / 600-400 12.6秒 / 400-200 12.2秒 / 200-0 13.8秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>函館 12R</strong><div class="summary-condition">ダート稍重1700m</div><div class="training-insight">馬券内馬の要約: 終い良好1/1</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ハヤブサオヒメサマ</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-03</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 55.6秒 / 3F 39.5秒 / 2F 25.8秒 / 1F 13.0秒<br>ラップ: 800-600 16.1秒 / 600-400 13.7秒 / 400-200 12.8秒 / 200-0 13.0秒</div>
-</details>
-</div>
-</div></details>
-</div></details>
-<details class="race-group">
-<summary>東京 追い切りレース別詳細（12R分）</summary>
-<div class="race-group-body">
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 1R</strong><div class="summary-condition">ダート重1600m</div><div class="training-insight">馬券内馬の要約: 強い型なし（坂路3/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ストーリーオブラブ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 66.3秒 / 3F 48.6秒 / 2F 32.3秒 / 1F 16.3秒<br>ラップ: 800-600 17.7秒 / 600-400 16.3秒 / 400-200 16.0秒 / 200-0 16.3秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ホウオウロレンシア</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 71.2秒 / 3F 51.9秒 / 2F 33.7秒 / 1F 16.8秒<br>ラップ: 800-600 19.3秒 / 600-400 18.2秒 / 400-200 16.9秒 / 200-0 16.8秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 タマモチョコチップ</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 55.6秒 / 3F 40.5秒 / 2F 26.0秒 / 1F 12.9秒<br>ラップ: 800-600 15.1秒 / 600-400 14.5秒 / 400-200 13.1秒 / 200-0 12.9秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 2R</strong><div class="summary-condition">芝稍重2400m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ウインターブレス</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 86.5秒 / 5F 67.8秒 / 4F 52.1秒 / 3F 37.4秒 / 2F 24.2秒 / 1F 12.1秒<br>ラップ: 800-600 14.7秒 / 600-400 13.2秒 / 400-200 12.1秒 / 200-0 12.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ヴァルカンテソーロ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 63.9秒 / 3F 47.5秒 / 2F 31.3秒 / 1F 15.6秒<br>ラップ: 800-600 16.4秒 / 600-400 16.2秒 / 400-200 15.7秒 / 200-0 15.6秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 フレキシブル</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 62.7秒 / 3F 46.0秒 / 2F 30.3秒 / 1F 14.6秒<br>ラップ: 800-600 16.7秒 / 600-400 15.7秒 / 400-200 15.7秒 / 200-0 14.6秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 3R</strong><div class="summary-condition">ダート重1400m</div><div class="training-insight">馬券内馬の要約: 強い型なし（坂路3/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 キリミツ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 73.4秒 / 3F 53.1秒 / 2F 34.9秒 / 1F 17.0秒<br>ラップ: 800-600 20.3秒 / 600-400 18.2秒 / 400-200 17.9秒 / 200-0 17.0秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 メビウスロマンス</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 66.0秒 / 3F 48.7秒 / 2F 31.8秒 / 1F 15.6秒<br>ラップ: 800-600 17.3秒 / 600-400 16.9秒 / 400-200 16.2秒 / 200-0 15.6秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 エッチェレンテ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 54.3秒 / 3F 39.4秒 / 2F 25.4秒 / 1F 12.3秒<br>ラップ: 800-600 14.9秒 / 600-400 14.0秒 / 400-200 13.1秒 / 200-0 12.3秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 4R 東京ジャンプステークス</strong><div class="summary-condition">障害3110m</div><div class="training-insight">馬券内馬の要約: 終い良好3/3 / 加速ラップ3/3 / 長め負荷2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 スズカハービン</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 83.8秒 / 5F 68.4秒 / 4F 53.2秒 / 3F 38.0秒 / 2F 23.4秒 / 1F 11.3秒<br>ラップ: 800-600 15.2秒 / 600-400 14.6秒 / 400-200 12.1秒 / 200-0 11.3秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ジューンベロシティ</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 87.3秒 / 5F 71.3秒 / 4F 55.9秒 / 3F 40.1秒 / 2F 24.9秒 / 1F 12.2秒<br>ラップ: 800-600 15.8秒 / 600-400 15.2秒 / 400-200 12.7秒 / 200-0 12.2秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ブラックボイス</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 59.0秒 / 3F 41.9秒 / 2F 27.0秒 / 1F 12.8秒<br>ラップ: 800-600 17.1秒 / 600-400 14.9秒 / 400-200 14.2秒 / 200-0 12.8秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 5R</strong><div class="summary-condition">芝良1600m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 加速ラップ2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 シャンデヴァーグ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 81.6秒 / 5F 65.0秒 / 4F 50.1秒 / 3F 36.2秒 / 2F 22.9秒 / 1F 10.9秒<br>ラップ: 800-600 13.9秒 / 600-400 13.3秒 / 400-200 12.0秒 / 200-0 10.9秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ジーティーキャリー</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 58.3秒 / 3F 42.1秒 / 2F 26.3秒 / 1F 12.7秒<br>ラップ: 800-600 16.2秒 / 600-400 15.8秒 / 400-200 13.6秒 / 200-0 12.7秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 コスモハナミズキ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 63.2秒 / 3F 47.0秒 / 2F 31.5秒 / 1F 15.8秒<br>ラップ: 800-600 16.2秒 / 600-400 15.5秒 / 400-200 15.7秒 / 200-0 15.8秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 6R</strong><div class="summary-condition">芝良1400m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 加速ラップ2/3 / 長め負荷2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 デミアン</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 66.6秒 / 3F 49.6秒 / 2F 32.4秒 / 1F 16.1秒<br>ラップ: 800-600 17.0秒 / 600-400 17.2秒 / 400-200 16.3秒 / 200-0 16.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 デザートスピリット</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 90.3秒 / 5F 71.6秒 / 4F 54.6秒 / 3F 39.3秒 / 2F 24.7秒 / 1F 11.7秒<br>ラップ: 800-600 15.3秒 / 600-400 14.6秒 / 400-200 13.0秒 / 200-0 11.7秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 サンレガート</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 87.0秒 / 5F 69.0秒 / 4F 53.3秒 / 3F 38.3秒 / 2F 24.2秒 / 1F 11.5秒<br>ラップ: 800-600 15.0秒 / 600-400 14.1秒 / 400-200 12.7秒 / 200-0 11.5秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 7R</strong><div class="summary-condition">ダート稍重1600m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 加速ラップ2/3 / 長め負荷2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ロケットパンチ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-11</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 91.0秒 / 5F 71.9秒 / 4F 55.1秒 / 3F 39.7秒 / 2F 24.9秒 / 1F 11.5秒<br>ラップ: 800-600 15.4秒 / 600-400 14.8秒 / 400-200 13.4秒 / 200-0 11.5秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 イントゥザウインド</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 83.4秒 / 5F 66.5秒 / 4F 51.6秒 / 3F 37.4秒 / 2F 23.6秒 / 1F 11.4秒<br>ラップ: 800-600 14.2秒 / 600-400 13.8秒 / 400-200 12.2秒 / 200-0 11.4秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 キタノドンカルロ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 65.7秒 / 3F 47.6秒 / 2F 31.1秒 / 1F 15.2秒<br>ラップ: 800-600 18.1秒 / 600-400 16.5秒 / 400-200 15.9秒 / 200-0 15.2秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 8R</strong><div class="summary-condition">芝良1400m</div><div class="training-insight">馬券内馬の要約: 終い良好3/3 / 加速ラップ3/3 / 全体時計速い2/3 ほか</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 インプロペリア</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 82.4秒 / 5F 65.2秒 / 4F 50.7秒 / 3F 36.1秒 / 2F 22.7秒 / 1F 10.9秒<br>ラップ: 800-600 14.6秒 / 600-400 13.4秒 / 400-200 11.8秒 / 200-0 10.9秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ライングッドマン</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 55.5秒 / 3F 40.4秒 / 2F 26.3秒 / 1F 12.6秒<br>ラップ: 800-600 15.1秒 / 600-400 14.1秒 / 400-200 13.7秒 / 200-0 12.6秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ミスターマーボー</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 83.5秒 / 5F 66.8秒 / 4F 52.1秒 / 3F 38.2秒 / 2F 24.8秒 / 1F 12.1秒<br>ラップ: 800-600 13.9秒 / 600-400 13.4秒 / 400-200 12.7秒 / 200-0 12.1秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 9R 日野特別</strong><div class="summary-condition">ダート稍重2100m</div><div class="training-insight">馬券内馬の要約: 強い型なし（坂路3/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 インペリアルライン</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 68.0秒 / 3F 50.7秒 / 2F 33.7秒 / 1F 16.4秒<br>ラップ: 800-600 17.3秒 / 600-400 17.0秒 / 400-200 17.3秒 / 200-0 16.4秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 コズミックダンサー</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 57.6秒 / 3F 41.4秒 / 2F 26.6秒 / 1F 12.8秒<br>ラップ: 800-600 16.2秒 / 600-400 14.8秒 / 400-200 13.8秒 / 200-0 12.8秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ビービーアジャイル</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.6秒 / 3F 50.3秒 / 2F 32.9秒 / 1F 15.7秒<br>ラップ: 800-600 17.3秒 / 600-400 17.4秒 / 400-200 17.2秒 / 200-0 15.7秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 10R 夏至ステークス</strong><div class="summary-condition">ダート稍重1600m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 加速ラップ2/3 / 全体時計速い2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ルヴァレドクール</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 53.6秒 / 3F 38.9秒 / 2F 25.0秒 / 1F 12.1秒<br>ラップ: 800-600 14.7秒 / 600-400 13.9秒 / 400-200 12.9秒 / 200-0 12.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 トクシーカイザー</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 84.6秒 / 5F 69.4秒 / 4F 54.7秒 / 3F 40.0秒 / 2F 25.3秒 / 1F 12.2秒<br>ラップ: 800-600 14.7秒 / 600-400 14.7秒 / 400-200 13.1秒 / 200-0 12.2秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 フルオール</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 63.5秒 / 3F 47.4秒 / 2F 31.1秒 / 1F 15.4秒<br>ラップ: 800-600 16.1秒 / 600-400 16.3秒 / 400-200 15.7秒 / 200-0 15.4秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 11R ジューンステークス</strong><div class="summary-condition">芝良1800m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 加速ラップ2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 カネラフィーナ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.4秒 / 3F 49.7秒 / 2F 33.1秒 / 1F 16.5秒<br>ラップ: 800-600 17.7秒 / 600-400 16.6秒 / 400-200 16.6秒 / 200-0 16.5秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 タシット</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 83.6秒 / 5F 66.6秒 / 4F 51.4秒 / 3F 37.0秒 / 2F 23.9秒 / 1F 11.7秒<br>ラップ: 800-600 14.4秒 / 600-400 13.1秒 / 400-200 12.2秒 / 200-0 11.7秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ダノンエアズロック</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">終い重点</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 52.1秒 / 3F 37.3秒 / 2F 23.5秒 / 1F 11.4秒<br>ラップ: 800-600 14.8秒 / 600-400 13.8秒 / 400-200 12.1秒 / 200-0 11.4秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>東京 12R</strong><div class="summary-condition">ダート稍重1400m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ラインジーク</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 86.5秒 / 5F 67.4秒 / 4F 50.4秒 / 3F 35.7秒 / 2F 23.2秒 / 1F 11.5秒<br>ラップ: 800-600 14.7秒 / 600-400 12.5秒 / 400-200 11.7秒 / 200-0 11.5秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 スタームーンナイト</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 68.3秒 / 3F 50.5秒 / 2F 33.5秒 / 1F 16.4秒<br>ラップ: 800-600 17.8秒 / 600-400 17.0秒 / 400-200 17.1秒 / 200-0 16.4秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ジェイエルキャリア</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">美浦 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 62.9秒 / 3F 45.9秒 / 2F 30.1秒 / 1F 14.9秒<br>ラップ: 800-600 17.0秒 / 600-400 15.8秒 / 400-200 15.2秒 / 200-0 14.9秒</div>
-</details>
-</div>
-</div></details>
-</div></details>
-<details class="race-group">
-<summary>阪神 追い切りレース別詳細（12R分）</summary>
-<div class="race-group-body">
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 1R</strong><div class="summary-condition">ダート良1200m</div><div class="training-insight">馬券内馬の要約: 強い型なし（坂路3/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 エイユーサクラ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 54.4秒 / 3F 38.7秒 / 2F 24.4秒 / 1F 12.0秒<br>ラップ: 800-600 15.7秒 / 600-400 14.3秒 / 400-200 12.4秒 / 200-0 12.0秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ファイアプレイス</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 65.7秒 / 3F 47.9秒 / 2F 31.5秒 / 1F 16.1秒<br>ラップ: 800-600 17.8秒 / 600-400 16.4秒 / 400-200 15.4秒 / 200-0 16.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 エバイダンス</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 70.1秒 / 3F 50.8秒 / 2F 32.9秒 / 1F 16.0秒<br>ラップ: 800-600 19.3秒 / 600-400 17.9秒 / 400-200 16.9秒 / 200-0 16.0秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 2R</strong><div class="summary-condition">ダート良2000m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（ウッド2/3 / 坂路1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 メイショウジンライ</div>
-<div class="tag-row">
-<span class="tag">終い失速</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 75.8秒 / 3F 56.7秒 / 2F 37.3秒 / 1F 19.1秒<br>ラップ: 800-600 19.1秒 / 600-400 19.4秒 / 400-200 18.2秒 / 200-0 19.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 マイカラー</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 61.4秒 / 3F 44.3秒 / 2F 28.9秒 / 1F 14.1秒<br>ラップ: 800-600 17.1秒 / 600-400 15.4秒 / 400-200 14.8秒 / 200-0 14.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 タニセンゴールド</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 86.0秒 / 5F 70.0秒 / 4F 55.2秒 / 3F 39.5秒 / 2F 24.3秒 / 1F 11.9秒<br>ラップ: 800-600 15.7秒 / 600-400 15.2秒 / 400-200 12.4秒 / 200-0 11.9秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 3R</strong><div class="summary-condition">芝良1600m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 フェルギナス</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">終い重点</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 49.9秒 / 3F 35.9秒 / 2F 23.0秒 / 1F 11.7秒<br>ラップ: 800-600 14.0秒 / 600-400 12.9秒 / 400-200 11.3秒 / 200-0 11.7秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ホワイトフレイムス</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 68.0秒 / 3F 48.4秒 / 2F 30.8秒 / 1F 14.5秒<br>ラップ: 800-600 19.6秒 / 600-400 17.6秒 / 400-200 16.3秒 / 200-0 14.5秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 フェブリノ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-05</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 69.8秒 / 3F 50.2秒 / 2F 32.5秒 / 1F 16.3秒<br>ラップ: 800-600 19.6秒 / 600-400 17.7秒 / 400-200 16.2秒 / 200-0 16.3秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 4R</strong><div class="summary-condition">芝良1800m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ラパンドール</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.7秒 / 3F 48.5秒 / 2F 31.2秒 / 1F 15.3秒<br>ラップ: 800-600 19.2秒 / 600-400 17.3秒 / 400-200 15.9秒 / 200-0 15.3秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ファランギーナ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">終い重点</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 52.8秒 / 3F 37.3秒 / 2F 23.2秒 / 1F 11.5秒<br>ラップ: 800-600 15.5秒 / 600-400 14.1秒 / 400-200 11.7秒 / 200-0 11.5秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 タイムレスフレアー</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 63.9秒 / 3F 46.7秒 / 2F 29.9秒 / 1F 14.8秒<br>ラップ: 800-600 17.2秒 / 600-400 16.8秒 / 400-200 15.1秒 / 200-0 14.8秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 5R</strong><div class="summary-condition">芝良1200m</div><div class="training-insight">馬券内馬の要約: 標準的中心（坂路3/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ロンドンガーズ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 63.4秒 / 3F 46.5秒 / 2F 30.6秒 / 1F 15.1秒<br>ラップ: 800-600 16.9秒 / 600-400 15.9秒 / 400-200 15.5秒 / 200-0 15.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 メアグローリア</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 66.1秒 / 3F 47.8秒 / 2F 31.5秒 / 1F 15.4秒<br>ラップ: 800-600 18.3秒 / 600-400 16.3秒 / 400-200 16.1秒 / 200-0 15.4秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 カレンハウ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 66.3秒 / 3F 48.4秒 / 2F 31.4秒 / 1F 15.5秒<br>ラップ: 800-600 17.9秒 / 600-400 17.0秒 / 400-200 15.9秒 / 200-0 15.5秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 6R</strong><div class="summary-condition">ダート良1400m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 加速ラップ2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 クロリス</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 69.8秒 / 3F 49.9秒 / 2F 32.0秒 / 1F 15.6秒<br>ラップ: 800-600 19.9秒 / 600-400 17.9秒 / 400-200 16.4秒 / 200-0 15.6秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 アイゼンフォルク</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-<span class="tag">加速ラップ</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 55.0秒 / 3F 39.9秒 / 2F 25.7秒 / 1F 12.7秒<br>ラップ: 800-600 15.1秒 / 600-400 14.2秒 / 400-200 13.0秒 / 200-0 12.7秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ウンディーネ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 53.1秒 / 3F 38.4秒 / 2F 24.8秒 / 1F 12.3秒<br>ラップ: 800-600 14.7秒 / 600-400 13.6秒 / 400-200 12.5秒 / 200-0 12.3秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 7R</strong><div class="summary-condition">ダート良1800m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ダンツシタン</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 65.9秒 / 3F 47.9秒 / 2F 31.6秒 / 1F 15.6秒<br>ラップ: 800-600 18.0秒 / 600-400 16.3秒 / 400-200 16.0秒 / 200-0 15.6秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 システマソラー</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 61.7秒 / 3F 45.3秒 / 2F 29.8秒 / 1F 14.7秒<br>ラップ: 800-600 16.4秒 / 600-400 15.5秒 / 400-200 15.1秒 / 200-0 14.7秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 アミラル</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 90.2秒 / 5F 72.2秒 / 4F 55.3秒 / 3F 38.7秒 / 2F 24.4秒 / 1F 11.9秒<br>ラップ: 800-600 16.6秒 / 600-400 14.3秒 / 400-200 12.5秒 / 200-0 11.9秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 8R</strong><div class="summary-condition">芝良1600m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 アイニードユー</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.1秒 / 3F 49.2秒 / 2F 31.7秒 / 1F 15.8秒<br>ラップ: 800-600 17.9秒 / 600-400 17.5秒 / 400-200 15.9秒 / 200-0 15.8秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 バースデイフライト</div>
-<div class="tag-row">
-<span class="tag">終い良好</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 54.4秒 / 3F 38.7秒 / 2F 25.0秒 / 1F 12.6秒<br>ラップ: 800-600 15.7秒 / 600-400 13.7秒 / 400-200 12.4秒 / 200-0 12.6秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 テイエムスティール</div>
-<div class="tag-row">
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 122.3秒 / 5F 96.5秒 / 4F 73.0秒 / 3F 51.4秒 / 2F 33.4秒 / 1F 16.4秒<br>ラップ: 800-600 21.6秒 / 600-400 18.0秒 / 400-200 17.0秒 / 200-0 16.4秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 9R 三田特別</strong><div class="summary-condition">芝良2200m</div><div class="training-insight">馬券内馬の要約: 標準的中心（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 アスクコモンタレヴ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 69.5秒 / 3F 50.0秒 / 2F 32.3秒 / 1F 15.9秒<br>ラップ: 800-600 19.5秒 / 600-400 17.7秒 / 400-200 16.4秒 / 200-0 15.9秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 ブレットパス</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 63.3秒 / 3F 46.2秒 / 2F 30.0秒 / 1F 15.3秒<br>ラップ: 800-600 17.1秒 / 600-400 16.2秒 / 400-200 14.7秒 / 200-0 15.3秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 メディテラニアン</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.8秒 / 3F 48.3秒 / 2F 30.5秒 / 1F 14.3秒<br>ラップ: 800-600 19.5秒 / 600-400 17.8秒 / 400-200 16.2秒 / 200-0 14.3秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 10R 安芸特別</strong><div class="summary-condition">ダート良1200m</div><div class="training-insight">馬券内馬の要約: 型ばらつき（坂路2/3 / ウッド1/3）</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 テーオーグレーザー</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 84.2秒 / 5F 68.5秒 / 4F 52.9秒 / 3F 37.5秒 / 2F 23.4秒 / 1F 11.3秒<br>ラップ: 800-600 15.4秒 / 600-400 14.1秒 / 400-200 12.1秒 / 200-0 11.3秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 サンマルノヴェル</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.8秒 / 3F 49.7秒 / 2F 32.6秒 / 1F 16.1秒<br>ラップ: 800-600 18.1秒 / 600-400 17.1秒 / 400-200 16.5秒 / 200-0 16.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ヴリトラハン</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 67.9秒 / 3F 50.0秒 / 2F 32.7秒 / 1F 16.2秒<br>ラップ: 800-600 17.9秒 / 600-400 17.3秒 / 400-200 16.5秒 / 200-0 16.2秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 11R 三宮ステークス</strong><div class="summary-condition">ダート良1800m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 加速ラップ2/3 / 全体時計速い2/3 ほか</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 グランドプラージュ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 66.9秒 / 3F 49.9秒 / 2F 32.7秒 / 1F 16.1秒<br>ラップ: 800-600 17.0秒 / 600-400 17.2秒 / 400-200 16.6秒 / 200-0 16.1秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 クインズショコラ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 82.8秒 / 5F 66.3秒 / 4F 52.1秒 / 3F 37.2秒 / 2F 23.2秒 / 1F 11.4秒<br>ラップ: 800-600 14.9秒 / 600-400 14.0秒 / 400-200 11.8秒 / 200-0 11.4秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 モックモック</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 82.1秒 / 5F 66.4秒 / 4F 51.7秒 / 3F 36.8秒 / 2F 23.3秒 / 1F 11.6秒<br>ラップ: 800-600 14.9秒 / 600-400 13.5秒 / 400-200 11.7秒 / 200-0 11.6秒</div>
-</details>
-</div>
-</div></details>
-<details class="race">
-<summary>
-<div class="summary-main">
-<div><strong>阪神 12R</strong><div class="summary-condition">芝良1200m</div><div class="training-insight">馬券内馬の要約: 終い良好2/3 / 全体時計速い2/3 / 長め負荷2/3</div></div>
-<span class="pill">馬別</span>
-</div>
-</summary>
-<div class="detail-body">
-<div class="pick-mini">
-<div class="horse">1着 ハルオーブ</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">加速ラップ</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">美浦 WD左</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 85.6秒 / 5F 66.9秒 / 4F 51.3秒 / 3F 37.1秒 / 2F 23.8秒 / 1F 11.7秒<br>ラップ: 800-600 14.2秒 / 600-400 13.3秒 / 400-200 12.1秒 / 200-0 11.7秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">2着 スピリットライズ</div>
-<div class="tag-row">
-<span class="tag">標準的</span>
-</div>
-<div class="chips">
-<span class="chip">坂路</span>
-<span class="chip">栗東 坂路</span>
-<span class="chip">2026-06-12</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 4F 65.3秒 / 3F 47.3秒 / 2F 30.7秒 / 1F 15.4秒<br>ラップ: 800-600 18.0秒 / 600-400 16.6秒 / 400-200 15.3秒 / 200-0 15.4秒</div>
-</details>
-</div>
-<div class="pick-mini">
-<div class="horse">3着 ヴァージル</div>
-<div class="tag-row">
-<span class="tag">終い鋭い</span>
-<span class="tag">全体時計速い</span>
-<span class="tag">長め負荷</span>
-</div>
-<div class="chips">
-<span class="chip">ウッド</span>
-<span class="chip">栗東 WC右</span>
-<span class="chip">2026-06-10</span>
-</div>
-<details class="raw-training">
-<summary>時計詳細</summary>
-<div class="raw-body">時計: 6F 83.6秒 / 5F 67.6秒 / 4F 53.1秒 / 3F 38.1秒 / 2F 23.7秒 / 1F 11.9秒<br>ラップ: 800-600 15.0秒 / 600-400 14.4秒 / 400-200 11.8秒 / 200-0 11.9秒</div>
-</details>
-</div>
-</div></details>
 </div></details>
 </section>
 <section id="bodyweight" class="section">
@@ -3624,66 +1700,66 @@ details.race summary::-webkit-details-marker{display:none}
 <h4>函館 ダート</h4>
 <ul class="notes">
 <li>馬体重取得済み 62/62頭、3着内 15頭</li>
-<li>3着内馬の平均馬体重 465kg（全体平均 464kg）</li>
-<li>3着内馬の平均増減 +2kg</li>
-<li>大幅増減: +10kg以上 1/6頭が3着内、-10kg以下 0/5頭が3着内</li>
+<li>3着内馬の平均馬体重 473kg（全体平均 463kg）</li>
+<li>3着内馬の平均増減 -2kg</li>
+<li>大幅増減: +10kg以上 0/2頭が3着内、-10kg以下 1/5頭が3着内</li>
 </ul></article>
 <article class="card">
 <h4>函館 芝</h4>
 <ul class="notes">
-<li>馬体重取得済み 89/89頭、3着内 21頭</li>
-<li>3着内馬の平均馬体重 476kg（全体平均 463kg）</li>
-<li>3着内馬の平均増減 0kg</li>
-<li>大幅増減: +10kg以上 1/8頭が3着内、-10kg以下 2/6頭が3着内</li>
+<li>馬体重取得済み 94/94頭、3着内 21頭</li>
+<li>3着内馬の平均馬体重 450kg（全体平均 452kg）</li>
+<li>3着内馬の平均増減 +2kg</li>
+<li>大幅増減: +10kg以上 5/14頭が3着内、-10kg以下 0/7頭が3着内</li>
 </ul></article>
 <article class="card">
 <h4>東京 ダート</h4>
 <ul class="notes">
-<li>馬体重取得済み 94/94頭、3着内 18頭</li>
-<li>3着内馬の平均馬体重 465kg（全体平均 477kg）</li>
-<li>3着内馬の平均増減 +2kg</li>
-<li>大幅増減: +10kg以上 1/11頭が3着内、-10kg以下 1/7頭が3着内</li>
+<li>馬体重取得済み 95/95頭、3着内 18頭</li>
+<li>3着内馬の平均馬体重 478kg（全体平均 476kg）</li>
+<li>3着内馬の平均増減 -2kg</li>
+<li>大幅増減: +10kg以上 1/11頭が3着内、-10kg以下 1/4頭が3着内</li>
 </ul></article>
 <article class="card">
 <h4>東京 芝</h4>
 <ul class="notes">
-<li>馬体重取得済み 65/65頭、3着内 15頭</li>
-<li>3着内馬の平均馬体重 461kg（全体平均 458kg）</li>
-<li>3着内馬の平均増減 +4kg</li>
-<li>大幅増減: +10kg以上 1/9頭が3着内、-10kg以下 0/2頭が3着内</li>
-</ul></article>
-<article class="card">
-<h4>東京 障害</h4>
-<ul class="notes">
-<li>馬体重取得済み 10/10頭、3着内 3頭</li>
-<li>3着内馬の平均馬体重 493kg（全体平均 489kg）</li>
-<li>3着内馬の平均増減 +3kg</li>
-<li>大幅増減: +10kg以上 0/2頭が3着内、-10kg以下 0/0頭が3着内</li>
+<li>馬体重取得済み 77/77頭、3着内 18頭</li>
+<li>3着内馬の平均馬体重 466kg（全体平均 463kg）</li>
+<li>3着内馬の平均増減 0kg</li>
+<li>大幅増減: +10kg以上 0/6頭が3着内、-10kg以下 0/2頭が3着内</li>
 </ul></article>
 <article class="card">
 <h4>阪神 ダート</h4>
 <ul class="notes">
-<li>馬体重取得済み 93/93頭、3着内 18頭</li>
-<li>3着内馬の平均馬体重 484kg（全体平均 484kg）</li>
-<li>3着内馬の平均増減 +1kg</li>
-<li>大幅増減: +10kg以上 1/6頭が3着内、-10kg以下 0/4頭が3着内</li>
+<li>馬体重取得済み 79/79頭、3着内 15頭</li>
+<li>3着内馬の平均馬体重 484kg（全体平均 482kg）</li>
+<li>3着内馬の平均増減 -1kg</li>
+<li>大幅増減: +10kg以上 0/5頭が3着内、-10kg以下 1/6頭が3着内</li>
 </ul></article>
 <article class="card">
 <h4>阪神 芝</h4>
 <ul class="notes">
-<li>馬体重取得済み 83/83頭、3着内 18頭</li>
-<li>3着内馬の平均馬体重 459kg（全体平均 461kg）</li>
+<li>馬体重取得済み 87/87頭、3着内 18頭</li>
+<li>3着内馬の平均馬体重 467kg（全体平均 471kg）</li>
 <li>3着内馬の平均増減 +1kg</li>
-<li>大幅増減: +10kg以上 3/5頭が3着内、-10kg以下 1/4頭が3着内</li>
+<li>大幅増減: +10kg以上 1/3頭が3着内、-10kg以下 0/6頭が3着内</li>
+</ul></article>
+<article class="card">
+<h4>阪神 障害</h4>
+<ul class="notes">
+<li>馬体重取得済み 7/7頭、3着内 3頭</li>
+<li>3着内馬の平均馬体重 494kg（全体平均 495kg）</li>
+<li>3着内馬の平均増減 +3kg</li>
+<li>大幅増減: +10kg以上 1/2頭が3着内、-10kg以下 0/1頭が3着内</li>
 </ul></article>
 </div>
 <details class="race-group">
 <summary>馬体重全体（参考）を見る</summary>
 <div class="race-group-body"><ul class="notes">
-<li>馬体重取得済み 496/496頭、3着内 108頭</li>
-<li>3着内馬の平均馬体重 470kg（全体平均 469kg）</li>
-<li>3着内馬の平均増減 +2kg</li>
-<li>大幅増減: +10kg以上 8/47頭が3着内、-10kg以下 4/28頭が3着内</li>
+<li>馬体重取得済み 501/501頭、3着内 108頭</li>
+<li>3着内馬の平均馬体重 469kg（全体平均 468kg）</li>
+<li>3着内馬の平均増減 0kg</li>
+<li>大幅増減: +10kg以上 8/43頭が3着内、-10kg以下 3/31頭が3着内</li>
 </ul></div></details>
 </article>
 </section>
@@ -3691,42 +1767,42 @@ details.race summary::-webkit-details-marker{display:none}
 <h2>当日結果一覧</h2>
 <div class="table-wrap">
 <table class="table"><thead><tr><th>場</th><th>R</th><th>条件</th><th>勝ち馬</th><th>人気</th><th>配当</th></tr></thead><tbody>
-<tr><td>函館</td><td>1</td><td>芝稍重1200m</td><td>ディーズメンフィス</td><td>7</td><td>16,060</td></tr>
-<tr><td>函館</td><td>2</td><td>ダート稍重1700m</td><td>ビーチイン</td><td>4</td><td>8,160</td></tr>
-<tr><td>函館</td><td>3</td><td>ダート稍重1000m</td><td>クロナ</td><td>4</td><td>2,730</td></tr>
-<tr><td>函館</td><td>4</td><td>芝稍重2600m</td><td>クオンタムスター</td><td>2</td><td>3,180</td></tr>
-<tr><td>函館</td><td>5</td><td>芝稍重1200m</td><td>ダイメイビッグボス</td><td>2</td><td>13,620</td></tr>
-<tr><td>函館</td><td>6</td><td>ダート稍重1700m</td><td>オンザムービー</td><td>2</td><td>5,450</td></tr>
-<tr><td>函館</td><td>7</td><td>芝稍重1200m</td><td>ホワイトドラゴン</td><td>2</td><td>1,390</td></tr>
-<tr><td>函館</td><td>8</td><td>ダート稍重1000m</td><td>デアプリームス</td><td>2</td><td>1,060</td></tr>
-<tr><td>函館</td><td>9</td><td>芝稍重2000m</td><td>ウェイクフィールド</td><td>5</td><td>2,650</td></tr>
-<tr><td>函館</td><td>10</td><td>芝稍重1800m</td><td>カテリーナ</td><td>5</td><td>10,820</td></tr>
-<tr><td>函館</td><td>11</td><td>芝稍重1200m</td><td>ピューロマジック</td><td>6</td><td>4,510</td></tr>
-<tr><td>函館</td><td>12</td><td>ダート稍重1700m</td><td>ハヤブサオヒメサマ</td><td>9</td><td>13,500</td></tr>
-<tr><td>東京</td><td>1</td><td>ダート重1600m</td><td>ストーリーオブラブ</td><td>4</td><td>3,080</td></tr>
-<tr><td>東京</td><td>2</td><td>芝稍重2400m</td><td>ウインターブレス</td><td>4</td><td>8,350</td></tr>
-<tr><td>東京</td><td>3</td><td>ダート重1400m</td><td>キリミツ</td><td>3</td><td>2,290</td></tr>
-<tr><td>東京</td><td>4</td><td>障害3110m</td><td>スズカハービン</td><td>3</td><td>3,620</td></tr>
-<tr><td>東京</td><td>5</td><td>芝良1600m</td><td>シャンデヴァーグ</td><td>1</td><td>2,760</td></tr>
-<tr><td>東京</td><td>6</td><td>芝良1400m</td><td>デミアン</td><td>2</td><td>7,930</td></tr>
-<tr><td>東京</td><td>7</td><td>ダート稍重1600m</td><td>ロケットパンチ</td><td>6</td><td>9,510</td></tr>
-<tr><td>東京</td><td>8</td><td>芝良1400m</td><td>インプロペリア</td><td>1</td><td>61,820</td></tr>
-<tr><td>東京</td><td>9</td><td>ダート稍重2100m</td><td>インペリアルライン</td><td>5</td><td>1,780</td></tr>
-<tr><td>東京</td><td>10</td><td>ダート稍重1600m</td><td>ルヴァレドクール</td><td>4</td><td>53,570</td></tr>
-<tr><td>東京</td><td>11</td><td>芝良1800m</td><td>カネラフィーナ</td><td>3</td><td>29,540</td></tr>
-<tr><td>東京</td><td>12</td><td>ダート稍重1400m</td><td>ラインジーク</td><td>1</td><td>10,120</td></tr>
-<tr><td>阪神</td><td>1</td><td>ダート良1200m</td><td>エイユーサクラ</td><td>3</td><td>102,100</td></tr>
-<tr><td>阪神</td><td>2</td><td>ダート良2000m</td><td>メイショウジンライ</td><td>1</td><td>9,750</td></tr>
-<tr><td>阪神</td><td>3</td><td>芝良1600m</td><td>フェルギナス</td><td>1</td><td>16,990</td></tr>
-<tr><td>阪神</td><td>4</td><td>芝良1800m</td><td>ラパンドール</td><td>1</td><td>3,290</td></tr>
-<tr><td>阪神</td><td>5</td><td>芝良1200m</td><td>ロンドンガーズ</td><td>2</td><td>1,660</td></tr>
-<tr><td>阪神</td><td>6</td><td>ダート良1400m</td><td>クロリス</td><td>4</td><td>6,020</td></tr>
-<tr><td>阪神</td><td>7</td><td>ダート良1800m</td><td>ダンツシタン</td><td>6</td><td>44,740</td></tr>
-<tr><td>阪神</td><td>8</td><td>芝良1600m</td><td>アイニードユー</td><td>1</td><td>4,130</td></tr>
-<tr><td>阪神</td><td>9</td><td>芝良2200m</td><td>アスクコモンタレヴ</td><td>3</td><td>1,020</td></tr>
-<tr><td>阪神</td><td>10</td><td>ダート良1200m</td><td>テーオーグレーザー</td><td>1</td><td>1,440</td></tr>
-<tr><td>阪神</td><td>11</td><td>ダート良1800m</td><td>グランドプラージュ</td><td>1</td><td>1,280</td></tr>
-<tr><td>阪神</td><td>12</td><td>芝良1200m</td><td>ハルオーブ</td><td>11</td><td>229,620</td></tr>
+<tr><td>函館</td><td>1</td><td>芝良1200m</td><td>グランフィエルテ</td><td>8</td><td>44,610</td></tr>
+<tr><td>函館</td><td>2</td><td>ダート良1700m</td><td>コイタマチャン</td><td>2</td><td>49,460</td></tr>
+<tr><td>函館</td><td>3</td><td>芝良2000m</td><td>ジャケットポケット</td><td>4</td><td>14,330</td></tr>
+<tr><td>函館</td><td>4</td><td>ダート良1700m</td><td>ミリオンアップ</td><td>8</td><td>12,690</td></tr>
+<tr><td>函館</td><td>5</td><td>芝良1200m</td><td>イモージェン</td><td>3</td><td>860</td></tr>
+<tr><td>函館</td><td>6</td><td>ダート良1000m</td><td>ノリヤンモーニン</td><td>4</td><td>3,690</td></tr>
+<tr><td>函館</td><td>7</td><td>芝良1800m</td><td>ダーリンダーリン</td><td>5</td><td>30,670</td></tr>
+<tr><td>函館</td><td>8</td><td>ダート良1000m</td><td>クロナ</td><td>1</td><td>2,220</td></tr>
+<tr><td>函館</td><td>9</td><td>芝良1200m</td><td>スミッコディスコ</td><td>3</td><td>660</td></tr>
+<tr><td>函館</td><td>10</td><td>芝良2600m</td><td>ゴールデンパゴーダ</td><td>1</td><td>5,110</td></tr>
+<tr><td>函館</td><td>11</td><td>芝良1200m</td><td>アンジュプロミス</td><td>4</td><td>24,630</td></tr>
+<tr><td>函館</td><td>12</td><td>ダート良1700m</td><td>ディナン</td><td>1</td><td>1,430</td></tr>
+<tr><td>東京</td><td>1</td><td>ダート不良1600m</td><td>ダノンプレサージュ</td><td>1</td><td>15,950</td></tr>
+<tr><td>東京</td><td>2</td><td>ダート不良1400m</td><td>ブルーミーティア</td><td>3</td><td>620</td></tr>
+<tr><td>東京</td><td>3</td><td>芝稍重1800m</td><td>ジュナベーラ</td><td>1</td><td>5,580</td></tr>
+<tr><td>東京</td><td>4</td><td>芝稍重1400m</td><td>ルークウォーム</td><td>1</td><td>22,430</td></tr>
+<tr><td>東京</td><td>5</td><td>芝稍重1600m</td><td>レッチュベルク</td><td>2</td><td>960</td></tr>
+<tr><td>東京</td><td>6</td><td>ダート不良1600m</td><td>ロングミックス</td><td>2</td><td>4,810</td></tr>
+<tr><td>東京</td><td>7</td><td>ダート不良1400m</td><td>アンジェラス</td><td>7</td><td>18,870</td></tr>
+<tr><td>東京</td><td>8</td><td>芝稍重1800m</td><td>タイセイプランセス</td><td>8</td><td>6,000</td></tr>
+<tr><td>東京</td><td>9</td><td>芝稍重2400m</td><td>チャリングクロス</td><td>2</td><td>9,590</td></tr>
+<tr><td>東京</td><td>10</td><td>芝稍重1400m</td><td>ラージギャラリー</td><td>5</td><td>43,840</td></tr>
+<tr><td>東京</td><td>11</td><td>ダート不良2100m</td><td>リアレスト</td><td>9</td><td>63,130</td></tr>
+<tr><td>東京</td><td>12</td><td>ダート不良1600m</td><td>オクトーバーナイン</td><td>2</td><td>84,370</td></tr>
+<tr><td>阪神</td><td>1</td><td>障害稍重3110m</td><td>ロードリベラシオン</td><td>2</td><td>840</td></tr>
+<tr><td>阪神</td><td>2</td><td>ダート稍重1200m</td><td>マリリンバローズ</td><td>1</td><td>1,520</td></tr>
+<tr><td>阪神</td><td>3</td><td>ダート稍重1800m</td><td>マクノス</td><td>6</td><td>2,790</td></tr>
+<tr><td>阪神</td><td>4</td><td>ダート稍重1800m</td><td>オンザ</td><td>4</td><td>1,530</td></tr>
+<tr><td>阪神</td><td>5</td><td>芝稍重1400m</td><td>リュウトウコヤク</td><td>7</td><td>14,140</td></tr>
+<tr><td>阪神</td><td>6</td><td>芝稍重1800m</td><td>メイショウショカツ</td><td>1</td><td>2,220</td></tr>
+<tr><td>阪神</td><td>7</td><td>芝稍重2400m</td><td>サガルマータ</td><td>1</td><td>2,630</td></tr>
+<tr><td>阪神</td><td>8</td><td>ダート稍重1800m</td><td>ショウナンバンライ</td><td>6</td><td>10,920</td></tr>
+<tr><td>阪神</td><td>9</td><td>芝稍重1600m</td><td>アヴィオン</td><td>1</td><td>2,700</td></tr>
+<tr><td>阪神</td><td>10</td><td>芝重2200m</td><td>サクソンジェンヌ</td><td>2</td><td>42,970</td></tr>
+<tr><td>阪神</td><td>11</td><td>ダート重1400m</td><td>ベルジュロネット</td><td>1</td><td>8,430</td></tr>
+<tr><td>阪神</td><td>12</td><td>芝重1600m</td><td>アロンソア</td><td>14</td><td>159,760</td></tr>
 </tbody></table></div>
 <p class="small">おすすめ馬は傾向一致度であり、馬券購入を保証するものではありません。予測利用可は出馬表段階で確認できる特徴、結果確認はレース後に判明する後付け検証です。持ち越し信頼度は、中=確認ポイント、低=単独では使わない、対象外=予測に使わない、という目安です。推奨スコアでは低信頼の枠・血統を0.35倍、個別追い切りのプラス評価を0.40倍に抑えています。サンプル数が少ない条件は確認ポイントとして扱ってください。取消・除外・競走中止など異常区分付きの馬は、枠・脚質・血統の母数から除外しています。</p>
 </section>
