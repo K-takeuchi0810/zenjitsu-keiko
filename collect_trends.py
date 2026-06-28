@@ -241,11 +241,13 @@ class TrendWeights:
     frame: float = 1.0
     style: float = 1.0
     market: float = 1.0
+    payout: float = 1.0
     mining: float = 1.0
     training: float = 1.0
     bloodline: float = 1.0
     jockey: float = 1.0
     notes: list[str] = field(default_factory=list)
+    applied_counts: dict[str, int] = field(default_factory=dict)
 
 
 @dataclass
@@ -1765,8 +1767,9 @@ def determine_trend_weights(races: list[RaceResult]) -> TrendWeights:
         weights.market = 1.15
         notes.append(f"人気/オッズ: 堅め寄り（勝ち馬平均{avg_pop:.1f}人気）")
     elif avg_pop >= 5.0 or high_payout_rate >= 0.30:
-        weights.market = 1.12
-        notes.append(f"人気/オッズ: 中穴許容（高配当{stats.high_payout_races}/{len(stats.races)}R）")
+        weights.market = 0.98
+        weights.payout = 1.12
+        notes.append(f"荒れ/配当: 中穴許容（高配当{stats.high_payout_races}/{len(stats.races)}R）")
     else:
         weights.market = 1.00
         notes.append("人気/オッズ: 標準")
@@ -1813,7 +1816,19 @@ def parse_percent(value: str) -> float | None:
         return None
 
 
-def historical_adjustment_from_rate(rate: float, sample_note_text: str) -> float:
+def historical_adjustment_from_rate(rate: float, sample_note_text: str, signal_type: str = "") -> float:
+    if signal_type == "bloodline":
+        if rate >= 0.75:
+            raw = 1.04
+        elif rate >= 0.65:
+            raw = 0.96
+        elif rate >= 0.55:
+            raw = 0.82
+        else:
+            raw = 0.75
+        if sample_note_text != "通常":
+            return 1.0 + (raw - 1.0) * 0.5
+        return raw
     if rate >= 0.80:
         raw = 1.10
     elif rate >= 0.65:
@@ -1843,7 +1858,7 @@ def apply_historical_validation_weights(weights: TrendWeights, summary_csv_path:
         "style": "style",
         "frame": "frame",
         "market": "market",
-        "payout": "market",
+        "payout": "payout",
         "bloodline": "bloodline",
         "training": "training",
     }
@@ -1858,7 +1873,8 @@ def apply_historical_validation_weights(weights: TrendWeights, summary_csv_path:
         rate = parse_percent(row.get("reproduced_or_partial_rate", ""))
         if rate is None:
             continue
-        multiplier = historical_adjustment_from_rate(rate, row.get("sample_note", ""))
+        signal_type = row.get("signal_type", "")
+        multiplier = historical_adjustment_from_rate(rate, row.get("sample_note", ""), signal_type)
         adjustments[attr].append(multiplier)
         labels[attr].append(f"{row.get('signal_label', row.get('signal_type', attr))}{rate * 100:.0f}%")
 
@@ -2028,11 +2044,24 @@ def disable_mining_weight_if_missing(weights: TrendWeights, horses: list[NextHor
         weights.notes.append(f"データマイニング: 取得率{pct(mining_count, len(horses))}のため重み半減")
 
 
+def adjust_weights_for_next_data(weights: TrendWeights, horses: list[NextHorse]) -> None:
+    if not horses:
+        return
+    style_count = sum(1 for horse in horses if horse.style)
+    if style_count == 0:
+        weights.style = 0.0
+        weights.notes.append("脚質: 対象出走馬の脚質データ未取得のため今回スコアでは無効")
+    elif style_count / len(horses) < 0.5:
+        weights.style *= 0.5
+        weights.notes.append(f"脚質: 取得率{pct(style_count, len(horses))}のため重み半減")
+
+
 def trend_weight_items(weights: TrendWeights) -> list[tuple[str, float]]:
     return [
         ("枠", weights.frame),
         ("脚質", weights.style),
-        ("人気/オッズ", weights.market),
+        ("人気/堅実", weights.market),
+        ("荒れ/配当", weights.payout),
         ("データマイニング", weights.mining),
         ("調教", weights.training),
         ("血統", weights.bloodline),
@@ -2363,14 +2392,16 @@ def append_html_weight_card(parts: list[str], weights: TrendWeights) -> None:
     parts.append("<h3>今回の重みづけ</h3>")
     parts.append('<div class="dashboard-grid weight-grid">')
     for label, value in trend_weight_items(weights):
+        applied = weights.applied_counts.get(label, 0)
+        applied_text = f" / 適用{applied}件" if weights.applied_counts else ""
         parts.append(
             f'<div class="metric"><b>{e(label)}</b>'
-            f'<span>{e(weight_label(value))}</span><small>{e(weight_multiplier_text(value))}</small></div>'
+            f'<span>{e(weight_label(value))}</span><small>{e(weight_multiplier_text(value) + applied_text)}</small></div>'
         )
     parts.append("</div>")
     if weights.notes:
         parts.append('<ul class="notes">')
-        for note in weights.notes[:6]:
+        for note in weights.notes[:12]:
             parts.append(f"<li>{e(note)}</li>")
         parts.append("</ul>")
     parts.append("</article>")
@@ -2589,27 +2620,29 @@ def score_horse(
 
     avg_pop = sum(stats.winner_popularities) / len(stats.winner_popularities) if stats.winner_popularities else 0
     high_payout_rate = stats.high_payout_races / len(stats.races) if stats.races else 0
-    market_add = 0
+    firm_market_add = 0
+    payout_add = 0
     if horse.popularity:
         if avg_pop and avg_pop <= 3.2 and horse.popularity <= 3:
-            market_add += 6
+            firm_market_add += 6
             reasons.append("堅め傾向に合う上位人気")
         elif avg_pop and avg_pop <= 3.2 and horse.popularity <= 5:
-            market_add += 3
+            firm_market_add += 3
             reasons.append("堅め傾向で人気面は許容")
         elif (avg_pop >= 5.0 or high_payout_rate >= 0.30) and horse.popularity >= 5:
-            market_add += 6 if horse.popularity <= 9 else 3
+            payout_add += 6 if horse.popularity <= 9 else 3
             reasons.append("荒れ気味の日で人気薄も許容")
         elif horse.popularity <= 5:
-            market_add += 3
+            firm_market_add += 3
             reasons.append("人気面は許容範囲")
 
     if horse.odds:
         if avg_pop and avg_pop <= 3.2 and horse.odds <= 6.0:
-            market_add += 2
+            firm_market_add += 2
         elif high_payout_rate >= 0.30 and 8.0 <= horse.odds <= 40.0:
-            market_add += 2
-    score += min(8, market_add) * weights.market
+            payout_add += 2
+    score += min(8, firm_market_add) * weights.market
+    score += min(8, payout_add) * weights.payout
 
     if horse.mining_rank:
         if horse.mining_rank == 1:
@@ -2639,7 +2672,7 @@ def score_horse(
         if _training_light_finish_focus(horse.training):
             training_add += 2
         if _training_slowed(horse.training):
-            score -= 8
+            score -= 3 * weights.training
             negative_reasons.append("減点: 調教終い失速")
         score += min(10, training_add) * INDIVIDUAL_TRAINING_SCORE_FACTOR * weights.training
         positive_tags = [tag for tag in training_tags if tag not in {"標準的", "終い失速"}]
@@ -2690,6 +2723,29 @@ def score_horse(
     if not reasons:
         reasons.append("強い一致なし")
     return Recommendation(horse=horse, score=max(0, min(100, round(score))), trend_source=source, reasons=reasons[:5])
+
+
+def recommendation_reason_counts(recommendations: list[Recommendation]) -> dict[str, int]:
+    counts: Counter = Counter()
+    for rec in recommendations:
+        text = " / ".join(rec.reasons)
+        if "枠" in text:
+            counts["枠"] += 1
+        if "脚質" in text:
+            counts["脚質"] += 1
+        if "堅め傾向" in text or "人気面" in text:
+            counts["人気/堅実"] += 1
+        if "荒れ気味" in text:
+            counts["荒れ/配当"] += 1
+        if "データマイニング" in text:
+            counts["データマイニング"] += 1
+        if "調教:" in text or "調教終い失速" in text:
+            counts["調教"] += 1
+        if "父" in text or "母父" in text:
+            counts["血統"] += 1
+        if "騎手同コース" in text:
+            counts["騎手同コース"] += 1
+    return dict(counts)
 
 
 def build_recommendations(
@@ -2968,10 +3024,12 @@ def build_markdown(
     lines.append("")
     lines.append("### 今回の重みづけ")
     lines.append("")
-    lines.append("|要素|重み|係数|")
-    lines.append("|---|---|---:|")
+    lines.append("|要素|重み|係数|今回適用|")
+    lines.append("|---|---|---:|---:|")
     for label, value in trend_weight_items(trend_weights):
-        lines.append(f"|{label}|{weight_label(value)}|{weight_multiplier_text(value)}|")
+        applied = trend_weights.applied_counts.get(label)
+        applied_text = "-" if applied is None else f"{applied}件"
+        lines.append(f"|{label}|{weight_label(value)}|{weight_multiplier_text(value)}|{applied_text}|")
     lines.append("")
     for note in trend_weights.notes:
         lines.append(f"- {note}")
@@ -3929,6 +3987,7 @@ def main() -> int:
     finally:
         weight_conn.close()
     disable_mining_weight_if_missing(trend_weights, next_horses)
+    adjust_weights_for_next_data(trend_weights, next_horses)
     recommendations = build_recommendations(
         next_horses,
         by_track,
@@ -3945,6 +4004,7 @@ def main() -> int:
         min_score=REFERENCE_CANDIDATE_MIN_SCORE,
         max_score=RECOMMENDATION_MIN_SCORE,
     )
+    trend_weights.applied_counts = recommendation_reason_counts(recommendations)
 
     migrate_flat_outputs(output_dir)
     md_path, csv_path, html_path = report_paths(output_dir, date_key)

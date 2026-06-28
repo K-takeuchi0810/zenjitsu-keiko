@@ -81,6 +81,7 @@ def next_horse(
     popularity: int = 1,
     mining_rank: int = 1,
     training: dict | None = None,
+    style: str = "先行",
 ) -> c.NextHorse:
     return c.NextHorse(
         track_code=track_code,
@@ -98,7 +99,7 @@ def next_horse(
         jockey="騎手",
         odds=odds,
         popularity=popularity,
-        style="先行",
+        style=style,
         mining_rank=mining_rank,
         training=training,
     )
@@ -389,6 +390,15 @@ class RecommendationScoringConfidenceTests(unittest.TestCase):
 
         self.assertEqual(rec.score, 44)
         self.assertTrue(any("調教:" in reason and "加点抑制" in reason for reason in rec.reasons))
+
+    def test_training_slowdown_penalty_is_lightweight(self):
+        training = training_row("評価馬", 1)
+        training.update({"lap_1f": 160, "lap_2f_1f": 130})
+
+        rec = c.score_horse(scoring_horse(frame=8, training=training), scoring_stats(), "test")
+
+        self.assertEqual(rec.score, 37)
+        self.assertTrue(any("調教終い失速" in reason for reason in rec.reasons))
 
     def test_bloodline_score_add_is_reduced_as_low_confidence(self):
         bloodline_stats = c.BloodlineStats(
@@ -762,8 +772,16 @@ class DynamicWeightingTests(unittest.TestCase):
         self.assertTrue(any("データマイニング順位が未取得" in warning for warning in status.warnings))
         self.assertEqual(weights.mining, 0.0)
 
+    def test_missing_next_style_data_disables_style_weight(self):
+        weights = c.TrendWeights(style=1.3)
+
+        c.adjust_weights_for_next_data(weights, [next_horse(style=""), next_horse(style="")])
+
+        self.assertEqual(weights.style, 0.0)
+        self.assertTrue(any("脚質データ未取得" in note for note in weights.notes))
+
     def test_historical_validation_summary_adjusts_weights_conservatively(self):
-        weights = c.TrendWeights(style=1.0, frame=1.0)
+        weights = c.TrendWeights(style=1.0, frame=1.0, bloodline=1.08)
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "trend_validation_summary.csv"
             path.write_text(
@@ -772,6 +790,7 @@ class DynamicWeightingTests(unittest.TestCase):
                         "group,signal_type,signal_label,date_pairs,total_rows,judged,reproduced,partial,missed,unavailable,reproduction_rate,reproduced_or_partial_rate,sample_note",
                         "予測信号,style,脚質,9,52,52,41,9,2,0,79%,96%,参考値",
                         "予測信号,frame,枠,9,29,29,11,7,11,0,38%,62%,参考値",
+                        "予測信号,bloodline,血統,9,29,29,9,7,13,0,31%,54%,通常",
                     ]
                 ),
                 encoding="utf-8-sig",
@@ -780,6 +799,7 @@ class DynamicWeightingTests(unittest.TestCase):
 
         self.assertGreater(weights.style, 1.0)
         self.assertLess(weights.frame, 1.0)
+        self.assertLess(weights.bloodline, 0.9)
         self.assertTrue(any("過去検証" in note for note in weights.notes))
 
     def test_intraday_results_lightly_adjust_market_and_mining(self):
