@@ -1,0 +1,8 @@
+{
+  "source_db": "C:\\path\\to\\keiba-yosou\\data\\keiba.db",
+  "output_dir": "reports",
+  "publish_dir": "C:\\path\\to\\iCloudDrive\\傾向収集",
+  "publish_to_icloud": true,
+  "latest_min_races": 24,
+  "expected_races_by_date": {}
+}
