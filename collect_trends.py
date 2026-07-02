@@ -2436,33 +2436,50 @@ def append_html_body_weight_card(
     parts.append("</article>")
 
 
+def append_html_race_overview_row(parts: list[str], summary: NextRaceSummary) -> None:
+    pick_text = recommendation_summary(summary.recommendations)
+    if not pick_text and summary.reference_recommendations:
+        pick_text = "参考 " + recommendation_summary(summary.reference_recommendations)
+    pick_text = pick_text or "推奨なし"
+    if summary.recommendations:
+        row_class = "race-row has-pick"
+    elif summary.reference_recommendations:
+        row_class = "race-row has-reference"
+    else:
+        row_class = "race-row no-pick"
+    race_text = race_label(summary.track, summary.race_num, summary.race_name)
+    if summary.recommendations or summary.reference_recommendations:
+        race_cell = f'<a class="race-link" href="#{e(summary.race_id)}">{e(race_text)}</a>'
+    else:
+        race_cell = f'<span class="race-link muted">{e(race_text)}</span>'
+    parts.append(f'<div class="{row_class}">')
+    parts.append(f'<div class="race-cell main">{race_cell}</div>')
+    parts.append(f'<div class="race-cell time">{e(summary.start_time) or "-"}</div>')
+    parts.append(f'<div class="race-cell condition">{e(summary.condition)}</div>')
+    parts.append(f'<div class="race-cell pick">{e(pick_text)}</div>')
+    parts.append("</div>")
+
+
 def append_html_race_overview(parts: list[str], summaries: list[NextRaceSummary]) -> None:
+    picked = [s for s in summaries if s.recommendations or s.reference_recommendations]
+    no_pick = [s for s in summaries if not (s.recommendations or s.reference_recommendations)]
     parts.append('<article class="card race-overview-card">')
     parts.append("<h3>対象レース早見</h3>")
-    parts.append('<div class="race-overview">')
-    for summary in summaries:
-        pick_text = recommendation_summary(summary.recommendations)
-        if not pick_text and summary.reference_recommendations:
-            pick_text = "参考 " + recommendation_summary(summary.reference_recommendations)
-        pick_text = pick_text or "推奨なし"
-        if summary.recommendations:
-            row_class = "race-row has-pick"
-        elif summary.reference_recommendations:
-            row_class = "race-row has-reference"
-        else:
-            row_class = "race-row no-pick"
-        race_text = race_label(summary.track, summary.race_num, summary.race_name)
-        if summary.recommendations or summary.reference_recommendations:
-            race_cell = f'<a class="race-link" href="#{e(summary.race_id)}">{e(race_text)}</a>'
-        else:
-            race_cell = f'<span class="race-link muted">{e(race_text)}</span>'
-        parts.append(f'<div class="{row_class}">')
-        parts.append(f'<div class="race-cell main">{race_cell}</div>')
-        parts.append(f'<div class="race-cell time">{e(summary.start_time) or "-"}</div>')
-        parts.append(f'<div class="race-cell condition">{e(summary.condition)}</div>')
-        parts.append(f'<div class="race-cell pick">{e(pick_text)}</div>')
+    if picked:
+        parts.append('<div class="race-overview">')
+        for summary in picked:
+            append_html_race_overview_row(parts, summary)
         parts.append("</div>")
-    parts.append("</div></article>")
+    elif no_pick:
+        parts.append('<p class="sub">推奨・参考候補のあるレースはありません。</p>')
+    if no_pick:
+        parts.append('<details class="race-group">')
+        parts.append(f"<summary>推奨なしのレース（{len(no_pick)}R）を見る</summary>")
+        parts.append('<div class="race-group-body"><div class="race-overview">')
+        for summary in no_pick:
+            append_html_race_overview_row(parts, summary)
+        parts.append("</div></div></details>")
+    parts.append("</article>")
 
 
 def append_html_recommendation_detail(
@@ -2874,7 +2891,7 @@ def next_pick_status_items(status: NextPickDataStatus) -> list[tuple[str, str]]:
         ("オッズ", status_count_rate(status.odds_count, status.horse_count)),
         ("人気", status_count_rate(status.popularity_count, status.horse_count)),
         ("追い切り", status_count_rate(status.training_count, status.horse_count)),
-        ("データマイニング", status_count_rate(status.mining_count, status.horse_count)),
+        ("DM予想", status_count_rate(status.mining_count, status.horse_count)),
         ("推奨馬", f"{status.recommendation_count}頭 / {status.recommendation_race_count}R"),
     ]
 
@@ -2889,7 +2906,7 @@ def overview_status_items(date_key: str, race_count: int, status: NextPickDataSt
         ("オッズ", status_count_rate(status.odds_count, status.horse_count)),
         ("人気", status_count_rate(status.popularity_count, status.horse_count)),
         ("追い切り", status_count_rate(status.training_count, status.horse_count)),
-        ("DM", status_count_rate(status.mining_count, status.horse_count)),
+        ("DM予想", status_count_rate(status.mining_count, status.horse_count)),
     ]
 
 
@@ -3280,98 +3297,109 @@ def build_html(
     ]
 
     css = """
-:root{--bg:#f5f6f8;--ink:#17202a;--muted:#64748b;--line:#d8e0ea;--card:#fff;--soft:#f1f5f9;--blue:#174ea6;--blue-bg:#e8f0fe;--warn:#fff7ed;--warn-line:#fed7aa;--accent:#2563eb}
+:root{--bg:#f5f6f8;--ink:#17202a;--muted:#5b6b7e;--line:#d8e0ea;--card:#fff;--soft:#f1f5f9;--blue:#174ea6;--blue-bg:#e8f0fe;--warn:#fff7ed;--warn-line:#fed7aa;--accent:#2563eb}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 html,body{max-width:100%;overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;font-size:14px;letter-spacing:0}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6;font-size:15px;letter-spacing:0}
 p,li,td,th,strong,span,div,a{overflow-wrap:anywhere}
-.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 40px}
+[id]{scroll-margin-top:76px}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 84px}
 .hero{background:#0f172a;color:#fff;padding:18px 16px;border-radius:0 0 12px 12px}
-.hero h1{font-size:20px;line-height:1.3;margin:0 0 8px;letter-spacing:0}
+.hero h1{font-size:21px;line-height:1.3;margin:0 0 8px;letter-spacing:0}
 .meta{color:#cbd5e1;font-size:13px}
-.nav{position:sticky;top:0;background:rgba(245,246,248,.96);backdrop-filter:blur(8px);z-index:5;padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;overflow-x:visible}
-.nav a{flex:0 0 auto;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:8px;padding:7px 10px;font-size:13px;line-height:1.2}
+.nav{position:sticky;top:0;background:rgba(245,246,248,.97);backdrop-filter:blur(8px);z-index:5;padding:10px 0;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:999px;padding:9px 13px;font-size:13px;line-height:1.2;font-weight:700}
+.to-top{position:fixed;right:12px;bottom:12px;z-index:6;background:rgba(15,23,42,.92);color:#fff;text-decoration:none;border-radius:999px;padding:11px 15px;font-size:13px;font-weight:700;box-shadow:0 2px 10px rgba(15,23,42,.3)}
 .section{margin:18px 0}
-.section h2{font-size:16px;margin:0 0 10px}
-.section h3{font-size:14px;margin:14px 0 8px}
-.card h4{font-size:13px;margin:0 0 6px;color:#0f172a}
+.section h2{font-size:17px;margin:0 0 10px}
+.section h3{font-size:15px;margin:14px 0 8px}
+.card h4{font-size:14px;margin:0 0 6px;color:#0f172a}
 .grid{display:grid;gap:10px;min-width:0}
 .dashboard-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.metric{min-width:0;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px}
-.metric b{display:block;color:var(--muted);font-size:11px;line-height:1.2;margin-bottom:3px}
-.metric span{display:block;color:#0f172a;font-size:15px;font-weight:800;line-height:1.25}
-.metric small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
-.decision{margin-top:10px;border-left:4px solid var(--accent);background:#f8fbff;padding:9px 10px;border-radius:6px}
-.decision b{display:block;font-size:12px;color:var(--blue);margin-bottom:2px}
-.decision span{font-size:13px;font-weight:700;color:#0f172a}
+.metric{min-width:0;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px}
+.metric b{display:block;color:var(--muted);font-size:12px;line-height:1.2;margin-bottom:3px}
+.metric span{display:block;color:#0f172a;font-size:17px;font-weight:800;line-height:1.25}
+.metric small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.decision{margin-top:10px;border-left:4px solid var(--accent);background:#f8fbff;padding:10px 11px;border-radius:6px}
+.decision b{display:block;font-size:13px;color:var(--blue);margin-bottom:2px}
+.decision span{font-size:14px;font-weight:700;color:#0f172a}
 .card,details.race{width:100%;max-width:100%;min-width:0;background:var(--card);border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
 .card{padding:12px}
 .quick-card{padding-top:10px}
 details.race{margin:8px 0}
 details.race.recommended{border-left:4px solid var(--accent)}
 details.race.reference{border-left:4px solid #f59e0b}
-details.race summary{cursor:pointer;list-style:none;padding:10px 12px}
+details.race summary{cursor:pointer;list-style:none;padding:12px}
 details.race summary::-webkit-details-marker{display:none}
+details.race>summary .pill::after{content:" ▾"}
+details.race[open]>summary .pill::after{content:" ▴"}
 .summary-main{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start}
 .summary-main>div{min-width:0}
-.summary-main strong{font-size:14px;line-height:1.35}
+.summary-main strong{font-size:15px;line-height:1.35}
 .summary-condition{color:var(--muted);font-size:13px;margin-top:2px}
-.summary-picks{color:#334155;font-size:13px;margin-top:4px;line-height:1.35;font-weight:700}
-.training-insight{margin-top:6px;font-size:13px;font-weight:700;color:#0f172a}
+.summary-picks{color:#334155;font-size:14px;margin-top:4px;line-height:1.35;font-weight:700}
+.training-insight{margin-top:6px;font-size:14px;font-weight:700;color:#0f172a}
 .tag-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
-.tag{display:inline-flex;align-items:center;border-radius:999px;background:var(--blue-bg);color:var(--blue);padding:3px 7px;font-size:12px;font-weight:700;line-height:1.2}
+.tag{display:inline-flex;align-items:center;border-radius:999px;background:var(--blue-bg);color:var(--blue);padding:4px 9px;font-size:12px;font-weight:700;line-height:1.2}
 .tag.muted{background:var(--soft);color:#475569}
 .detail-body{padding:0 12px 12px;min-width:0}
 .pick-mini{max-width:100%;border-left:4px solid var(--accent);border-top:1px solid #e2e8f0;margin-top:10px;padding:10px 0 0 8px}
 .race-title{display:block;min-width:0}
-.race-title strong{font-size:14px}
-.pill{display:inline-flex;align-items:center;border-radius:6px;padding:3px 7px;background:var(--blue-bg);color:var(--blue);font-weight:700;font-size:12px;white-space:nowrap}
-.sub{color:var(--muted);font-size:13px;line-height:1.4}
-.horse{font-size:14px;font-weight:800;margin:2px 0;line-height:1.4}
+.race-title strong{font-size:15px}
+.pill{display:inline-flex;align-items:center;border-radius:6px;padding:4px 8px;background:var(--blue-bg);color:var(--blue);font-weight:700;font-size:12px;white-space:nowrap}
+.sub{color:var(--muted);font-size:14px;line-height:1.5}
+.horse{font-size:15px;font-weight:800;margin:2px 0;line-height:1.4}
 .chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px;max-width:100%}
-.chip{min-width:0;max-width:100%;background:var(--soft);border-radius:6px;padding:5px 7px;font-size:12px;line-height:1.35}
+.chip{min-width:0;max-width:100%;background:var(--soft);border-radius:6px;padding:6px 8px;font-size:13px;line-height:1.35}
 .chip.strong{background:var(--blue-bg);color:var(--blue);font-weight:800}
 .chip.wide{grid-column:1/-1}
 .race-group{margin-top:8px;background:#fff;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden}
-.race-group>summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px;background:#f8fafc;font-weight:800;color:#0f172a}
-.race-group>summary::after{content:"開く";flex:none;border-radius:999px;background:var(--blue-bg);color:var(--blue);padding:3px 8px;font-size:12px;line-height:1.2}
-.race-group[open]>summary::after{content:"閉じる"}
+.race-group>summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 12px;background:#f8fafc;font-weight:800;color:#0f172a}
+.race-group>summary::after{content:"開く ▾";flex:none;border-radius:999px;background:var(--blue-bg);color:var(--blue);padding:5px 10px;font-size:12px;line-height:1.2}
+.race-group[open]>summary::after{content:"閉じる ▴"}
 .race-group-body{padding:0 12px 12px}
+.race-group-body .race-overview{margin-top:10px}
 .race-overview-card{margin-top:10px}
 .race-overview{display:grid;gap:6px}
-.pick-jump{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
-.pick-jump a{display:inline-flex;align-items:center;text-decoration:none;color:#0f172a;background:#f8fbff;border:1px solid #bfdbfe;border-radius:6px;padding:5px 8px;font-size:12px;font-weight:800;line-height:1.2}
-.race-row{display:grid;grid-template-columns:minmax(118px,1.1fr) 52px 98px minmax(0,1.5fr);gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.pick-jump{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
+.pick-jump a{display:inline-flex;align-items:center;text-decoration:none;color:#0f172a;background:#f8fbff;border:1px solid #bfdbfe;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;line-height:1.2}
+.race-row{display:grid;grid-template-columns:minmax(118px,1.1fr) 52px 98px minmax(0,1.5fr);gap:6px;align-items:center;padding:9px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
 .race-row.no-pick{background:#f8fafc;color:var(--muted)}
 .race-row.has-pick{background:#f8fbff;border-color:#bfdbfe}
 .race-row.has-reference{background:#fffbeb;border-color:#fde68a}
-.race-cell{min-width:0;font-size:12px;line-height:1.25}
+.race-cell{min-width:0;font-size:13px;line-height:1.3}
 .race-cell.time{white-space:nowrap;color:var(--muted)}
 .race-cell.condition{color:#475569}
 .race-cell.pick{font-weight:700;color:#0f172a}
 .race-link{font-weight:800;color:#0f172a;text-decoration:none}
 .race-link.muted{color:#475569}
 .raw-training{margin-top:8px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc}
-.raw-training summary{padding:7px 9px;font-size:12px;color:#475569}
-.raw-training .raw-body{padding:0 9px 9px;font-size:12px;color:#334155;line-height:1.45}
-.reason{margin:8px 0 0;padding-left:18px;font-size:13px}
-.reason li{margin:2px 0}
-.stat{display:grid;grid-template-columns:78px minmax(0,1fr);gap:6px 10px;font-size:13px}
+.raw-training summary{padding:9px 10px;font-size:13px;color:#475569;cursor:pointer}
+.raw-training .raw-body{padding:0 10px 10px;font-size:13px;color:#334155;line-height:1.5}
+.reason{margin:8px 0 0;padding-left:18px;font-size:14px}
+.reason li{margin:3px 0}
+.stat{display:grid;grid-template-columns:86px minmax(0,1fr);gap:6px 10px;font-size:14px}
 .stat b{color:#475569}
-.usage-label{margin-top:8px;font-size:12px;font-weight:800;color:var(--blue)}
+.usage-label{margin-top:8px;font-size:13px;font-weight:800;color:var(--blue)}
 .usage-label.result{color:#92400e}
-.notes{padding-left:18px;margin:6px 0;font-size:13px}
-.notes li{margin:3px 0}
+.notes{padding-left:18px;margin:6px 0;font-size:14px}
+.notes li{margin:4px 0}
 .table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
 .table{width:100%;min-width:620px;border-collapse:collapse;background:#fff}
-.table th,.table td{border-bottom:1px solid #e2e8f0;padding:8px;text-align:left;font-size:13px;vertical-align:top}
+.table th,.table td{border-bottom:1px solid #e2e8f0;padding:9px 10px;text-align:left;font-size:14px;vertical-align:top}
 .table th{background:#f8fafc;color:#475569;white-space:nowrap}
 .table tr:last-child td{border-bottom:0}
+.table th.num,.table td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .trend-table td:nth-child(2){white-space:nowrap;text-align:right;color:#475569}
-.small{font-size:12px;color:var(--muted)}
+.small{font-size:13px;color:var(--muted)}
+.scroll-hint{display:none;margin:0 0 6px}
 .empty{background:var(--warn);border-color:var(--warn-line)}
-@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:520px){.wrap{padding:10px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{font-size:12px;padding:6px 8px}.summary-main{grid-template-columns:minmax(0,1fr)}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:2px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:3px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:5px}}
+@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}.nav{flex-wrap:wrap;overflow-x:visible}}
+@media(max-width:640px){.scroll-hint{display:block}}
+@media(max-width:520px){.wrap{padding:10px 10px 84px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{font-size:13px;padding:8px 11px}.summary-main{grid-template-columns:minmax(0,1fr)}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:4px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:6px}}
 """
 
     parts: list[str] = [
@@ -3380,16 +3408,18 @@ details.race summary::-webkit-details-marker{display:none}
         "<head>",
         '<meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
+        '<meta name="color-scheme" content="light">',
+        '<meta name="theme-color" content="#0f172a">',
         f"<title>中央競馬 傾向 {e(display_date(date_key))}</title>",
         f"<style>{css}</style>",
         "</head>",
         "<body>",
-        '<div class="hero">',
+        '<div class="hero" id="top">',
         f"<h1>中央競馬 傾向レポート<br>{e(display_date(date_key))}</h1>",
         f'<div class="meta">生成 {e(generated_at)} / 対象 {len(races)}R / 元DB {e(db_path.name)}</div>',
         "</div>",
         '<main class="wrap">',
-        '<nav class="nav"><a href="#overview">概要</a><a href="#picks">レース別おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">当日結果</a></nav>',
+        '<nav class="nav" aria-label="ページ内リンク"><a href="#overview">概要</a><a href="#picks">レース別おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">当日結果</a><a href="#guide">読み方</a></nav>',
     ]
 
     overview_card_class = "card dashboard empty" if pick_status.zero_reason or pick_status.warnings else "card dashboard"
@@ -3584,27 +3614,36 @@ details.race summary::-webkit-details-marker{display:none}
 
     parts.append('<section id="results" class="section">')
     parts.append("<h2>当日結果一覧</h2>")
+    parts.append('<p class="small scroll-hint">表は横にスクロールできます</p>')
     parts.append('<div class="table-wrap">')
-    parts.append('<table class="table"><thead><tr><th>場</th><th>R</th><th>条件</th><th>勝ち馬</th><th>人気</th><th>配当</th></tr></thead><tbody>')
+    parts.append('<table class="table"><thead><tr><th>場</th><th class="num">R</th><th>条件</th><th>勝ち馬</th><th class="num">人気</th><th class="num">三連複配当</th></tr></thead><tbody>')
     for race in races:
         winner = race.winner
         if not winner:
             continue
         parts.append(
-            f"<tr><td>{e(race.track)}</td><td>{race.race_num}</td><td>{e(race.condition)}</td>"
-            f"<td>{e(winner.name)}</td><td>{winner.popularity or '-'}</td><td>{e(fmt_money(race.sanrenpuku_payout))}</td></tr>"
+            f'<tr><td>{e(race.track)}</td><td class="num">{race.race_num}</td><td>{e(race.condition)}</td>'
+            f'<td>{e(winner.name)}</td><td class="num">{winner.popularity or "-"}</td><td class="num">{e(fmt_money(race.sanrenpuku_payout))}</td></tr>'
         )
     parts.append("</tbody></table></div>")
-    parts.append(
-        '<p class="small">おすすめ馬は傾向一致度であり、馬券購入を保証するものではありません。'
-        '予測利用可は出馬表段階で確認できる特徴、結果確認はレース後に判明する後付け検証です。'
-        '持ち越し信頼度は、中=確認ポイント、低=単独では使わない、対象外=予測に使わない、という目安です。'
-        '推奨スコアでは低信頼の枠・血統を0.35倍、個別追い切りのプラス評価を0.40倍に抑えています。'
-        'サンプル数が少ない条件は確認ポイントとして扱ってください。'
-        '取消・除外・競走中止など異常区分付きの馬は、枠・脚質・血統の母数から除外しています。</p>'
-    )
+    parts.append("</section>")
+
+    parts.append('<section id="guide" class="section">')
+    parts.append("<h2>このレポートの読み方</h2>")
+    parts.append('<article class="card">')
+    parts.append('<ul class="notes">')
+    parts.append("<li>おすすめ馬は「当日傾向との一致度」を点数化したものです。馬券の的中や購入を保証するものではありません。</li>")
+    parts.append("<li><strong>予測利用可</strong>: 出馬表の段階で分かる特徴です。翌日の予測に使えます。</li>")
+    parts.append("<li><strong>結果確認</strong>: レース後に判明する後付けの検証項目です。予測には直接使いません。</li>")
+    parts.append("<li><strong>持ち越し信頼度</strong>: 中=確認しながら使う / 低=単独では使わない / 対象外=予測に使わない、という目安です。</li>")
+    parts.append("<li>推奨スコアでは、信頼度が低い枠・血統の加点を0.35倍、個別追い切りのプラス評価を0.40倍に抑えています。</li>")
+    parts.append("<li>サンプル数が少ない条件は、断定材料にせず確認ポイントとして扱ってください。</li>")
+    parts.append("<li>取消・除外・競走中止など異常区分付きの馬は、枠・脚質・血統の母数から除外しています。</li>")
+    parts.append("</ul>")
+    parts.append("</article>")
     parts.append("</section>")
     move_html_section_after(parts, "picks", "notice" if notice else "overview")
+    parts.append('<a class="to-top" href="#top" aria-label="ページの先頭へ戻る">↑ トップ</a>')
     parts.append("</main></body></html>")
     return "\n".join(parts)
 
