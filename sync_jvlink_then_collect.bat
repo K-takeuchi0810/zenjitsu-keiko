@@ -166,5 +166,32 @@ py -3 collect_trends.py --date %RESULT_DATE% --next-date %NEXT_DATE% --intraday-
 set TREND_EXIT=%errorlevel%
 if not "%TREND_EXIT%"=="0" goto :run_end
 
+echo.
+echo === Publish report to GitHub Pages (docs) ===
+cd /d "%SCRIPT_DIR%"
+call :publish_docs
+
 :run_end
 exit /b %errorlevel%
+
+rem Commit and push docs/index.html so the shared GitHub Pages URL shows the latest report.
+rem Failures here never fail the whole run (report + iCloud already succeeded).
+:publish_docs
+git add docs/.nojekyll docs/index.html 2>nul
+git diff --cached --quiet
+if not errorlevel 1 (
+  echo No docs change to publish.
+  exit /b 0
+)
+git commit -m "Publish report %RESULT_DATE% (picks for %NEXT_DATE%)"
+if errorlevel 1 (
+  echo WARNING: git commit failed. Skipping push.
+  exit /b 0
+)
+git push origin main
+if errorlevel 1 (
+  echo WARNING: git push failed. docs updated locally only.
+  exit /b 0
+)
+echo Published docs/index.html to GitHub (Pages).
+exit /b 0

@@ -24,6 +24,14 @@
 
 出力先は `reports\YYYYMMDD` フォルダです。
 スマートフォンで見る場合は、各日付フォルダの `mobile.html` または iCloud Drive 側の `index.html` を開いてください。
+
+他の人へ共有する場合は、GitHub Pages で公開している次のURLを渡してください。20:10のバッチが `docs\index.html` を更新して自動でpushするため、常に最新レポートが表示されます。
+
+```text
+https://k-takeuchi0810.github.io/zenjitsu-keiko/
+```
+
+`collect_trends.py` は publish 時に最新HTMLを `docs\index.html` へも書き出します（`config.json` の `publish_to_docs` で無効化可）。git へのcommit/pushは `sync_jvlink_then_collect.bat` の末尾でのみ行い、`collect_trends.py` 自体はgitに触れません。
 翌日の出馬表がDBにある場合は、当日傾向に合うおすすめ馬もHTML内に表示します。
 傾向には枠・脚質・人気・上がり・血統を含みます。血統は馬場別にも表示します。
 追い切りは `training_times` に対象馬の直近データが入っている場合、レース別に馬券内馬の最終追い切り種別と総時計を表示します。

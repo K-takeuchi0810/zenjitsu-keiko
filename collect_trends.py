@@ -284,6 +284,8 @@ def load_config() -> dict:
         "output_dir": str(APP_DIR / "reports"),
         "publish_dir": str(Path.home() / "iCloudDrive" / "傾向収集"),
         "publish_to_icloud": True,
+        "publish_to_docs": True,
+        "docs_dir": str(APP_DIR / "docs"),
         "latest_min_races": MIN_LATEST_COMPLETED_RACES,
         "expected_races_by_date": {},
     }
@@ -4214,6 +4216,15 @@ def main() -> int:
             shutil.copy2(recommendation_log_path, publish_recommendation_log)
             published.append(publish_recommendation_log)
 
+    # GitHub Pages 用に最新レポートを docs/index.html へも書き出す（git 公開はバッチが担当）。
+    docs_index: Path | None = None
+    if bool(config.get("publish_to_docs", True)) and not args.no_publish:
+        docs_dir = Path(config.get("docs_dir") or (APP_DIR / "docs"))
+        docs_dir.mkdir(parents=True, exist_ok=True)
+        (docs_dir / ".nojekyll").touch()
+        docs_index = docs_dir / "index.html"
+        shutil.copy2(html_path, docs_index)
+
     if notice_text:
         print(f"注意: {notice_text}")
     if requested_date_key and requested_date_key != date_key:
@@ -4245,6 +4256,8 @@ def main() -> int:
     if published:
         print(f"iCloud出力: {publish_dir}")
         print(f"iCloud最新HTML: {publish_dir / 'index.html'}")
+    if docs_index:
+        print(f"docs出力: {docs_index}")
     if next_date and next_rows:
         print(f"翌日おすすめ対象: {display_date(next_date)} ({len(next_rows)}R)")
     elif next_date:
