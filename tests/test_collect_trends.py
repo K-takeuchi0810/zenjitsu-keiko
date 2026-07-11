@@ -533,6 +533,71 @@ class RecommendationPrerequisiteTests(unittest.TestCase):
         self.assertLess(html.index('id="overview"'), html.index('id="picks"'))
         self.assertLess(html.index('id="picks"'), html.index('id="track"'))
 
+    def test_picks_stay_above_track_when_notice_present(self):
+        base_races = [race(race_num=i) for i in range(1, 4)]
+        next_rows = [next_race_row()]
+        next_horses = [next_horse()]
+
+        html = c.build_html(
+            "20260530",
+            Path("dummy.db"),
+            base_races,
+            "20260531",
+            next_rows,
+            [],
+            next_horses=next_horses,
+            training_notes=[],
+            training_by_race={},
+            notice="結果が未確定です。",
+        )
+
+        self.assertIn('id="notice"', html)
+        self.assertLess(html.index('id="notice"'), html.index('id="picks"'))
+        self.assertLess(html.index('id="picks"'), html.index('id="track"'))
+
+    def test_html_shows_score_band_history_when_enough_samples(self):
+        base_races = [race(race_num=i) for i in range(1, 4)]
+        next_rows = [next_race_row()]
+        next_horses = [next_horse()]
+        bands = [
+            c.ScoreBandStat("70-79点", 40, 26, 4600),
+            c.ScoreBandStat("62-69点", 10, 4, 800),
+        ]
+
+        html = c.build_html(
+            "20260530",
+            Path("dummy.db"),
+            base_races,
+            "20260531",
+            next_rows,
+            [],
+            next_horses=next_horses,
+            training_notes=[],
+            training_by_race={},
+            score_bands=bands,
+        )
+
+        self.assertIn("過去のスコア帯別実績", html)
+        self.assertIn("70-79点", html)
+        self.assertIn("62-69点*", html)
+        self.assertIn("参考値", html)
+
+    def test_score_band_performance_ignores_unevaluated_and_excluded(self):
+        rows = [
+            {"score": "75", "result_status": "3着内", "in_top3": "true", "place_return": "150"},
+            {"score": "72", "result_status": "圏外", "in_top3": "false", "place_return": "0"},
+            {"score": "70", "result_status": "", "in_top3": "", "place_return": ""},
+            {"score": "80", "result_status": "対象馬なし", "in_top3": "", "place_return": ""},
+            {"score": "65", "result_status": "勝ち", "in_top3": "true", "place_return": "120"},
+        ]
+
+        bands = {band.label: band for band in c.score_band_performance(rows)}
+
+        self.assertEqual(bands["70-79点"].bet_count, 2)
+        self.assertEqual(bands["70-79点"].top3, 1)
+        self.assertEqual(bands["62-69点"].bet_count, 1)
+        self.assertNotIn("80-89点", bands)
+
 
 class RecommendationLogTests(unittest.TestCase):
     def read_rows(self, path: Path) -> list[dict[str, str]]:

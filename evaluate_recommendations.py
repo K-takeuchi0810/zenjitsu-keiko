@@ -117,6 +117,35 @@ def summarize_group(rows: list[dict[str, str]], group: str, label: str) -> Recom
     )
 
 
+# 高スコア帯（本来は勝ちやすいはずの帯）が不振な場合に警告を出すための設定。
+HIGH_BAND_LABELS = ("90点以上", "80-89点")
+# この件数以上たまってから監視対象にする（少数の不運を騒がないため）。
+HIGH_BAND_MIN_SAMPLE = 10
+# 複勝回収率がこの値（%）を下回ったら注意喚起する。
+HIGH_BAND_PLACE_RETURN_FLOOR = 80
+
+
+def high_band_alerts(summaries: list[RecommendationSummary]) -> list[str]:
+    alerts: list[str] = []
+    for row in summaries:
+        if row.group != "スコア帯" or row.label not in HIGH_BAND_LABELS:
+            continue
+        if row.bet_count < HIGH_BAND_MIN_SAMPLE:
+            continue
+        place_rate = round(row.place_return / (row.bet_count * 100) * 100) if row.bet_count else 0
+        if row.wins == 0:
+            alerts.append(
+                f"{row.label}: 馬券{row.bet_count}件で勝ち0（複勝率{row.top3_rate}・複勝回収{row.place_return_rate}）。"
+                "高スコア帯が未勝利のため、スコア妥当性の確認対象として監視してください。"
+            )
+        elif place_rate < HIGH_BAND_PLACE_RETURN_FLOOR:
+            alerts.append(
+                f"{row.label}: 馬券{row.bet_count}件で複勝回収{row.place_return_rate}（{HIGH_BAND_PLACE_RETURN_FLOOR}%割れ）。"
+                "高スコア帯の複勝回収が低水準のため監視してください。"
+            )
+    return alerts
+
+
 def summarize_rows(rows: list[dict[str, str]]) -> list[RecommendationSummary]:
     summaries: list[RecommendationSummary] = [summarize_group(rows, "全体", "全推奨")]
     for band in ["90点以上", "80-89点", "70-79点", "62-69点", "62点未満"]:
@@ -192,6 +221,10 @@ def build_markdown(rows: list[dict[str, str]], summaries: list[RecommendationSum
     ]
     if target_text:
         lines.append(f"- 対象日: {target_text}")
+    alerts = high_band_alerts(summaries)
+    if alerts:
+        lines.extend(["", "## 監視", ""])
+        lines.extend(f"- ⚠️ {alert}" for alert in alerts)
     lines.extend(
         [
             "",

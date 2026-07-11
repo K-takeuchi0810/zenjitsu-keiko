@@ -2436,6 +2436,40 @@ def append_html_body_weight_card(
     parts.append("</article>")
 
 
+def append_html_score_band_note(parts: list[str], score_bands: list["ScoreBandStat"]) -> None:
+    total_bets = sum(band.bet_count for band in score_bands)
+    if total_bets < SCORE_BAND_MIN_TOTAL:
+        return
+    parts.append('<article class="card">')
+    parts.append("<h3>過去のスコア帯別実績</h3>")
+    parts.append(
+        f'<p class="sub">評価済みの馬券対象{total_bets}件の後付け集計です。'
+        "スコアが高い帯ほど複勝率が上がる傾向を確認できます。的中や利益を保証するものではありません。</p>"
+    )
+    parts.append('<div class="table-wrap">')
+    parts.append(
+        '<table class="table band-table"><thead><tr>'
+        '<th>スコア帯</th><th class="num">件数</th><th class="num">複勝率</th><th class="num">複勝回収</th>'
+        "</tr></thead><tbody>"
+    )
+    has_reference = False
+    for band in score_bands:
+        mark = "*" if band.is_reference else ""
+        has_reference = has_reference or band.is_reference
+        parts.append(
+            f"<tr><td><strong>{e(band.label)}{mark}</strong></td>"
+            f'<td class="num">{band.bet_count}</td>'
+            f'<td class="num">{e(band.top3_rate)}</td>'
+            f'<td class="num">{e(band.place_return_rate)}</td></tr>'
+        )
+    parts.append("</tbody></table></div>")
+    footnote = "複勝回収は各推奨を複勝100円で買った場合の単純集計です。"
+    if has_reference:
+        footnote += f"（* は件数{SCORE_BAND_REFERENCE_SAMPLE}件未満の参考値）"
+    parts.append(f'<p class="small">{footnote}</p>')
+    parts.append("</article>")
+
+
 def append_html_race_overview_row(parts: list[str], summary: NextRaceSummary) -> None:
     pick_text = recommendation_summary(summary.recommendations)
     if not pick_text and summary.reference_recommendations:
@@ -3272,6 +3306,7 @@ def build_html(
     training_by_race: dict[tuple[str, int], list[dict]] | None = None,
     notice: str | None = None,
     pick_notice: str | None = None,
+    score_bands: list[ScoreBandStat] | None = None,
 ) -> str:
     generated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
     by_track_surface: dict[tuple[str, str], list[RaceResult]] = defaultdict(list)
@@ -3393,6 +3428,10 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .table th{background:#f8fafc;color:#475569;white-space:nowrap}
 .table tr:last-child td{border-bottom:0}
 .table th.num,.table td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.table.band-table{min-width:0;table-layout:fixed}
+.band-table td,.band-table th{padding:9px 6px}
+.band-table th:first-child,.band-table td:first-child{width:34%}
+.band-table th.num,.band-table td.num{width:22%}
 .trend-table td:nth-child(2){white-space:nowrap;text-align:right;color:#475569}
 .small{font-size:13px;color:var(--muted)}
 .scroll-hint{display:none;margin:0 0 6px}
@@ -3441,7 +3480,11 @@ details.race[open]>summary .pill::after{content:" ▴"}
 
     if notice:
         notice_html = "<br>".join(e(part) for part in notice.splitlines())
-        parts.append(f'<section id="notice" class="section"><article class="card empty"><strong>注意</strong><br>{notice_html}</article></section>')
+        # 閉じ </section> を独立要素にする。1行に埋め込むと html_section_bounds が
+        # notice の境界を検出できず、picks の移動先が track の後ろにずれてしまう。
+        parts.append('<section id="notice" class="section">')
+        parts.append(f'<article class="card empty"><strong>注意</strong><br>{notice_html}</article>')
+        parts.append("</section>")
 
     parts.append('<section id="track" class="section">')
     parts.append("<h2>場別傾向</h2>")
@@ -3580,6 +3623,8 @@ details.race[open]>summary .pill::after{content:" ▴"}
     for warning in dict.fromkeys(pick_status.warnings):
         parts.append(f'<p class="sub"><strong>注意</strong>: {e(warning)}</p>')
     parts.append("</article>")
+
+    append_html_score_band_note(parts, score_bands or [])
 
     if next_summaries:
         append_html_race_overview(parts, next_summaries)
@@ -3774,6 +3819,67 @@ def read_recommendation_log(path: Path) -> list[dict[str, str]]:
         return []
     with path.open("r", newline="", encoding="utf-8-sig") as f:
         return [{field: row.get(field, "") for field in RECOMMENDATION_LOG_FIELDS} for row in csv.DictReader(f)]
+
+
+# 過去実績注記で使うスコア帯。evaluate_recommendations.py の集計と境界を合わせる。
+SCORE_BAND_DEFS: list[tuple[str, int, int]] = [
+    ("90点以上", 90, 10_000),
+    ("80-89点", 80, 90),
+    ("70-79点", 70, 80),
+    ("62-69点", 62, 70),
+]
+# この件数に満たない帯は「参考」注記を付ける。
+SCORE_BAND_REFERENCE_SAMPLE = 15
+# 全帯合計の馬券対象がこの件数に満たない場合は注記自体を出さない。
+SCORE_BAND_MIN_TOTAL = 30
+
+
+@dataclass
+class ScoreBandStat:
+    label: str
+    bet_count: int
+    top3: int
+    place_return: int
+
+    @property
+    def top3_rate(self) -> str:
+        return pct(self.top3, self.bet_count)
+
+    @property
+    def place_return_rate(self) -> str:
+        return pct(self.place_return, self.bet_count * 100)
+
+    @property
+    def is_reference(self) -> bool:
+        return self.bet_count < SCORE_BAND_REFERENCE_SAMPLE
+
+
+def _log_row_score(row: dict[str, str]) -> int | None:
+    text = str(row.get("score", "")).strip()
+    if not text:
+        return None
+    try:
+        return int(text)
+    except ValueError:
+        return None
+
+
+def score_band_performance(rows: list[dict[str, str]]) -> list[ScoreBandStat]:
+    """評価済み・馬券対象の推奨だけを対象に、スコア帯別の複勝実績を集計する。"""
+    bettable = [
+        row
+        for row in rows
+        if row.get("result_status") and row.get("result_status") != "対象馬なし"
+    ]
+    stats: list[ScoreBandStat] = []
+    for label, low, high in SCORE_BAND_DEFS:
+        band_rows = [row for row in bettable if (score := _log_row_score(row)) is not None and low <= score < high]
+        if not band_rows:
+            continue
+        top3 = sum(1 for row in band_rows if str(row.get("in_top3", "")).strip().lower() == "true")
+        place_return = sum(row_int(row, "place_return") for row in band_rows)
+        stats.append(ScoreBandStat(label, len(band_rows), top3, place_return))
+    return stats
 
 
 def write_recommendation_log(
@@ -4049,6 +4155,8 @@ def main() -> int:
     md_path, csv_path, html_path = report_paths(output_dir, date_key)
     md_path.parent.mkdir(parents=True, exist_ok=True)
     recommendation_log_path = output_dir / RECOMMENDATION_LOG_FILE
+    # build_html より前に読むことで、当日ぶんの未評価行が混ざらない過去実績だけを集計できる。
+    score_bands = score_band_performance(read_recommendation_log(recommendation_log_path))
     notice_text = "\n".join(dict.fromkeys(notices)) if notices else None
     md_path.write_text(
         build_markdown(
@@ -4084,6 +4192,7 @@ def main() -> int:
             training_by_race=training_by_race,
             notice=notice_text,
             pick_notice=pick_notice,
+            score_bands=score_bands,
         ),
         encoding="utf-8",
     )
