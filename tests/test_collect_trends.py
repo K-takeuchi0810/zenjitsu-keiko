@@ -471,23 +471,21 @@ class RecommendationPrerequisiteTests(unittest.TestCase):
 
         self.assertEqual(status.race_count, 1)
         self.assertEqual(status.horse_count, 1)
-        self.assertEqual(status.odds_count, 1)
-        self.assertEqual(status.popularity_count, 1)
         self.assertEqual(status.training_count, 1)
         self.assertIn(f"評価{c.RECOMMENDATION_MIN_SCORE}点以上の馬がありません", status.zero_reason)
         self.assertTrue(any("推奨0件の理由" in line for line in c.next_pick_status_lines(status)))
 
-    def test_status_explains_missing_market_data(self):
+    def test_missing_odds_does_not_warn(self):
+        # オッズ・人気は採点にも表示にも使わないため、未取得でも警告やzero_reasonを出さない。
         status = c.next_pick_data_status(
             "20260531",
             [next_race_row()],
-            [next_horse(odds=0.0, popularity=0)],
+            [next_horse(odds=0.0, popularity=0, training=training_row("次走馬", 0))],
             [],
         )
 
-        self.assertIn("オッズ・人気が未取得", status.zero_reason)
-        self.assertTrue(any("オッズが未取得" in warning for warning in status.warnings))
-        self.assertTrue(any("人気が未取得" in warning for warning in status.warnings))
+        self.assertNotIn("オッズ", status.zero_reason or "")
+        self.assertFalse(any("オッズ" in w or "人気" in w for w in status.warnings))
 
     def test_markdown_and_html_include_prerequisite_section(self):
         base_races = [race(race_num=i) for i in range(1, 4)]
@@ -523,7 +521,9 @@ class RecommendationPrerequisiteTests(unittest.TestCase):
         self.assertIn("<h2>概要</h2>", html)
         self.assertIn("<b>集計日</b>", html)
         self.assertIn("<b>推奨馬</b>", html)
-        self.assertIn("<b>オッズ</b>", html)
+        self.assertIn("<b>DM予想</b>", html)
+        self.assertNotIn("<b>オッズ</b>", html)
+        self.assertNotIn("<b>人気</b>", html)
         self.assertIn("前提データ", html)
         self.assertIn("推奨0件の理由", html)
         self.assertNotIn("全場合算傾向", html)
@@ -867,7 +867,7 @@ class DynamicWeightingTests(unittest.TestCase):
         self.assertLess(weights.bloodline, 0.9)
         self.assertTrue(any("過去検証" in note for note in weights.notes))
 
-    def test_intraday_results_lightly_adjust_market_and_mining(self):
+    def test_intraday_results_lightly_adjust_mining(self):
         races = []
         for i in range(1, 11):
             horses = []
@@ -892,7 +892,8 @@ class DynamicWeightingTests(unittest.TestCase):
         with patch.object(c, "load_result_rows", return_value=[]), patch.object(c, "build_races", return_value=races):
             c.apply_intraday_result_weights(sqlite3.connect(":memory:"), weights, "20260621")
 
-        self.assertGreater(weights.market, 1.0)
+        # market(人気/オッズ)は採点に使わなくなったため補正対象外。miningのみ補正される。
+        self.assertEqual(weights.market, 1.0)
         self.assertGreater(weights.mining, 1.0)
         self.assertTrue(any("当日途中結果" in note for note in weights.notes))
 
@@ -1071,7 +1072,10 @@ class SchedulerBatchTests(unittest.TestCase):
         self.assertNotIn("Result date rule: previous day", batch)
         self.assertIn("=== JV-Link result fetch ===", batch)
         self.assertNotIn("=== JV-Link previous day result fetch ===", batch)
-        self.assertIn("scripts.fetch_odds --date %NEXT_DATE% --timeout-sec 3", batch)
+        # オッズは採点・表示に使わないため、次走オッズ取得は撤去済み（土曜夜ハング対策）。
+        self.assertNotIn("scripts.fetch_odds", batch)
+        self.assertNotIn("=== JV-Link next race odds fetch ===", batch)
+        self.assertIn("scripts.fetch_mining --date %NEXT_DATE%", batch)
         self.assertNotIn("RACE_DAY_EXIT", batch)
         guard_pos = batch.index("=== Race-day guard ===")
         training_pos = batch.index("=== JV-Link training fetch ===")

@@ -153,11 +153,9 @@ echo target_date: %NEXT_DATE%
 ".venv32\Scripts\python.exe" -u -m scripts.fetch_mining --date %NEXT_DATE% --timeout-sec 3
 if errorlevel 1 goto :run_end
 
-echo.
-echo === JV-Link next race odds fetch ===
-set JVLINK_REALTIME_NO_DATA_SEC=3
-".venv32\Scripts\python.exe" -u -m scripts.fetch_odds --date %NEXT_DATE% --timeout-sec 3
-if errorlevel 1 goto :run_end
+rem Next-day odds are intentionally NOT fetched. The tendency report and
+rem recommendations no longer use odds/popularity, and the Saturday-evening
+rem realtime-odds fetch for Sunday used to hang (advance odds not yet published).
 
 echo.
 echo === Trend report ===

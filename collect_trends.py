@@ -255,8 +255,6 @@ class NextPickDataStatus:
     next_date: str | None
     race_count: int
     horse_count: int
-    odds_count: int
-    popularity_count: int
     training_count: int
     mining_count: int
     recommendation_count: int
@@ -1988,19 +1986,6 @@ def apply_intraday_result_weights(conn: sqlite3.Connection, weights: TrendWeight
         f"当日途中結果: {display_date(intraday_date)}確定{len(races)}Rを軽量補正に使用"
     )
 
-    top_pop = [h for h in starters if 1 <= h.popularity <= 3]
-    top_pop_hit = [h for h in top_pop if 1 <= h.order <= 3]
-    if len(top_pop) >= MIN_INTRADAY_SIGNAL_STARTERS:
-        rate = top3_rate(len(top_pop_hit), len(top_pop))
-        multiplier = intraday_multiplier(rate - overall_rate, strong=0.18, weak=0.04)
-        if multiplier != 1.0:
-            weights.market = max(0.75, min(1.30, weights.market * multiplier))
-            direction = "上方" if multiplier > 1.0 else "下方"
-            weights.notes.append(
-                f"当日途中結果: 人気/オッズを{direction}補正"
-                f"（1-3人気 {len(top_pop_hit)}/{len(top_pop)}頭）"
-            )
-
     mining_top = [h for h in starters if 1 <= h.mining_rank <= 3]
     mining_hit = [h for h in mining_top if 1 <= h.order <= 3]
     if len(mining_top) >= MIN_INTRADAY_SIGNAL_STARTERS:
@@ -2059,11 +2044,10 @@ def adjust_weights_for_next_data(weights: TrendWeights, horses: list[NextHorse])
 
 
 def trend_weight_items(weights: TrendWeights) -> list[tuple[str, float]]:
+    # 人気/堅実・荒れ/配当はオッズ・人気に依存する採点だったため、スコア非使用となり一覧から除外。
     return [
         ("枠", weights.frame),
         ("脚質", weights.style),
-        ("人気/堅実", weights.market),
-        ("荒れ/配当", weights.payout),
         ("データマイニング", weights.mining),
         ("調教", weights.training),
         ("血統", weights.bloodline),
@@ -2545,8 +2529,6 @@ def append_html_recommendation_detail(
     parts.append('<div class="detail-body">')
     for idx, rec in enumerate(candidates):
         h = rec.horse
-        odds = f"{h.odds:.1f}倍" if h.odds else "オッズ未取得"
-        pop = f"{h.popularity}人気" if h.popularity else "人気未取得"
         parts.append('<div class="pick-mini">')
         parts.append('<div class="race-title">')
         parts.append(
@@ -2557,8 +2539,7 @@ def append_html_recommendation_detail(
         parts.append('<div class="chips">')
         parts.append(
             f'<span class="chip strong">評価 {rec.score}点</span><span class="chip">{h.frame}枠</span>'
-            f'<span class="chip">{e(h.jockey) or "騎手未定"}</span><span class="chip">{e(pop)}</span>'
-            f'<span class="chip">{e(odds)}</span>'
+            f'<span class="chip">{e(h.jockey) or "騎手未定"}</span>'
         )
         parts.append(f'<span class="chip wide">{e(jockey_course_text(h.jockey_course))}</span>')
         if h.style:
@@ -2671,32 +2652,8 @@ def score_horse(
         score += min(12, (style_rate - overall_top3_rate) * 50) * weights.style
         reasons.append(f"{horse.style}脚質の馬券内率{pct(style_top3, style_starters)}")
 
-    avg_pop = sum(stats.winner_popularities) / len(stats.winner_popularities) if stats.winner_popularities else 0
-    high_payout_rate = stats.high_payout_races / len(stats.races) if stats.races else 0
-    firm_market_add = 0
-    payout_add = 0
-    if horse.popularity:
-        if avg_pop and avg_pop <= 3.2 and horse.popularity <= 3:
-            firm_market_add += 6
-            reasons.append("堅め傾向に合う上位人気")
-        elif avg_pop and avg_pop <= 3.2 and horse.popularity <= 5:
-            firm_market_add += 3
-            reasons.append("堅め傾向で人気面は許容")
-        elif (avg_pop >= 5.0 or high_payout_rate >= 0.30) and horse.popularity >= 5:
-            payout_add += 6 if horse.popularity <= 9 else 3
-            reasons.append("荒れ気味の日で人気薄も許容")
-        elif horse.popularity <= 5:
-            firm_market_add += 3
-            reasons.append("人気面は許容範囲")
-
-    if horse.odds:
-        if avg_pop and avg_pop <= 3.2 and horse.odds <= 6.0:
-            firm_market_add += 2
-        elif high_payout_rate >= 0.30 and 8.0 <= horse.odds <= 40.0:
-            payout_add += 2
-    score += min(8, firm_market_add) * weights.market
-    score += min(8, payout_add) * weights.payout
-
+    # オッズ・人気（前日の市場データ）は採点に使わない。傾向レポートは出馬表段階で
+    # 分かる特徴だけで評価する方針のため、人気・オッズと、それに紐づく配当加点は外す。
     if horse.mining_rank:
         if horse.mining_rank == 1:
             score += 15 * weights.mining
@@ -2856,14 +2813,6 @@ def next_pick_zero_reason(
     if not next_horses:
         return f"{display_date(next_date)} の出走馬がDBにありません。出走馬データ更新後に再実行してください。"
 
-    odds_count = sum(1 for horse in next_horses if horse.odds > 0)
-    popularity_count = sum(1 for horse in next_horses if horse.popularity > 0)
-    if odds_count == 0 and popularity_count == 0:
-        return "出走馬はありますが、オッズ・人気が未取得です。市場条件を使う評価が弱くなっています。"
-    if odds_count == 0:
-        return "出走馬はありますが、オッズが未取得です。オッズ条件を使う評価が弱くなっています。"
-    if popularity_count == 0:
-        return "出走馬はありますが、人気が未取得です。人気条件を使う評価が弱くなっています。"
     return f"評価{RECOMMENDATION_MIN_SCORE}点以上の馬がありません。条件を満たす推奨馬なしとして扱います。"
 
 
@@ -2876,8 +2825,6 @@ def next_pick_data_status(
 ) -> NextPickDataStatus:
     horses = next_horses or []
     picks = recommendations or []
-    odds_count = sum(1 for horse in horses if horse.odds > 0)
-    popularity_count = sum(1 for horse in horses if horse.popularity > 0)
     training_count = sum(1 for horse in horses if horse.training)
     mining_count = sum(1 for horse in horses if horse.mining_rank > 0)
     recommendation_race_count = len({(rec.horse.track_code, rec.horse.race_num) for rec in picks})
@@ -2887,10 +2834,6 @@ def next_pick_data_status(
         warnings.append(pick_notice)
     if next_rows and not horses:
         warnings.append("レース番組はありますが、出走馬が取得できていません。")
-    if horses and odds_count == 0:
-        warnings.append("オッズが未取得です。")
-    if horses and popularity_count == 0:
-        warnings.append("人気が未取得です。")
     if horses and training_count == 0:
         warnings.append("追い切りが未取得です。推奨自体は作成できますが、個別追い切り評価は入りません。")
     if horses and mining_count == 0:
@@ -2902,8 +2845,6 @@ def next_pick_data_status(
         next_date=next_date,
         race_count=len(next_rows),
         horse_count=len(horses),
-        odds_count=odds_count,
-        popularity_count=popularity_count,
         training_count=training_count,
         mining_count=mining_count,
         recommendation_count=len(picks),
@@ -2924,8 +2865,6 @@ def next_pick_status_items(status: NextPickDataStatus) -> list[tuple[str, str]]:
     return [
         ("対象日", target),
         ("出馬表", f"{status.race_count}R / {status.horse_count}頭"),
-        ("オッズ", status_count_rate(status.odds_count, status.horse_count)),
-        ("人気", status_count_rate(status.popularity_count, status.horse_count)),
         ("追い切り", status_count_rate(status.training_count, status.horse_count)),
         ("DM予想", status_count_rate(status.mining_count, status.horse_count)),
         ("推奨馬", f"{status.recommendation_count}頭 / {status.recommendation_race_count}R"),
@@ -2939,8 +2878,6 @@ def overview_status_items(date_key: str, race_count: int, status: NextPickDataSt
         ("推奨馬", f"{status.recommendation_count}頭 / {status.recommendation_race_count}R"),
         ("出馬表", f"{status.race_count}R"),
         ("出走馬", f"{status.horse_count}頭"),
-        ("オッズ", status_count_rate(status.odds_count, status.horse_count)),
-        ("人気", status_count_rate(status.popularity_count, status.horse_count)),
         ("追い切り", status_count_rate(status.training_count, status.horse_count)),
         ("DM予想", status_count_rate(status.mining_count, status.horse_count)),
     ]
@@ -4063,7 +4000,7 @@ def main() -> int:
                 if latest_status["complete_races"] < latest_status["races"]:
                     latest_message = no_result_message(latest_db_date, latest_status)
                     notices.append(f"DB上の最新開催日 {display_date(latest_db_date)} は未確定です。{latest_message} 最新確定日の {display_date(date_key)} を表示しています。")
-                    pick_notice = f"{display_date(latest_db_date)} の結果が未取得のため、おすすめ馬は作成していません。JRA-VAN結果データ更新後に再実行してください。"
+                    pick_notice = f"{display_date(latest_db_date)} は結果待ち（出走前）です。前開催 {display_date(date_key)} の傾向でおすすめを作成しています。"
         else:
             date_key = normalize_date(args.date)
             requested_date_key = date_key
@@ -4242,9 +4179,8 @@ def main() -> int:
         "おすすめ前提: "
         f"出馬表{pick_status.race_count}R / "
         f"出走馬{pick_status.horse_count}頭 / "
-        f"オッズ{pick_status.odds_count}頭 / "
-        f"人気{pick_status.popularity_count}頭 / "
-        f"追い切り{pick_status.training_count}頭"
+        f"追い切り{pick_status.training_count}頭 / "
+        f"DM{pick_status.mining_count}頭"
     )
     if pick_status.zero_reason:
         print(f"おすすめ0件理由: {pick_status.zero_reason}")
