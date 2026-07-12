@@ -3410,10 +3410,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
     parts.append("</div>")
     parts.append('<div class="decision"><b>最初に見るポイント</b>')
     parts.append(f"<span>{e(overview_decision_text(pick_status))}</span></div>")
-    if pick_status.zero_reason:
-        parts.append(f'<p class="sub"><strong>推奨0件の理由</strong>: {e(pick_status.zero_reason)}</p>')
-    for warning in dict.fromkeys(pick_status.warnings):
-        parts.append(f'<p class="sub"><strong>注意</strong>: {e(warning)}</p>')
+    # 詳細な注意・0件理由は「翌日おすすめ 前提データ」に1回だけ表示する（重複回避）。
     parts.append("</article>")
     parts.append("</section>")
 
@@ -3617,12 +3614,9 @@ details.race[open]>summary .pill::after{content:" ▴"}
     parts.append('<article class="card">')
     parts.append('<ul class="notes">')
     parts.append("<li>おすすめ馬は「当日傾向との一致度」を点数化したものです。馬券の的中や購入を保証するものではありません。</li>")
-    parts.append("<li><strong>予測利用可</strong>: 出馬表の段階で分かる特徴です。翌日の予測に使えます。</li>")
-    parts.append("<li><strong>結果確認</strong>: レース後に判明する後付けの検証項目です。予測には直接使いません。</li>")
-    parts.append("<li><strong>持ち越し信頼度</strong>: 中=確認しながら使う / 低=単独では使わない / 対象外=予測に使わない、という目安です。</li>")
-    parts.append("<li>推奨スコアでは、信頼度が低い枠・血統の加点を0.35倍、個別追い切りのプラス評価を0.40倍に抑えています。</li>")
+    parts.append("<li>「予測利用可」は出馬表段階で分かる特徴（翌日の予測に使えます）、「結果確認」はレース後に判明する後付けの検証です。</li>")
+    parts.append("<li>「持ち越し信頼度」は 中=確認しながら使う / 低=単独では使わない / 対象外=予測に使わない の目安です。</li>")
     parts.append("<li>サンプル数が少ない条件は、断定材料にせず確認ポイントとして扱ってください。</li>")
-    parts.append("<li>取消・除外・競走中止など異常区分付きの馬は、枠・脚質・血統の母数から除外しています。</li>")
     parts.append("</ul>")
     parts.append("</article>")
     parts.append("</section>")
@@ -3998,8 +3992,8 @@ def main() -> int:
             if latest_db_date and latest_db_date > date_key:
                 latest_status = date_status(conn, latest_db_date)
                 if latest_status["complete_races"] < latest_status["races"]:
-                    latest_message = no_result_message(latest_db_date, latest_status)
-                    notices.append(f"DB上の最新開催日 {display_date(latest_db_date)} は未確定です。{latest_message} 最新確定日の {display_date(date_key)} を表示しています。")
+                    # 運用者向けの技術メッセージ（着順未入力・再同期指示）は共有ページに不要なので出さない。
+                    # 閲覧者向けの説明は pick_notice（前提データ）に集約する。
                     pick_notice = f"{display_date(latest_db_date)} は結果待ち（出走前）です。前開催 {display_date(date_key)} の傾向でおすすめを作成しています。"
         else:
             date_key = normalize_date(args.date)
