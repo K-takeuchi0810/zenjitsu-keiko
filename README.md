@@ -32,6 +32,19 @@ https://k-takeuchi0810.github.io/zenjitsu-keiko/
 ```
 
 `collect_trends.py` は publish 時に最新HTMLを `docs\index.html` へも書き出します（`config.json` の `publish_to_docs` で無効化可）。git へのcommit/pushは `sync_jvlink_then_collect.bat` の末尾でのみ行い、`collect_trends.py` 自体はgitに触れません。
+
+### 生成完了をスマホへ通知する
+
+`docs` のpush成功後、共有URLを Discord / Slack の Incoming Webhook でスマホへ通知できます。`config.json`（gitignore対象）に Webhook URL を設定するだけで有効になります。
+
+```json
+"notify_webhook": "https://discord.com/api/webhooks/xxxx/yyyy"
+```
+
+- 空文字なら通知しません。URLに `slack.com` を含む場合は Slack 形式（`text`）、それ以外は Discord 形式（`content`）で送信します。
+- 通知は `notify.py` が送ります（日本語本文の文字化けを避けるため .bat ではなく Python から送信）。送信失敗してもバッチ本体は止まりません。
+- 通知文は「傾向レポートを更新しました / 集計日の傾向 / 翌日のおすすめ」＋ `share_url`（`config.json` で変更可）です。
+- 手動送信・疎通確認: `py -3 notify.py --result-date 20260711 --next-date 20260712`
 翌日の出馬表がDBにある場合は、当日傾向に合うおすすめ馬もHTML内に表示します。
 傾向には枠・脚質・人気・配当・上がり・血統を含みます（人気・配当は当日結果の傾向として表示しますが、翌日おすすめの採点には使いません）。血統は馬場別にも表示します。
 おすすめ馬の採点は、出馬表段階で分かる特徴（枠・脚質・血統・追い切り・データマイニング・騎手同コース）だけで行います。オッズ・人気は採点にも表示にも使いません。

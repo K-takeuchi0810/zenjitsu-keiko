@@ -284,6 +284,10 @@ def load_config() -> dict:
         "publish_to_icloud": True,
         "publish_to_docs": True,
         "docs_dir": str(APP_DIR / "docs"),
+        # 共有URL（GitHub Pages）。生成完了時のスマホ通知にも使う。
+        "share_url": "https://k-takeuchi0810.github.io/zenjitsu-keiko/",
+        # Discord/Slack の Incoming Webhook URL。空なら通知しない（秘密のためconfig.jsonにのみ置く）。
+        "notify_webhook": "",
         "latest_min_races": MIN_LATEST_COMPLETED_RACES,
         "expected_races_by_date": {},
     }

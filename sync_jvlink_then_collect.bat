@@ -192,4 +192,6 @@ if errorlevel 1 (
   exit /b 0
 )
 echo Published docs/index.html to GitHub (Pages).
+rem Notify the phone with the share URL (Discord/Slack webhook in config.json). Never fails the run.
+py -3 notify.py --result-date %RESULT_DATE% --next-date %NEXT_DATE%
 exit /b 0

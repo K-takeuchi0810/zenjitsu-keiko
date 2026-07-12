@@ -1076,6 +1076,8 @@ class SchedulerBatchTests(unittest.TestCase):
         self.assertNotIn("scripts.fetch_odds", batch)
         self.assertNotIn("=== JV-Link next race odds fetch ===", batch)
         self.assertIn("scripts.fetch_mining --date %NEXT_DATE%", batch)
+        # 生成後にスマホ通知（Webhook）を送る。push成功後のみ。
+        self.assertIn("notify.py --result-date %RESULT_DATE% --next-date %NEXT_DATE%", batch)
         self.assertNotIn("RACE_DAY_EXIT", batch)
         guard_pos = batch.index("=== Race-day guard ===")
         training_pos = batch.index("=== JV-Link training fetch ===")
