@@ -36,7 +36,8 @@ def send_webhook(webhook: str, message: str, *, timeout: int = 10) -> int:
     req = urllib.request.Request(
         webhook,
         data=data,
-        headers={"Content-Type": "application/json"},
+        # Discord は Cloudflare 経由で Python 既定のUAを403で弾くため、明示的にUAを付ける。
+        headers={"Content-Type": "application/json", "User-Agent": "zenjitsu-keiko-notifier/1.0"},
         method="POST",
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
