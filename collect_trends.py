@@ -2426,8 +2426,10 @@ def append_html_score_band_note(parts: list[str], score_bands: list["ScoreBandSt
     total_bets = sum(band.bet_count for band in score_bands)
     if total_bets < SCORE_BAND_MIN_TOTAL:
         return
-    parts.append('<article class="card">')
-    parts.append("<h3>過去のスコア帯別実績</h3>")
+    # スマホで縦を短くするため、参考情報である過去実績は折りたたみ（既定で閉じる）。
+    parts.append('<details class="race-group">')
+    parts.append(f'<summary>過去のスコア帯別実績（馬券対象{total_bets}件）</summary>')
+    parts.append('<div class="race-group-body">')
     parts.append(
         f'<p class="sub">評価済みの馬券対象{total_bets}件の後付け集計です。'
         "スコアが高い帯ほど複勝率が上がる傾向を確認できます。的中や利益を保証するものではありません。</p>"
@@ -2453,7 +2455,7 @@ def append_html_score_band_note(parts: list[str], score_bands: list["ScoreBandSt
     if has_reference:
         footnote += f"（* は件数{SCORE_BAND_REFERENCE_SAMPLE}件未満の参考値）"
     parts.append(f'<p class="small">{footnote}</p>')
-    parts.append("</article>")
+    parts.append("</div></details>")
 
 
 def append_html_race_overview_row(parts: list[str], summary: NextRaceSummary) -> None:
@@ -2872,14 +2874,11 @@ def next_pick_status_items(status: NextPickDataStatus) -> list[tuple[str, str]]:
 
 
 def overview_status_items(date_key: str, race_count: int, status: NextPickDataStatus) -> list[tuple[str, str]]:
+    # スマホで上部を短くするため要点3つに絞る。出馬表・追い切り・DM等の内訳は「前提データ」に集約。
     return [
         ("集計日", display_date(date_key)),
         ("対象R", f"{race_count}R"),
         ("推奨馬", f"{status.recommendation_count}頭 / {status.recommendation_race_count}R"),
-        ("出馬表", f"{status.race_count}R"),
-        ("出走馬", f"{status.horse_count}頭"),
-        ("追い切り", status_count_rate(status.training_count, status.horse_count)),
-        ("DM予想", status_count_rate(status.mining_count, status.horse_count)),
     ]
 
 
