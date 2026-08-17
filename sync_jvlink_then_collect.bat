@@ -80,9 +80,9 @@ echo Started: %DATE% %TIME%
 
 for /f %%i in ('powershell -NoProfile -Command "[DateTimeOffset]::Now.ToUnixTimeSeconds() - 60"') do set FETCH_STARTED=%%i
 for /f %%i in ('powershell -NoProfile -Command "(Get-Date).ToString('yyyyMMdd')"') do set RESULT_DATE=%%i
-for /f %%i in ('powershell -NoProfile -Command "(Get-Date).AddDays(1).ToString('yyyyMMdd')"') do set NEXT_DATE=%%i
+set NEXT_DATE=
 echo Result date rule: today "%RESULT_DATE%"
-echo Next recommendation date: "%NEXT_DATE%"
+echo Next recommendation date rule: first DB race date after "%RESULT_DATE%"
 
 if not exist "%JV_ROOT%\.venv32\Scripts\python.exe" (
   echo ERROR: 32bit Python venv was not found.
@@ -113,6 +113,17 @@ if errorlevel 2 (
 if errorlevel 1 exit /b %errorlevel%
 cd /d "%JV_ROOT%"
 :after_race_day_guard
+
+echo.
+echo === Resolve next recommendation date ===
+cd /d "%SCRIPT_DIR%"
+for /f "usebackq delims=" %%i in (`py -3 -c "import sqlite3; from collect_trends import load_config, next_available_race_date; cfg=load_config(); conn=sqlite3.connect(cfg['source_db']); conn.row_factory=sqlite3.Row; d=next_available_race_date(conn, '%RESULT_DATE%', min_date='%RESULT_DATE%') or ''; conn.close(); print(d)"`) do set NEXT_DATE=%%i
+if "%NEXT_DATE%"=="" (
+  echo No future race program found in DB. Trend report will be generated locally without publishing or notification.
+) else (
+  echo Next recommendation date: "%NEXT_DATE%"
+)
+cd /d "%JV_ROOT%"
 
 echo.
 echo === JV-Link realtime result fetch ===
@@ -148,10 +159,15 @@ if errorlevel 1 goto :run_end
 
 echo.
 echo === JV-Link data mining fetch ===
+if "%NEXT_DATE%"=="" (
+  echo Data mining fetch skipped because no next recommendation date was found.
+  goto after_mining_fetch
+)
 echo dataspec: 0B13 0B17
 echo target_date: %NEXT_DATE%
 ".venv32\Scripts\python.exe" -u -m scripts.fetch_mining --date %NEXT_DATE% --timeout-sec 3
 if errorlevel 1 goto :run_end
+:after_mining_fetch
 
 rem Next-day odds are intentionally NOT fetched. The tendency report and
 rem recommendations no longer use odds/popularity, and the Saturday-evening
@@ -160,9 +176,17 @@ rem realtime-odds fetch for Sunday used to hang (advance odds not yet published)
 echo.
 echo === Trend report ===
 cd /d "%SCRIPT_DIR%"
-py -3 collect_trends.py --date %RESULT_DATE% --next-date %NEXT_DATE% --intraday-date %NEXT_DATE%
+if "%NEXT_DATE%"=="" (
+  py -3 collect_trends.py --date %RESULT_DATE% --no-publish
+) else (
+  py -3 collect_trends.py --date %RESULT_DATE% --next-date %NEXT_DATE% --intraday-date %NEXT_DATE%
+)
 set TREND_EXIT=%errorlevel%
 if not "%TREND_EXIT%"=="0" goto :run_end
+if "%NEXT_DATE%"=="" (
+  echo No next recommendation date. Skipping GitHub Pages publish and phone notification.
+  exit /b 0
+)
 
 echo.
 echo === Publish report to GitHub Pages (docs) ===
