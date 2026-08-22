@@ -2378,8 +2378,10 @@ def append_html_track_trend_overview(
 
 
 def append_html_weight_card(parts: list[str], weights: TrendWeights) -> None:
-    parts.append('<article class="card quick-card">')
-    parts.append("<h3>今回の重みづけ</h3>")
+    # スコア内部の重み。読み物としては補助情報なので既定では折りたたむ。
+    parts.append('<details class="race-group">')
+    parts.append("<summary>今回の重みづけ（スコア内部）</summary>")
+    parts.append('<div class="race-group-body">')
     parts.append('<div class="dashboard-grid weight-grid">')
     for label, value in trend_weight_items(weights):
         applied = weights.applied_counts.get(label, 0)
@@ -2394,7 +2396,7 @@ def append_html_weight_card(parts: list[str], weights: TrendWeights) -> None:
         for note in weights.notes[:12]:
             parts.append(f"<li>{e(note)}</li>")
         parts.append("</ul>")
-    parts.append("</article>")
+    parts.append("</div></details>")
 
 
 def append_html_body_weight_card(
@@ -2406,6 +2408,10 @@ def append_html_body_weight_card(
     parts.append("<h3>馬体重傾向</h3>")
     parts.append('<p class="sub">区分: 結果確認 / おすすめスコアには未使用。馬体重の最適帯・増減耐性は競馬場×馬場で異なるため分けて表示します。当日発表後に確認する材料です。</p>')
     if groups:
+        # 予測には使わない結果確認の情報なので、区分別の内訳は既定で折りたたむ。
+        parts.append('<details class="race-group">')
+        parts.append(f"<summary>競馬場×馬場ごとの馬体重傾向（{len(groups)}区分）</summary>")
+        parts.append('<div class="race-group-body">')
         parts.append('<div class="grid cols">')
         for label, notes in groups:
             parts.append('<article class="card">')
@@ -2415,6 +2421,7 @@ def append_html_body_weight_card(
                 parts.append(f"<li>{e(note)}</li>")
             parts.append("</ul></article>")
         parts.append("</div>")
+        parts.append("</div></details>")
     else:
         parts.append('<ul class="notes"><li>馬体重データなし</li></ul>')
     parts.append('<details class="race-group">')
@@ -2487,25 +2494,14 @@ def append_html_race_overview_row(parts: list[str], summary: NextRaceSummary) ->
 
 
 def append_html_race_overview(parts: list[str], summaries: list[NextRaceSummary]) -> None:
-    picked = [s for s in summaries if s.recommendations or s.reference_recommendations]
-    no_pick = [s for s in summaries if not (s.recommendations or s.reference_recommendations)]
-    parts.append('<article class="card race-overview-card">')
-    parts.append("<h3>対象レース早見</h3>")
-    if picked:
-        parts.append('<div class="race-overview">')
-        for summary in picked:
-            append_html_race_overview_row(parts, summary)
-        parts.append("</div>")
-    elif no_pick:
-        parts.append('<p class="sub">推奨・参考候補のあるレースはありません。</p>')
-    if no_pick:
-        parts.append('<details class="race-group">')
-        parts.append(f"<summary>推奨なしのレース（{len(no_pick)}R）を見る</summary>")
-        parts.append('<div class="race-group-body"><div class="race-overview">')
-        for summary in no_pick:
-            append_html_race_overview_row(parts, summary)
-        parts.append("</div></div></details>")
-    parts.append("</article>")
+    # 全レースの俯瞰。推奨レースは下の詳細にも同じ内容が出るため、既定では折りたたんで
+    # スマホの縦スクロールを短くする（同じ情報を二重に並べない）。
+    parts.append('<details class="race-group">')
+    parts.append(f"<summary>全レース早見（{len(summaries)}R）</summary>")
+    parts.append('<div class="race-group-body"><div class="race-overview">')
+    for summary in summaries:
+        append_html_race_overview_row(parts, summary)
+    parts.append("</div></div></details>")
 
 
 def append_html_recommendation_detail(
@@ -3280,16 +3276,17 @@ html{scroll-behavior:smooth}
 html,body{max-width:100%;overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6;font-size:15px;letter-spacing:0}
 p,li,td,th,strong,span,div,a{overflow-wrap:anywhere}
-[id]{scroll-margin-top:76px}
+[id]{scroll-margin-top:60px}
 a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
-.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 84px}
+.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 40px}
 .hero{background:#0f172a;color:#fff;padding:18px 16px;border-radius:0 0 12px 12px}
 .hero h1{font-size:21px;line-height:1.3;margin:0 0 8px;letter-spacing:0}
 .meta{color:#cbd5e1;font-size:13px}
-.nav{position:sticky;top:0;background:rgba(245,246,248,.97);backdrop-filter:blur(8px);z-index:5;padding:10px 0;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav-wrap{position:sticky;top:0;z-index:5;background:rgba(245,246,248,.97);backdrop-filter:blur(8px)}
+.nav-wrap::after{content:"";position:absolute;top:0;right:0;width:28px;height:100%;pointer-events:none;background:linear-gradient(to right,rgba(245,246,248,0),rgba(245,246,248,.97))}
+.nav{padding:10px 0;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav a{flex:0 0 auto;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:999px;padding:9px 13px;font-size:13px;line-height:1.2;font-weight:700}
-.to-top{position:fixed;right:12px;bottom:12px;z-index:6;background:rgba(15,23,42,.92);color:#fff;text-decoration:none;border-radius:999px;padding:11px 15px;font-size:13px;font-weight:700;box-shadow:0 2px 10px rgba(15,23,42,.3)}
+.nav a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:999px;padding:0 14px;font-size:14px;line-height:1.2;font-weight:700}
 .section{margin:18px 0}
 .section h2{font-size:17px;margin:0 0 10px}
 .section h3{font-size:15px;margin:14px 0 8px}
@@ -3341,8 +3338,6 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .race-group-body .race-overview{margin-top:10px}
 .race-overview-card{margin-top:10px}
 .race-overview{display:grid;gap:6px}
-.pick-jump{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
-.pick-jump a{display:inline-flex;align-items:center;text-decoration:none;color:#0f172a;background:#f8fbff;border:1px solid #bfdbfe;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;line-height:1.2}
 .race-row{display:grid;grid-template-columns:minmax(118px,1.1fr) 52px 98px minmax(0,1.5fr);gap:6px;align-items:center;padding:9px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
 .race-row.no-pick{background:#f8fafc;color:var(--muted)}
 .race-row.has-pick{background:#f8fbff;border-color:#bfdbfe}
@@ -3354,7 +3349,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .race-link{font-weight:800;color:#0f172a;text-decoration:none}
 .race-link.muted{color:#475569}
 .raw-training{margin-top:8px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc}
-.raw-training summary{padding:9px 10px;font-size:13px;color:#475569;cursor:pointer}
+.raw-training summary{display:flex;align-items:center;min-height:44px;padding:0 10px;font-size:13px;color:#475569;cursor:pointer}
 .raw-training .raw-body{padding:0 10px 10px;font-size:13px;color:#334155;line-height:1.5}
 .reason{margin:8px 0 0;padding-left:18px;font-size:14px}
 .reason li{margin:3px 0}
@@ -3378,9 +3373,9 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .small{font-size:13px;color:var(--muted)}
 .scroll-hint{display:none;margin:0 0 6px}
 .empty{background:var(--warn);border-color:var(--warn-line)}
-@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}.nav{flex-wrap:wrap;overflow-x:visible}}
+@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}.nav{flex-wrap:wrap;overflow-x:visible}.nav-wrap::after{display:none}}
 @media(max-width:640px){.scroll-hint{display:block}}
-@media(max-width:520px){.wrap{padding:10px 10px 84px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{font-size:13px;padding:8px 11px}.summary-main{grid-template-columns:minmax(0,1fr)}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:4px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:6px}}
+@media(max-width:520px){.wrap{padding:10px 10px 32px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{padding:0 12px}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:4px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:6px}}
 """
 
     parts: list[str] = [
@@ -3397,10 +3392,10 @@ details.race[open]>summary .pill::after{content:" ▴"}
         "<body>",
         '<div class="hero" id="top">',
         f"<h1>中央競馬 傾向レポート<br>{e(display_date(date_key))}</h1>",
-        f'<div class="meta">生成 {e(generated_at)} / 対象 {len(races)}R / 元DB {e(db_path.name)}</div>',
+        f'<div class="meta">生成 {e(generated_at)} / 対象 {len(races)}R</div>',
         "</div>",
         '<main class="wrap">',
-        '<nav class="nav" aria-label="ページ内リンク"><a href="#overview">概要</a><a href="#picks">レース別おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">当日結果</a><a href="#guide">読み方</a></nav>',
+        '<div class="nav-wrap"><nav class="nav" aria-label="ページ内リンク"><a href="#overview">概要</a><a href="#picks">おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">結果</a><a href="#guide">読み方</a></nav></div>',
     ]
 
     overview_card_class = "card dashboard empty" if pick_status.zero_reason or pick_status.warnings else "card dashboard"
@@ -3429,7 +3424,10 @@ details.race[open]>summary .pill::after{content:" ▴"}
     parts.append("<h2>場別傾向</h2>")
     append_html_weight_card(parts, trend_weights)
     append_html_track_trend_overview(parts, track_surface_stats)
-    parts.append("<h3>傾向詳細</h3>")
+    # 「傾向早見」と同じ7区分を詳しく並べ直す欄。重複するので既定では折りたたむ。
+    parts.append('<details class="race-group">')
+    parts.append(f"<summary>傾向詳細（{len(track_surface_stats)}区分）</summary>")
+    parts.append('<div class="race-group-body">')
     parts.append('<div class="grid cols">')
     for _label, stats in track_surface_stats:
         parts.append('<article class="card">')
@@ -3448,6 +3446,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
         parts.append("</div>")
         parts.append("</article>")
     parts.append("</div>")
+    parts.append("</div></details>")
     parts.append("</section>")
 
     parts.append('<section id="blood" class="section">')
@@ -3569,17 +3568,10 @@ details.race[open]>summary .pill::after{content:" ▴"}
         append_html_race_overview(parts, next_summaries)
         recommended_summaries = [summary for summary in next_summaries if summary.recommendations]
         if recommended_summaries:
-            parts.append('<div class="pick-jump">')
+            # レース名・時刻・推奨馬は各詳細の見出しに出るため、別途のジャンプリンク一覧は置かない。
+            parts.append(f"<h3>推奨あり詳細（{len(recommended_summaries)}R）</h3>")
             for summary in recommended_summaries:
-                parts.append(
-                    f'<a href="#{e(summary.race_id)}">'
-                    f'{e(race_label(summary.track, summary.race_num, summary.race_name))}</a>'
-                )
-            parts.append("</div>")
-        if recommended_summaries:
-            parts.append("<h3>推奨あり詳細</h3>")
-            for idx, summary in enumerate(recommended_summaries):
-                append_html_recommendation_detail(parts, summary, open_detail=(idx == 0))
+                append_html_recommendation_detail(parts, summary)
         else:
             parts.append(
                 '<article class="card empty"><h3>推奨あり詳細</h3>'
@@ -3587,9 +3579,16 @@ details.race[open]>summary .pill::after{content:" ▴"}
             )
         reference_summaries = [summary for summary in next_summaries if summary.reference_recommendations]
         if reference_summaries:
-            parts.append(f"<h3>参考候補（{REFERENCE_CANDIDATE_MIN_SCORE}-{RECOMMENDATION_MIN_SCORE - 1}点）</h3>")
+            # 参考候補は補助情報なので既定で折りたたむ。
+            parts.append('<details class="race-group">')
+            parts.append(
+                f"<summary>参考候補（{REFERENCE_CANDIDATE_MIN_SCORE}-{RECOMMENDATION_MIN_SCORE - 1}点）"
+                f" {len(reference_summaries)}R</summary>"
+            )
+            parts.append('<div class="race-group-body">')
             for summary in reference_summaries:
                 append_html_recommendation_detail(parts, summary, reference=True)
+            parts.append("</div></details>")
     else:
         if not pick_status.zero_reason:
             message = "実行日以降の出馬表がDBにないため、おすすめ馬は作成していません。JRA-VAN更新後に再実行してください。"
@@ -3624,7 +3623,6 @@ details.race[open]>summary .pill::after{content:" ▴"}
     parts.append("</article>")
     parts.append("</section>")
     move_html_section_after(parts, "picks", "notice" if notice else "overview")
-    parts.append('<a class="to-top" href="#top" aria-label="ページの先頭へ戻る">↑ トップ</a>')
     parts.append("</main></body></html>")
     return "\n".join(parts)
 

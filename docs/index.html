@@ -13,16 +13,17 @@ html{scroll-behavior:smooth}
 html,body{max-width:100%;overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6;font-size:15px;letter-spacing:0}
 p,li,td,th,strong,span,div,a{overflow-wrap:anywhere}
-[id]{scroll-margin-top:76px}
+[id]{scroll-margin-top:60px}
 a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
-.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 84px}
+.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 40px}
 .hero{background:#0f172a;color:#fff;padding:18px 16px;border-radius:0 0 12px 12px}
 .hero h1{font-size:21px;line-height:1.3;margin:0 0 8px;letter-spacing:0}
 .meta{color:#cbd5e1;font-size:13px}
-.nav{position:sticky;top:0;background:rgba(245,246,248,.97);backdrop-filter:blur(8px);z-index:5;padding:10px 0;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav-wrap{position:sticky;top:0;z-index:5;background:rgba(245,246,248,.97);backdrop-filter:blur(8px)}
+.nav-wrap::after{content:"";position:absolute;top:0;right:0;width:28px;height:100%;pointer-events:none;background:linear-gradient(to right,rgba(245,246,248,0),rgba(245,246,248,.97))}
+.nav{padding:10px 0;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav a{flex:0 0 auto;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:999px;padding:9px 13px;font-size:13px;line-height:1.2;font-weight:700}
-.to-top{position:fixed;right:12px;bottom:12px;z-index:6;background:rgba(15,23,42,.92);color:#fff;text-decoration:none;border-radius:999px;padding:11px 15px;font-size:13px;font-weight:700;box-shadow:0 2px 10px rgba(15,23,42,.3)}
+.nav a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:999px;padding:0 14px;font-size:14px;line-height:1.2;font-weight:700}
 .section{margin:18px 0}
 .section h2{font-size:17px;margin:0 0 10px}
 .section h3{font-size:15px;margin:14px 0 8px}
@@ -74,8 +75,6 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .race-group-body .race-overview{margin-top:10px}
 .race-overview-card{margin-top:10px}
 .race-overview{display:grid;gap:6px}
-.pick-jump{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 4px}
-.pick-jump a{display:inline-flex;align-items:center;text-decoration:none;color:#0f172a;background:#f8fbff;border:1px solid #bfdbfe;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;line-height:1.2}
 .race-row{display:grid;grid-template-columns:minmax(118px,1.1fr) 52px 98px minmax(0,1.5fr);gap:6px;align-items:center;padding:9px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
 .race-row.no-pick{background:#f8fafc;color:var(--muted)}
 .race-row.has-pick{background:#f8fbff;border-color:#bfdbfe}
@@ -87,7 +86,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .race-link{font-weight:800;color:#0f172a;text-decoration:none}
 .race-link.muted{color:#475569}
 .raw-training{margin-top:8px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc}
-.raw-training summary{padding:9px 10px;font-size:13px;color:#475569;cursor:pointer}
+.raw-training summary{display:flex;align-items:center;min-height:44px;padding:0 10px;font-size:13px;color:#475569;cursor:pointer}
 .raw-training .raw-body{padding:0 10px 10px;font-size:13px;color:#334155;line-height:1.5}
 .reason{margin:8px 0 0;padding-left:18px;font-size:14px}
 .reason li{margin:3px 0}
@@ -111,18 +110,18 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .small{font-size:13px;color:var(--muted)}
 .scroll-hint{display:none;margin:0 0 6px}
 .empty{background:var(--warn);border-color:var(--warn-line)}
-@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}.nav{flex-wrap:wrap;overflow-x:visible}}
+@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}.nav{flex-wrap:wrap;overflow-x:visible}.nav-wrap::after{display:none}}
 @media(max-width:640px){.scroll-hint{display:block}}
-@media(max-width:520px){.wrap{padding:10px 10px 84px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{font-size:13px;padding:8px 11px}.summary-main{grid-template-columns:minmax(0,1fr)}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:4px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:6px}}
+@media(max-width:520px){.wrap{padding:10px 10px 32px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{padding:0 12px}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:4px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:6px}}
 </style>
 </head>
 <body>
 <div class="hero" id="top">
 <h1>中央競馬 傾向レポート<br>2026-08-22</h1>
-<div class="meta">生成 2026-08-22 20:00 / 対象 36R / 元DB keiba.db</div>
+<div class="meta">生成 2026-08-22 22:30 / 対象 36R</div>
 </div>
 <main class="wrap">
-<nav class="nav" aria-label="ページ内リンク"><a href="#overview">概要</a><a href="#picks">レース別おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">当日結果</a><a href="#guide">読み方</a></nav>
+<div class="nav-wrap"><nav class="nav" aria-label="ページ内リンク"><a href="#overview">概要</a><a href="#picks">おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">結果</a><a href="#guide">読み方</a></nav></div>
 <section id="overview" class="section">
 <h2>概要</h2>
 <article class="card dashboard">
@@ -160,9 +159,9 @@ details.race[open]>summary .pill::after{content:" ▴"}
 </tbody></table></div>
 <p class="small">複勝回収は各推奨を複勝100円で買った場合の単純集計です。（* は件数15件未満の参考値）</p>
 </div></details>
-<article class="card race-overview-card">
-<h3>対象レース早見</h3>
-<div class="race-overview">
+<details class="race-group">
+<summary>全レース早見（36R）</summary>
+<div class="race-group-body"><div class="race-overview">
 <div class="race-row has-pick">
 <div class="race-cell main"><a class="race-link" href="#race-01-01">札幌 1R</a></div>
 <div class="race-cell time">10:00</div>
@@ -355,6 +354,12 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <div class="race-cell condition">ダート1200m</div>
 <div class="race-cell pick">◎16 アパレイユ(66点) / ○3 オプティモ(62点)</div>
 </div>
+<div class="race-row no-pick">
+<div class="race-cell main"><span class="race-link muted">中京 9R</span></div>
+<div class="race-cell time">16:45</div>
+<div class="race-cell condition">障害3000m</div>
+<div class="race-cell pick">推奨なし</div>
+</div>
 <div class="race-row has-reference">
 <div class="race-cell main"><a class="race-link" href="#race-07-10">中京 10R</a></div>
 <div class="race-cell time">17:20</div>
@@ -373,55 +378,9 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <div class="race-cell condition">ダート1200m</div>
 <div class="race-cell pick">◎4 エバイダンス(66点) / ○5 ヒッグスボソン(62点)</div>
 </div>
-</div>
-<details class="race-group">
-<summary>推奨なしのレース（1R）を見る</summary>
-<div class="race-group-body"><div class="race-overview">
-<div class="race-row no-pick">
-<div class="race-cell main"><span class="race-link muted">中京 9R</span></div>
-<div class="race-cell time">16:45</div>
-<div class="race-cell condition">障害3000m</div>
-<div class="race-cell pick">推奨なし</div>
-</div>
 </div></div></details>
-</article>
-<div class="pick-jump">
-<a href="#race-01-01">札幌 1R</a>
-<a href="#race-01-02">札幌 2R</a>
-<a href="#race-01-03">札幌 3R</a>
-<a href="#race-01-04">札幌 4R</a>
-<a href="#race-01-05">札幌 5R</a>
-<a href="#race-01-06">札幌 6R</a>
-<a href="#race-01-08">札幌 8R</a>
-<a href="#race-01-09">札幌 9R ルスツ特別</a>
-<a href="#race-01-10">札幌 10R ２０２６ワールドオールスタージョッキーズ第３戦</a>
-<a href="#race-01-11">札幌 11R キーンランドカップ</a>
-<a href="#race-01-12">札幌 12R ２０２６ワールドオールスタージョッキーズ第４戦</a>
-<a href="#race-04-01">新潟 1R</a>
-<a href="#race-04-02">新潟 2R</a>
-<a href="#race-04-03">新潟 3R</a>
-<a href="#race-04-04">新潟 4R</a>
-<a href="#race-04-05">新潟 5R</a>
-<a href="#race-04-06">新潟 6R 古町ステークス</a>
-<a href="#race-04-07">新潟 7R 新潟２歳ステークス</a>
-<a href="#race-04-08">新潟 8R 飯豊特別</a>
-<a href="#race-04-09">新潟 9R</a>
-<a href="#race-04-10">新潟 10R</a>
-<a href="#race-04-11">新潟 11R</a>
-<a href="#race-04-12">新潟 12R</a>
-<a href="#race-07-01">中京 1R</a>
-<a href="#race-07-02">中京 2R</a>
-<a href="#race-07-03">中京 3R</a>
-<a href="#race-07-04">中京 4R</a>
-<a href="#race-07-05">中京 5R</a>
-<a href="#race-07-06">中京 6R 有松特別</a>
-<a href="#race-07-07">中京 7R 名古屋城ステークス</a>
-<a href="#race-07-08">中京 8R 豊川特別</a>
-<a href="#race-07-11">中京 11R</a>
-<a href="#race-07-12">中京 12R</a>
-</div>
-<h3>推奨あり詳細</h3>
-<details id="race-01-01" class="race recommended" open>
+<h3>推奨あり詳細（33R）</h3>
+<details id="race-01-01" class="race recommended">
 <summary>
 <div class="summary-main">
 <div><strong>札幌 1R</strong><div class="summary-condition">10:00 ダート1000m</div><div class="summary-picks">◎3 アイビーミャーオ(72点)</div></div>
@@ -1950,7 +1909,9 @@ details.race[open]>summary .pill::after{content:" ▴"}
 </ul>
 </div>
 </div></details>
-<h3>参考候補（58-61点）</h3>
+<details class="race-group">
+<summary>参考候補（58-61点） 13R</summary>
+<div class="race-group-body">
 <details id="race-01-05-ref" class="race reference">
 <summary>
 <div class="summary-main">
@@ -2399,11 +2360,13 @@ details.race[open]>summary .pill::after{content:" ▴"}
 </ul>
 </div>
 </div></details>
+</div></details>
 </section>
 <section id="track" class="section">
 <h2>場別傾向</h2>
-<article class="card quick-card">
-<h3>今回の重みづけ</h3>
+<details class="race-group">
+<summary>今回の重みづけ（スコア内部）</summary>
+<div class="race-group-body">
 <div class="dashboard-grid weight-grid">
 <div class="metric"><b>枠</b><span>やや高</span><small>1.15倍 / 適用27件</small></div>
 <div class="metric"><b>脚質</b><span>無効</span><small>0.00倍 / 適用0件</small></div>
@@ -2426,7 +2389,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <li>過去検証: 人気59% をmarket重みに反映（0.96倍）</li>
 <li>過去検証: 血統54% をbloodline重みに反映（0.75倍）</li>
 </ul>
-</article>
+</div></details>
 <article class="card quick-card">
 <h3>傾向早見</h3>
 <div class="table-wrap">
@@ -2439,7 +2402,9 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <tr><td><strong>中京 芝</strong></td><td>5</td><td>中枠の馬券内率高め（9/23頭、39%） / 前目脚質の馬券内率高め（逃げ・先行 10/24頭、42%）</td><td>-</td></tr>
 <tr><td><strong>中京 障害</strong></td><td>1</td><td>サンプル1R/5頭のため傾向断定不可</td><td>-</td></tr>
 </tbody></table></div></article>
-<h3>傾向詳細</h3>
+<details class="race-group">
+<summary>傾向詳細（7区分）</summary>
+<div class="race-group-body">
 <div class="grid cols">
 <article class="card">
 <h3>札幌 ダート</h3>
@@ -2574,6 +2539,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
 </div>
 </article>
 </div>
+</div></details>
 </section>
 <section id="blood" class="section">
 <h2>血統傾向</h2>
@@ -2660,6 +2626,9 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <article class="card">
 <h3>馬体重傾向</h3>
 <p class="sub">区分: 結果確認 / おすすめスコアには未使用。馬体重の最適帯・増減耐性は競馬場×馬場で異なるため分けて表示します。当日発表後に確認する材料です。</p>
+<details class="race-group">
+<summary>競馬場×馬場ごとの馬体重傾向（7区分）</summary>
+<div class="race-group-body">
 <div class="grid cols">
 <article class="card">
 <h4>札幌 ダート</h4>
@@ -2718,6 +2687,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <li>大幅増減: +10kg以上 0/1頭が3着内、-10kg以下 1/1頭が3着内</li>
 </ul></article>
 </div>
+</div></details>
 <details class="race-group">
 <summary>馬体重全体（参考）を見る</summary>
 <div class="race-group-body"><ul class="notes">
@@ -2782,5 +2752,4 @@ details.race[open]>summary .pill::after{content:" ▴"}
 </ul>
 </article>
 </section>
-<a class="to-top" href="#top" aria-label="ページの先頭へ戻る">↑ トップ</a>
 </main></body></html>
