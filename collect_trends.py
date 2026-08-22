@@ -1765,18 +1765,8 @@ def determine_trend_weights(races: list[RaceResult]) -> TrendWeights:
             weights.style = 0.92
             notes.append("脚質: 強い偏りなし")
 
-    avg_pop = sum(stats.winner_popularities) / len(stats.winner_popularities) if stats.winner_popularities else 0.0
-    high_payout_rate = stats.high_payout_races / len(stats.races) if stats.races else 0.0
-    if avg_pop and avg_pop <= 3.2 and high_payout_rate < 0.30:
-        weights.market = 1.15
-        notes.append(f"人気/オッズ: 堅め寄り（勝ち馬平均{avg_pop:.1f}人気）")
-    elif avg_pop >= 5.0 or high_payout_rate >= 0.30:
-        weights.market = 0.98
-        weights.payout = 1.12
-        notes.append(f"荒れ/配当: 中穴許容（高配当{stats.high_payout_races}/{len(stats.races)}R）")
-    else:
-        weights.market = 1.00
-        notes.append("人気/オッズ: 標準")
+    # 人気・オッズ・配当はスコアに使わないため、ここでの重み調整とメモは行わない
+    # （表示だけ残ると「効いている」ように誤解されるため）。
 
     starters = all_starters(races)
     mining_starters = [h for h in starters if 1 <= h.mining_rank <= 3]
@@ -2469,66 +2459,17 @@ def append_html_score_band_note(parts: list[str], score_bands: list["ScoreBandSt
     parts.append("</div></details>")
 
 
-def append_html_race_overview_row(parts: list[str], summary: NextRaceSummary) -> None:
-    pick_text = recommendation_summary(summary.recommendations)
-    if not pick_text and summary.reference_recommendations:
-        pick_text = "参考 " + recommendation_summary(summary.reference_recommendations)
-    pick_text = pick_text or "推奨なし"
-    if summary.recommendations:
-        row_class = "race-row has-pick"
-    elif summary.reference_recommendations:
-        row_class = "race-row has-reference"
-    else:
-        row_class = "race-row no-pick"
-    race_text = race_label(summary.track, summary.race_num, summary.race_name)
-    if summary.recommendations or summary.reference_recommendations:
-        race_cell = f'<a class="race-link" href="#{e(summary.race_id)}">{e(race_text)}</a>'
-    else:
-        race_cell = f'<span class="race-link muted">{e(race_text)}</span>'
-    parts.append(f'<div class="{row_class}">')
-    parts.append(f'<div class="race-cell main">{race_cell}</div>')
-    parts.append(f'<div class="race-cell time">{e(summary.start_time) or "-"}</div>')
-    parts.append(f'<div class="race-cell condition">{e(summary.condition)}</div>')
-    parts.append(f'<div class="race-cell pick">{e(pick_text)}</div>')
-    parts.append("</div>")
+def compact_condition(condition: str) -> str:
+    """「ダート1700m」→「ダ1700」。1行表示に収めるための短縮表記。"""
+    text = (condition or "").strip()
+    for long_name, short in (("ダート", "ダ"), ("障害", "障")):
+        if text.startswith(long_name):
+            text = short + text[len(long_name):]
+            break
+    return text[:-1] if text.endswith("m") else text
 
 
-def append_html_race_overview(parts: list[str], summaries: list[NextRaceSummary]) -> None:
-    # 全レースの俯瞰。推奨レースは下の詳細にも同じ内容が出るため、既定では折りたたんで
-    # スマホの縦スクロールを短くする（同じ情報を二重に並べない）。
-    parts.append('<details class="race-group">')
-    parts.append(f"<summary>全レース早見（{len(summaries)}R）</summary>")
-    parts.append('<div class="race-group-body"><div class="race-overview">')
-    for summary in summaries:
-        append_html_race_overview_row(parts, summary)
-    parts.append("</div></div></details>")
-
-
-def append_html_recommendation_detail(
-    parts: list[str],
-    summary: NextRaceSummary,
-    *,
-    reference: bool = False,
-    open_detail: bool = False,
-) -> None:
-    candidates = summary.reference_recommendations if reference else summary.recommendations
-    summary_picks = recommendation_summary(candidates) or ("参考候補なし" if reference else "推奨馬なし")
-    detail_class = "race reference" if reference else "race recommended"
-    detail_id = f"{summary.race_id}-ref" if reference and summary.recommendations else summary.race_id
-    open_attr = " open" if open_detail else ""
-    parts.append(f'<details id="{e(detail_id)}" class="{detail_class}"{open_attr}>')
-    parts.append("<summary>")
-    parts.append('<div class="summary-main">')
-    full_condition = f"{summary.start_time} {summary.condition}".strip()
-    parts.append(
-        f"<div><strong>{e(race_label(summary.track, summary.race_num, summary.race_name))}</strong>"
-        f'<div class="summary-condition">{e(full_condition)}</div>'
-        f'<div class="summary-picks">{e(summary_picks)}</div></div>'
-    )
-    parts.append('<span class="pill">詳細</span>')
-    parts.append("</div>")
-    parts.append("</summary>")
-    parts.append('<div class="detail-body">')
+def append_html_pick_cards(parts: list[str], candidates: list[Recommendation]) -> None:
     for idx, rec in enumerate(candidates):
         h = rec.horse
         parts.append('<div class="pick-mini">')
@@ -2573,7 +2514,84 @@ def append_html_recommendation_detail(
             parts.append(f"<li>{e(reason)}</li>")
         parts.append("</ul>")
         parts.append("</div>")
+
+
+def race_row_cells(summary: NextRaceSummary) -> tuple[str, str, str]:
+    """1行表示の「◎本命 / 点 / 行の状態」を決める。"""
+    if summary.recommendations:
+        top = summary.recommendations[0]
+        return f"{pick_mark(0)}{top.horse.horse_num} {top.horse.name}", str(top.score), ""
+    if summary.reference_recommendations:
+        top = summary.reference_recommendations[0]
+        return f"参考 {top.horse.horse_num} {top.horse.name}", str(top.score), "ref"
+    return "推奨なし", "-", "no-pick"
+
+
+def append_html_race_row(parts: list[str], summary: NextRaceSummary) -> None:
+    pick_text, score_text, state = race_row_cells(summary)
+    cells = (
+        f'<span class="rc-num">{summary.race_num}R</span>'
+        f'<span class="rc-time">{e(summary.start_time) or "-"}</span>'
+        f'<span class="rc-cond">{e(compact_condition(summary.condition))}</span>'
+        f'<span class="rc-pick">{e(pick_text)}</span>'
+        f'<span class="rc-score">{e(score_text)}</span>'
+    )
+    if state == "no-pick":
+        # 展開する中身がないので、開けない行として出す。
+        parts.append('<div class="rc no-pick">')
+        parts.append(f'<div class="rc-row">{cells}<span class="rc-caret"></span></div>')
+        parts.append("</div>")
+        return
+
+    row_class = "rc ref" if state == "ref" else "rc"
+    parts.append(f'<details id="{e(summary.race_id)}" class="{row_class}">')
+    parts.append(f'<summary class="rc-row">{cells}<span class="rc-caret"></span></summary>')
+    parts.append('<div class="detail-body">')
+    if summary.race_name:
+        parts.append(f'<p class="sub">{e(race_label(summary.track, summary.race_num, summary.race_name))}</p>')
+    if summary.recommendations:
+        append_html_pick_cards(parts, summary.recommendations)
+    if summary.reference_recommendations:
+        parts.append(
+            f'<div class="usage-label">参考候補（{REFERENCE_CANDIDATE_MIN_SCORE}-{RECOMMENDATION_MIN_SCORE - 1}点）</div>'
+        )
+        append_html_pick_cards(parts, summary.reference_recommendations)
     parts.append("</div></details>")
+
+
+def append_html_track_tabs(parts: list[str], summaries: list[NextRaceSummary]) -> None:
+    """競馬場をタブで切り替え、選んだ場の全レースを1行ずつ表で見せる。"""
+    groups: list[tuple[str, list[NextRaceSummary]]] = []
+    index: dict[str, int] = {}
+    for summary in summaries:
+        if summary.track not in index:
+            index[summary.track] = len(groups)
+            groups.append((summary.track, []))
+        groups[index[summary.track]][1].append(summary)
+    if not groups:
+        return
+
+    head = (
+        '<div class="rc-head"><span>R</span><span>発走</span><span>条件</span>'
+        "<span>◎本命</span><span>点</span><span></span></div>"
+    )
+    parts.append('<div class="trk-tabs">')
+    for idx in range(1, len(groups) + 1):
+        checked = " checked" if idx == 1 else ""
+        parts.append(f'<input class="trk-radio" type="radio" name="pick-track" id="trk-{idx}"{checked}>')
+    parts.append('<div class="trk-list">')
+    for idx, (track, group) in enumerate(groups, 1):
+        picked = sum(1 for s in group if s.recommendations)
+        parts.append(f'<label for="trk-{idx}">{e(track)}<span class="trk-count">{picked}</span></label>')
+    parts.append("</div>")
+    parts.append('<div class="trk-panels">')
+    for track, group in groups:
+        parts.append('<div class="trk-panel">')
+        parts.append(head)
+        for summary in group:
+            append_html_race_row(parts, summary)
+        parts.append("</div>")
+    parts.append("</div></div>")
 
 
 def trend_scope_label(surface: str, band: str) -> str:
@@ -2886,7 +2904,7 @@ def overview_decision_text(status: NextPickDataStatus) -> str:
     if status.recommendation_count:
         return (
             f"推奨馬{status.recommendation_count}頭（{status.recommendation_race_count}R）。"
-            "レース別おすすめで、推奨ありの詳細を確認できます。"
+            "レース別おすすめで、競馬場を切り替えて全レースを一覧できます。"
         )
     if status.zero_reason:
         return f"推奨0件。{status.zero_reason}"
@@ -3296,6 +3314,7 @@ a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-of
 .metric{min-width:0;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px}
 .metric b{display:block;color:var(--muted);font-size:12px;line-height:1.2;margin-bottom:3px}
 .metric span{display:block;color:#0f172a;font-size:17px;font-weight:800;line-height:1.25}
+.metric.wide{grid-column:1/-1}
 .metric small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 .decision{margin-top:10px;border-left:4px solid var(--accent);background:#f8fbff;padding:10px 11px;border-radius:6px}
 .decision b{display:block;font-size:13px;color:var(--blue);margin-bottom:2px}
@@ -3335,20 +3354,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .race-group>summary::after{content:"開く ▾";flex:none;border-radius:999px;background:var(--blue-bg);color:var(--blue);padding:5px 10px;font-size:12px;line-height:1.2}
 .race-group[open]>summary::after{content:"閉じる ▴"}
 .race-group-body{padding:0 12px 12px}
-.race-group-body .race-overview{margin-top:10px}
-.race-overview-card{margin-top:10px}
-.race-overview{display:grid;gap:6px}
-.race-row{display:grid;grid-template-columns:minmax(118px,1.1fr) 52px 98px minmax(0,1.5fr);gap:6px;align-items:center;padding:9px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
-.race-row.no-pick{background:#f8fafc;color:var(--muted)}
-.race-row.has-pick{background:#f8fbff;border-color:#bfdbfe}
-.race-row.has-reference{background:#fffbeb;border-color:#fde68a}
-.race-cell{min-width:0;font-size:13px;line-height:1.3}
-.race-cell.time{white-space:nowrap;color:var(--muted)}
-.race-cell.condition{color:#475569}
-.race-cell.pick{font-weight:700;color:#0f172a}
-.race-link{font-weight:800;color:#0f172a;text-decoration:none}
-.race-link.muted{color:#475569}
-.raw-training{margin-top:8px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc}
+.race-group-body .raw-training{margin-top:8px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc}
 .raw-training summary{display:flex;align-items:center;min-height:44px;padding:0 10px;font-size:13px;color:#475569;cursor:pointer}
 .raw-training .raw-body{padding:0 10px 10px;font-size:13px;color:#334155;line-height:1.5}
 .reason{margin:8px 0 0;padding-left:18px;font-size:14px}
@@ -3359,6 +3365,50 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .usage-label.result{color:#92400e}
 .notes{padding-left:18px;margin:6px 0;font-size:14px}
 .notes li{margin:4px 0}
+.trk-radio{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.trk-list{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:2px 0 10px}
+.trk-list::-webkit-scrollbar{display:none}
+.trk-list label{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border:1px solid #dbe1e8;border-radius:999px;background:#fff;color:#334155;font-size:15px;font-weight:800;cursor:pointer}
+.trk-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:999px;background:var(--blue-bg);color:var(--blue);font-size:12px;font-weight:800}
+.trk-panel{display:none}
+.trk-radio:focus-visible ~ .trk-list{outline:3px solid var(--accent);outline-offset:3px;border-radius:999px}
+.rc-head{display:grid;grid-template-columns:30px 40px 46px minmax(0,1fr) 24px 10px;gap:4px;align-items:center;padding:0 8px 5px;font-size:11px;color:var(--muted);font-weight:700}
+.rc{border:1px solid var(--line);border-radius:8px;background:#fff;margin:5px 0}
+.rc.no-pick{background:#f8fafc;border-style:dashed}
+.rc.ref{background:#fffbeb;border-color:#fde68a}
+.rc[open]{border-color:#bfdbfe;box-shadow:0 1px 3px rgba(15,23,42,.08)}
+.rc-row{display:grid;grid-template-columns:30px 40px 46px minmax(0,1fr) 24px 10px;gap:4px;align-items:center;min-height:44px;padding:6px 8px;cursor:pointer;list-style:none}
+.rc.no-pick .rc-row{cursor:default}
+.rc-row::-webkit-details-marker{display:none}
+.rc-num{font-size:14px;font-weight:800}
+.rc-time{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rc-cond{font-size:12px;color:#475569;white-space:nowrap}
+.rc-pick{min-width:0;font-size:14px;font-weight:700;line-height:1.3;overflow-wrap:anywhere}
+.rc.no-pick .rc-pick{font-weight:400;color:var(--muted)}
+.rc-score{font-size:14px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.rc-caret{font-size:11px;color:var(--muted);text-align:right}
+.rc-caret::after{content:"▾"}
+.rc[open] .rc-caret::after{content:"▴"}
+.rc.no-pick .rc-caret::after{content:""}
+.rc .detail-body{padding:2px 10px 10px}
+.trk-radio:nth-of-type(1):checked ~ .trk-list label:nth-of-type(1){background:#0f172a;border-color:#0f172a;color:#fff}
+.trk-radio:nth-of-type(1):checked ~ .trk-list label:nth-of-type(1) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.trk-radio:nth-of-type(1):checked ~ .trk-panels .trk-panel:nth-of-type(1){display:block}
+.trk-radio:nth-of-type(2):checked ~ .trk-list label:nth-of-type(2){background:#0f172a;border-color:#0f172a;color:#fff}
+.trk-radio:nth-of-type(2):checked ~ .trk-list label:nth-of-type(2) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.trk-radio:nth-of-type(2):checked ~ .trk-panels .trk-panel:nth-of-type(2){display:block}
+.trk-radio:nth-of-type(3):checked ~ .trk-list label:nth-of-type(3){background:#0f172a;border-color:#0f172a;color:#fff}
+.trk-radio:nth-of-type(3):checked ~ .trk-list label:nth-of-type(3) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.trk-radio:nth-of-type(3):checked ~ .trk-panels .trk-panel:nth-of-type(3){display:block}
+.trk-radio:nth-of-type(4):checked ~ .trk-list label:nth-of-type(4){background:#0f172a;border-color:#0f172a;color:#fff}
+.trk-radio:nth-of-type(4):checked ~ .trk-list label:nth-of-type(4) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.trk-radio:nth-of-type(4):checked ~ .trk-panels .trk-panel:nth-of-type(4){display:block}
+.trk-radio:nth-of-type(5):checked ~ .trk-list label:nth-of-type(5){background:#0f172a;border-color:#0f172a;color:#fff}
+.trk-radio:nth-of-type(5):checked ~ .trk-list label:nth-of-type(5) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.trk-radio:nth-of-type(5):checked ~ .trk-panels .trk-panel:nth-of-type(5){display:block}
+.trk-radio:nth-of-type(6):checked ~ .trk-list label:nth-of-type(6){background:#0f172a;border-color:#0f172a;color:#fff}
+.trk-radio:nth-of-type(6):checked ~ .trk-list label:nth-of-type(6) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.trk-radio:nth-of-type(6):checked ~ .trk-panels .trk-panel:nth-of-type(6){display:block}
 .table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
 .table{width:100%;min-width:620px;border-collapse:collapse;background:#fff}
 .table th,.table td{border-bottom:1px solid #e2e8f0;padding:9px 10px;text-align:left;font-size:14px;vertical-align:top}
@@ -3375,7 +3425,7 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .empty{background:var(--warn);border-color:var(--warn-line)}
 @media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}.nav{flex-wrap:wrap;overflow-x:visible}.nav-wrap::after{display:none}}
 @media(max-width:640px){.scroll-hint{display:block}}
-@media(max-width:520px){.wrap{padding:10px 10px 32px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{padding:0 12px}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.race-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main time" "condition condition" "pick pick";align-items:start;row-gap:4px}.race-cell.main{grid-area:main}.race-cell.time{grid-area:time;text-align:right;white-space:nowrap}.race-cell.condition{grid-area:condition}.race-cell.pick{grid-area:pick;text-align:left}.race-overview{gap:6px}}
+@media(max-width:520px){.wrap{padding:10px 10px 32px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{padding:0 12px}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}}
 """
 
     parts: list[str] = [
@@ -3403,8 +3453,11 @@ details.race[open]>summary .pill::after{content:" ▴"}
     parts.append("<h2>概要</h2>")
     parts.append(f'<article class="{overview_card_class}">')
     parts.append('<div class="dashboard-grid">')
-    for label, value in overview_status_items(date_key, len(races), pick_status):
-        parts.append(f'<div class="metric"><b>{e(label)}</b><span>{e(value)}</span></div>')
+    overview_items = overview_status_items(date_key, len(races), pick_status)
+    for idx, (label, value) in enumerate(overview_items):
+        # 2列グリッドで最後の1枚が余るときは全幅にして空白を作らない
+        wide = " wide" if idx == len(overview_items) - 1 and len(overview_items) % 2 else ""
+        parts.append(f'<div class="metric{wide}"><b>{e(label)}</b><span>{e(value)}</span></div>')
     parts.append("</div>")
     parts.append('<div class="decision"><b>最初に見るポイント</b>')
     parts.append(f"<span>{e(overview_decision_text(pick_status))}</span></div>")
@@ -3565,30 +3618,18 @@ details.race[open]>summary .pill::after{content:" ▴"}
     append_html_score_band_note(parts, score_bands or [])
 
     if next_summaries:
-        append_html_race_overview(parts, next_summaries)
         recommended_summaries = [summary for summary in next_summaries if summary.recommendations]
         if recommended_summaries:
-            # レース名・時刻・推奨馬は各詳細の見出しに出るため、別途のジャンプリンク一覧は置かない。
-            parts.append(f"<h3>推奨あり詳細（{len(recommended_summaries)}R）</h3>")
-            for summary in recommended_summaries:
-                append_html_recommendation_detail(parts, summary)
+            parts.append(
+                f'<p class="sub">推奨{len(recommended_summaries)}R。行をタップすると根拠と参考候補が開きます。</p>'
+            )
         else:
             parts.append(
-                '<article class="card empty"><h3>推奨あり詳細</h3>'
-                '<p class="sub">条件を満たす推奨馬がないため、空のレース詳細は省略しています。</p></article>'
+                '<article class="card empty">'
+                '<p class="sub">条件を満たす推奨馬がないため、全レースを一覧のみ表示しています。</p></article>'
             )
-        reference_summaries = [summary for summary in next_summaries if summary.reference_recommendations]
-        if reference_summaries:
-            # 参考候補は補助情報なので既定で折りたたむ。
-            parts.append('<details class="race-group">')
-            parts.append(
-                f"<summary>参考候補（{REFERENCE_CANDIDATE_MIN_SCORE}-{RECOMMENDATION_MIN_SCORE - 1}点）"
-                f" {len(reference_summaries)}R</summary>"
-            )
-            parts.append('<div class="race-group-body">')
-            for summary in reference_summaries:
-                append_html_recommendation_detail(parts, summary, reference=True)
-            parts.append("</div></details>")
+        # 競馬場タブ＋1行1レースの表。全レースを一度に見渡せるようにする。
+        append_html_track_tabs(parts, next_summaries)
     else:
         if not pick_status.zero_reason:
             message = "実行日以降の出馬表がDBにないため、おすすめ馬は作成していません。JRA-VAN更新後に再実行してください。"
