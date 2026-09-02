@@ -824,7 +824,12 @@ class DynamicWeightingTests(unittest.TestCase):
         self.assertIn("参考馬", html)
         # 1行表示では参考候補であることが分かる（本命マークではなく「参考」を出す）
         self.assertIn('class="rc ref"', html)
-        self.assertIn("参考 1 参考馬", html)
+        self.assertIn('<b class="mk">参考</b>参考馬', html)
+        # 馬番は枠色付きバッジで出す
+        self.assertIn('class="uma fr', html)
+        # 記号の凡例を用意している
+        self.assertIn("記号の見かた", html)
+        self.assertIn("馬番（背景は枠色）", html)
 
     def test_missing_mining_data_is_reported_and_disabled(self):
         status = c.next_pick_data_status(
