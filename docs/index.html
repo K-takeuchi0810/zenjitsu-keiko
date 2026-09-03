@@ -10,20 +10,18 @@
 :root{--bg:#f5f6f8;--ink:#17202a;--muted:#5b6b7e;--line:#d8e0ea;--card:#fff;--soft:#f1f5f9;--blue:#174ea6;--blue-bg:#e8f0fe;--warn:#fff7ed;--warn-line:#fed7aa;--accent:#2563eb}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-html,body{max-width:100%;overflow-x:hidden}
+html,body{max-width:100%;overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6;font-size:15px;letter-spacing:0}
 p,li,td,th,strong,span,div,a{overflow-wrap:anywhere}
 [id]{scroll-margin-top:60px}
 a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
 .wrap{max-width:1040px;margin:0 auto;padding:14px 14px 40px}
-.hero{background:#0f172a;color:#fff;padding:18px 16px;border-radius:0 0 12px 12px}
-.hero h1{font-size:21px;line-height:1.3;margin:0 0 8px;letter-spacing:0}
+.hero{background:#0f172a;color:#fff;padding:14px 16px 16px;border-radius:0 0 14px 14px}
+.hero-kicker{font-size:12px;font-weight:700;letter-spacing:.04em;color:#94a3b8;margin-bottom:4px}
+.hero h1{font-size:19px;line-height:1.35;margin:0 0 6px;letter-spacing:0}
+.hero-arrow{margin:0 6px;color:#60a5fa}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .meta{color:#cbd5e1;font-size:13px}
-.nav-wrap{position:sticky;top:0;z-index:5;background:rgba(245,246,248,.97);backdrop-filter:blur(8px)}
-.nav-wrap::after{content:"";position:absolute;top:0;right:0;width:28px;height:100%;pointer-events:none;background:linear-gradient(to right,rgba(245,246,248,0),rgba(245,246,248,.97))}
-.nav{padding:10px 0;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:#0f172a;background:#fff;border:1px solid #dbe1e8;border-radius:999px;padding:0 14px;font-size:14px;line-height:1.2;font-weight:700}
 .section{margin:18px 0}
 .section h2{font-size:17px;margin:0 0 10px}
 .section h3{font-size:15px;margin:14px 0 8px}
@@ -84,6 +82,36 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .usage-label.result{color:#92400e}
 .notes{padding-left:18px;margin:6px 0;font-size:14px}
 .notes li{margin:4px 0}
+.view-radio{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.view-bar{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px 0 10px;background:rgba(245,246,248,.97);backdrop-filter:blur(8px)}
+.view-bar label{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;border-radius:12px;border:1px solid #dbe1e8;background:#fff;color:#334155;font-size:15px;font-weight:800;cursor:pointer;white-space:nowrap}
+.view-panel{display:none}
+.view-radio:focus-visible ~ .view-bar{outline:3px solid var(--accent);outline-offset:2px;border-radius:12px}
+.overview-strip{margin:12px 0 6px}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0}
+.tcard-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tcard-h b{font-size:17px}
+.tcard-h .sf{grid-area:auto}
+.gauge{display:grid;grid-template-columns:34px minmax(0,1fr);gap:6px 10px;align-items:start;margin:8px 0}
+.g-l{font-size:13px;font-weight:800;color:#475569;padding-top:2px}
+.g-rows{display:grid;gap:5px}
+.g-row{display:grid;grid-template-columns:20px minmax(0,1fr) 44px;gap:8px;align-items:center;font-size:13px}
+.g-n{font-weight:700;color:#475569}
+.g-bar{height:10px;background:#eef2f7;border-radius:5px;overflow:hidden}
+.g-bar>i{display:block;height:100%;background:#bfdbfe;border-radius:5px}
+.g-row.top .g-bar>i{background:var(--accent)}
+.g-row.top .g-pct,.g-row.top .g-n{color:var(--blue)}
+.g-pct{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.tcard-f{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;padding-top:8px;border-top:1px solid #eef2f7;font-size:13px;color:#475569}
+.view-radio:nth-of-type(1):checked ~ .view-bar label:nth-of-type(1){background:#0f172a;border-color:#0f172a;color:#fff}
+.view-radio:nth-of-type(1):checked ~ .view-bar label:nth-of-type(1) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.view-radio:nth-of-type(1):checked ~ .view-panels .view-panel:nth-of-type(1){display:block}
+.view-radio:nth-of-type(2):checked ~ .view-bar label:nth-of-type(2){background:#0f172a;border-color:#0f172a;color:#fff}
+.view-radio:nth-of-type(2):checked ~ .view-bar label:nth-of-type(2) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.view-radio:nth-of-type(2):checked ~ .view-panels .view-panel:nth-of-type(2){display:block}
+.view-radio:nth-of-type(3):checked ~ .view-bar label:nth-of-type(3){background:#0f172a;border-color:#0f172a;color:#fff}
+.view-radio:nth-of-type(3):checked ~ .view-bar label:nth-of-type(3) .trk-count{background:rgba(255,255,255,.22);color:#fff}
+.view-radio:nth-of-type(3):checked ~ .view-panels .view-panel:nth-of-type(3){display:block}
 .trk-radio{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .trk-list{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:2px 0 10px}
 .trk-list::-webkit-scrollbar{display:none}
@@ -178,56 +206,40 @@ details.race[open]>summary .pill::after{content:" ▴"}
 .small{font-size:13px;color:var(--muted)}
 .scroll-hint{display:none;margin:0 0 6px}
 .empty{background:var(--warn);border-color:var(--warn-line)}
-@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}.nav{flex-wrap:wrap;overflow-x:visible}.nav-wrap::after{display:none}}
-@media(max-width:640px){.scroll-hint{display:block}}
-@media(max-width:520px){.wrap{padding:10px 10px 32px}.card{padding:10px}.nav{gap:6px;padding:8px 0}.nav a{padding:0 12px}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}}
+@media(min-width:760px){.grid.cols{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:24px}.chips{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:521px) and (max-width:640px){.scroll-hint{display:block}}
+@media(max-width:520px){.wrap{padding:10px 10px 32px}.card{padding:10px}.pill{width:max-content}.table{min-width:560px}.trend-table{min-width:0}.trend-table thead{display:none}.trend-table,.trend-table tbody,.trend-table tr,.trend-table td{display:block;width:100%}.trend-table tr{padding:8px;border-bottom:1px solid #e2e8f0}.trend-table tr:last-child{border-bottom:0}.trend-table td{border-bottom:0;padding:3px 0}.trend-table td:nth-child(1){font-weight:800}.trend-table td:nth-child(2){text-align:left}.trend-table td:nth-child(2)::before{content:"R ";font-weight:800;color:#475569}.trend-table td:nth-child(3)::before{content:"予測 ";font-weight:800;color:#174ea6}.trend-table td:nth-child(4)::before{content:"結果 ";font-weight:800;color:#92400e}.results-table{min-width:0}.results-table thead{display:none}.results-table,.results-table tbody{display:block;width:100%}.results-table tr{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;grid-template-areas:"track num cond pop" "winner winner winner payout";gap:2px 8px;align-items:center;padding:9px 8px;border-bottom:1px solid #e2e8f0}.results-table tr:last-child{border-bottom:0}.results-table td{display:block;border:0;padding:0;text-align:left;font-size:14px}.results-table td:nth-child(1){grid-area:track;font-weight:800}.results-table td:nth-child(2){grid-area:num;font-weight:800}.results-table td:nth-child(2)::after{content:"R"}.results-table td:nth-child(3){grid-area:cond;color:#475569;font-size:13px}.results-table td:nth-child(4){grid-area:winner;font-weight:700}.results-table td:nth-child(5){grid-area:pop;font-size:12px;color:var(--muted)}.results-table td:nth-child(5)::after{content:"人気"}.results-table td:nth-child(6){grid-area:payout;text-align:right;font-weight:800;font-variant-numeric:tabular-nums}.results-table td:nth-child(6)::before{content:"3連複 ";font-size:11px;font-weight:700;color:var(--muted)}}
 </style>
 </head>
 <body>
 <div class="hero" id="top">
-<h1>中央競馬 傾向レポート<br>2026-08-29</h1>
-<div class="meta">生成 2026-09-03 00:44 / 対象 36R</div>
+<div class="hero-kicker">中央競馬 傾向レポート</div>
+<h1>2026-08-29 の傾向<span class="hero-arrow">→</span>2026-08-30 のおすすめ</h1>
+<div class="meta">対象 36R / 推奨 82頭・35R / 生成 2026-09-04 01:49</div>
 </div>
 <main class="wrap">
-<div class="nav-wrap"><nav class="nav" aria-label="ページ内リンク"><a href="#overview">概要</a><a href="#picks">おすすめ</a><a href="#track">場別傾向</a><a href="#blood">血統</a><a href="#training">追い切り</a><a href="#bodyweight">馬体重</a><a href="#results">結果</a><a href="#guide">読み方</a></nav></div>
-<section id="overview" class="section">
-<h2>概要</h2>
-<article class="card dashboard">
-<div class="dashboard-grid">
-<div class="metric"><b>集計日</b><span>2026-08-29</span></div>
-<div class="metric"><b>対象R</b><span>36R</span></div>
-<div class="metric wide"><b>推奨馬</b><span>82頭 / 35R</span></div>
-</div>
-<div class="decision"><b>最初に見るポイント</b>
-<span>推奨馬82頭（35R）。レース別おすすめで、競馬場を切り替えて全レースを一覧できます。</span></div>
-</article>
-</section>
+<div class="views">
+<input class="view-radio" type="radio" name="view" id="view-1" checked>
+<input class="view-radio" type="radio" name="view" id="view-2">
+<input class="view-radio" type="radio" name="view" id="view-3">
+<div class="view-bar"><label for="view-1">おすすめ<span class="trk-count">35</span></label><label for="view-2">傾向</label><label for="view-3">結果・データ</label></div>
+<div class="view-panels">
+<div class="view-panel" role="region" aria-label="おすすめ">
 <section id="picks" class="section">
-<h2>翌日レース別おすすめ馬</h2>
-<p class="sub">対象日 2026-08-30。評価62点以上を各レース最大3頭表示。</p>
-<article class="card">
-<h3>前提データ</h3>
+<h2 class="sr-only">翌日レース別おすすめ馬</h2>
+<details class="race-group">
+<summary>前提データ（対象日・取得状況）</summary>
+<div class="race-group-body">
 <div class="stat">
+<b>集計日</b><span>2026-08-29</span>
 <b>対象日</b><span>2026-08-30</span>
 <b>出馬表</b><span>36R / 476頭</span>
 <b>追い切り</b><span>320/476頭(67%)</span>
 <b>DM予想</b><span>476/476頭(100%)</span>
 <b>推奨馬</b><span>82頭 / 35R</span>
 </div>
-</article>
-<details class="race-group">
-<summary>過去のスコア帯別実績（馬券対象656件）</summary>
-<div class="race-group-body">
-<p class="sub">評価済みの馬券対象656件の後付け集計です。スコアが高い帯ほど複勝率が上がる傾向を確認できます。的中や利益を保証するものではありません。</p>
-<div class="table-wrap">
-<table class="table band-table"><thead><tr><th scope="col">スコア帯</th><th class="num" scope="col">件数</th><th class="num" scope="col">複勝率</th><th class="num" scope="col">複勝回収</th></tr></thead><tbody>
-<tr><td><strong>80-89点*</strong></td><td class="num">11</td><td class="num">36%</td><td class="num">76%</td></tr>
-<tr><td><strong>70-79点</strong></td><td class="num">152</td><td class="num">61%</td><td class="num">100%</td></tr>
-<tr><td><strong>62-69点</strong></td><td class="num">493</td><td class="num">42%</td><td class="num">80%</td></tr>
-</tbody></table></div>
-<p class="small">複勝回収は各推奨を複勝100円で買った場合の単純集計です。（* は件数15件未満の参考値）</p>
 </div></details>
-<p class="sub">推奨35R。行をタップすると根拠と参考候補が開きます。</p>
+<p class="sub">評価62点以上・各レース最大3頭。行をタップすると根拠と参考候補が開きます。</p>
 <div class="trk-tabs">
 <input class="trk-radio" type="radio" name="pick-track" id="trk-1" checked>
 <input class="trk-radio" type="radio" name="pick-track" id="trk-2">
@@ -4405,8 +4417,118 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <span><span class="rc-bar hi"><i style="width:100%"></i></span> 評価70点以上は濃い色</span>
 </div></div></details>
 </section>
+</div>
+<div class="view-panel" role="region" aria-label="傾向">
 <section id="track" class="section">
 <h2>場別傾向</h2>
+<p class="sub">当日結果から出した「翌日に持ち越しやすい偏り」です。バーは馬券内率、濃い色は全体より明確に高い区分です。</p>
+<article class="tcard">
+<div class="tcard-h"><span class="sf sf-dirt">ダ</span><b>札幌</b><span class="sub">5R</span>
+<span class="tag">前有利</span>
+<span class="tag">堅め</span>
+<span class="tag">高配当多</span>
+</div>
+<div class="gauge"><span class="g-l">枠</span><div class="g-rows">
+<div class="g-row"><span class="g-n">内</span><span class="g-bar"><i style="width:94%"></i></span><span class="g-pct">24%</span></div>
+<div class="g-row"><span class="g-n">中</span><span class="g-bar"><i style="width:96%"></i></span><span class="g-pct">24%</span></div>
+<div class="g-row"><span class="g-n">外</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">25%</span></div>
+</div></div>
+<div class="gauge"><span class="g-l">脚質</span><div class="g-rows">
+<div class="g-row top"><span class="g-n">前</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">36%</span></div>
+<div class="g-row"><span class="g-n">差</span><span class="g-bar"><i style="width:45%"></i></span><span class="g-pct">16%</span></div>
+</div></div>
+<div class="tcard-f"><span>勝ち馬 平均2.8人気（堅め）</span><span>高配当 3/5R</span><span>全体の馬券内率 24%</span></div>
+</article>
+<article class="tcard">
+<div class="tcard-h"><span class="sf sf-turf">芝</span><b>札幌</b><span class="sub">7R</span>
+<span class="tag">前有利</span>
+<span class="tag">堅め</span>
+<span class="tag">高配当多</span>
+</div>
+<div class="gauge"><span class="g-l">枠</span><div class="g-rows">
+<div class="g-row"><span class="g-n">内</span><span class="g-bar"><i style="width:77%"></i></span><span class="g-pct">19%</span></div>
+<div class="g-row"><span class="g-n">中</span><span class="g-bar"><i style="width:95%"></i></span><span class="g-pct">24%</span></div>
+<div class="g-row"><span class="g-n">外</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">25%</span></div>
+</div></div>
+<div class="gauge"><span class="g-l">脚質</span><div class="g-rows">
+<div class="g-row top"><span class="g-n">前</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">35%</span></div>
+<div class="g-row"><span class="g-n">差</span><span class="g-bar"><i style="width:46%"></i></span><span class="g-pct">16%</span></div>
+</div></div>
+<div class="tcard-f"><span>勝ち馬 平均2.4人気（堅め）</span><span>高配当 6/7R</span><span>全体の馬券内率 23%</span></div>
+</article>
+<article class="tcard">
+<div class="tcard-h"><span class="sf sf-dirt">ダ</span><b>新潟</b><span class="sub">4R</span>
+<span class="tag">前有利</span>
+<span class="tag">堅め</span>
+</div>
+<div class="gauge"><span class="g-l">枠</span><div class="g-rows">
+<div class="g-row"><span class="g-n">内</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">28%</span></div>
+<div class="g-row"><span class="g-n">中</span><span class="g-bar"><i style="width:90%"></i></span><span class="g-pct">25%</span></div>
+<div class="g-row"><span class="g-n">外</span><span class="g-bar"><i style="width:48%"></i></span><span class="g-pct">13%</span></div>
+</div></div>
+<div class="gauge"><span class="g-l">脚質</span><div class="g-rows">
+<div class="g-row top"><span class="g-n">前</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">61%</span></div>
+<div class="g-row"><span class="g-n">差</span><span class="g-bar"><i style="width:6%"></i></span><span class="g-pct">3%</span></div>
+</div></div>
+<div class="tcard-f"><span>勝ち馬 平均2.5人気（堅め）</span><span>高配当 0/4R</span><span>全体の馬券内率 23%</span></div>
+</article>
+<article class="tcard">
+<div class="tcard-h"><span class="sf sf-turf">芝</span><b>新潟</b><span class="sub">7R</span>
+<span class="tag">前有利</span>
+<span class="tag">堅め</span>
+<span class="tag">高配当多</span>
+</div>
+<div class="gauge"><span class="g-l">枠</span><div class="g-rows">
+<div class="g-row"><span class="g-n">内</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">20%</span></div>
+<div class="g-row"><span class="g-n">中</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">20%</span></div>
+<div class="g-row"><span class="g-n">外</span><span class="g-bar"><i style="width:81%"></i></span><span class="g-pct">16%</span></div>
+</div></div>
+<div class="gauge"><span class="g-l">脚質</span><div class="g-rows">
+<div class="g-row top"><span class="g-n">前</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">34%</span></div>
+<div class="g-row"><span class="g-n">差</span><span class="g-bar"><i style="width:36%"></i></span><span class="g-pct">12%</span></div>
+</div></div>
+<div class="tcard-f"><span>勝ち馬 平均3.0人気（堅め）</span><span>高配当 4/7R</span><span>全体の馬券内率 19%</span></div>
+</article>
+<article class="tcard">
+<div class="tcard-h"><span class="sf sf-jump">障</span><b>新潟</b><span class="sub">1R</span>
+<span class="tag">サンプル不足</span>
+</div>
+<p class="sub">サンプル1R/12頭のため率は出しません。枠・脚質は傾向詳細で頭数だけ確認できます。</p>
+</article>
+<article class="tcard">
+<div class="tcard-h"><span class="sf sf-dirt">ダ</span><b>中京</b><span class="sub">5R</span>
+<span class="tag">内枠</span>
+<span class="tag">前有利</span>
+<span class="tag">高配当多</span>
+</div>
+<div class="gauge"><span class="g-l">枠</span><div class="g-rows">
+<div class="g-row top"><span class="g-n">内</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">32%</span></div>
+<div class="g-row"><span class="g-n">中</span><span class="g-bar"><i style="width:61%"></i></span><span class="g-pct">19%</span></div>
+<div class="g-row"><span class="g-n">外</span><span class="g-bar"><i style="width:67%"></i></span><span class="g-pct">21%</span></div>
+</div></div>
+<div class="gauge"><span class="g-l">脚質</span><div class="g-rows">
+<div class="g-row top"><span class="g-n">前</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">33%</span></div>
+<div class="g-row"><span class="g-n">差</span><span class="g-bar"><i style="width:52%"></i></span><span class="g-pct">18%</span></div>
+</div></div>
+<div class="tcard-f"><span>勝ち馬 平均3.6人気（標準）</span><span>高配当 2/5R</span><span>全体の馬券内率 23%</span></div>
+</article>
+<article class="tcard">
+<div class="tcard-h"><span class="sf sf-turf">芝</span><b>中京</b><span class="sub">7R</span>
+<span class="tag">前有利</span>
+<span class="tag">堅め</span>
+<span class="tag">高配当多</span>
+</div>
+<div class="gauge"><span class="g-l">枠</span><div class="g-rows">
+<div class="g-row"><span class="g-n">内</span><span class="g-bar"><i style="width:92%"></i></span><span class="g-pct">26%</span></div>
+<div class="g-row"><span class="g-n">中</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">28%</span></div>
+<div class="g-row"><span class="g-n">外</span><span class="g-bar"><i style="width:38%"></i></span><span class="g-pct">11%</span></div>
+</div></div>
+<div class="gauge"><span class="g-l">脚質</span><div class="g-rows">
+<div class="g-row top"><span class="g-n">前</span><span class="g-bar"><i style="width:100%"></i></span><span class="g-pct">31%</span></div>
+<div class="g-row"><span class="g-n">差</span><span class="g-bar"><i style="width:57%"></i></span><span class="g-pct">18%</span></div>
+</div></div>
+<div class="tcard-f"><span>勝ち馬 平均2.9人気（堅め）</span><span>高配当 4/7R</span><span>全体の馬券内率 22%</span></div>
+</article>
 <details class="race-group">
 <summary>今回の重みづけ（スコア内部）</summary>
 <div class="race-group-body">
@@ -4433,18 +4555,6 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <li>データマイニング過去: 上位3位の3着内率44%（全体21%）を反映</li>
 </ul>
 </div></details>
-<article class="card quick-card">
-<h3>傾向早見</h3>
-<div class="table-wrap">
-<table class="table trend-table"><thead><tr><th scope="col">場/馬場</th><th scope="col">R</th><th scope="col">予測に使う要点</th><th scope="col">結果確認</th></tr></thead><tbody>
-<tr><td><strong>札幌 ダート</strong></td><td>5</td><td>前目脚質の馬券内率高め（逃げ・先行 9/25頭、36%） / 勝ち馬人気は堅め（平均2.8人気）</td><td>結果確認: 上がり3位内が3着内の60%</td></tr>
-<tr><td><strong>札幌 芝</strong></td><td>7</td><td>前目脚質の馬券内率高め（逃げ・先行 11/31頭、35%） / 勝ち馬人気は堅め（平均2.4人気）</td><td>結果確認: 上がり3位内が3着内の67%</td></tr>
-<tr><td><strong>新潟 ダート</strong></td><td>4</td><td>前目脚質の馬券内率高め（逃げ・先行 11/18頭、61%） / 勝ち馬人気は堅め（平均2.5人気）</td><td>結果確認: 上がり3位内が3着内の67%</td></tr>
-<tr><td><strong>新潟 芝</strong></td><td>7</td><td>前目脚質の馬券内率高め（逃げ・先行 11/32頭、34%） / 勝ち馬人気は堅め（平均3.0人気）</td><td>結果確認: 上がり3位内が3着内の57%</td></tr>
-<tr><td><strong>新潟 障害</strong></td><td>1</td><td>サンプル1R/12頭のため傾向断定不可</td><td>-</td></tr>
-<tr><td><strong>中京 ダート</strong></td><td>5</td><td>内枠の馬券内率高め（6/19頭、32%） / 前目脚質の馬券内率高め（逃げ・先行 8/24頭、33%）</td><td>結果確認: 上がり3位内が3着内の87%</td></tr>
-<tr><td><strong>中京 芝</strong></td><td>7</td><td>前目脚質の馬券内率高め（逃げ・先行 10/32頭、31%） / 勝ち馬人気は堅め（平均2.9人気）</td><td>結果確認: 上がり3位内が3着内の62%</td></tr>
-</tbody></table></div></article>
 <details class="race-group">
 <summary>傾向詳細（7区分）</summary>
 <div class="race-group-body">
@@ -4641,6 +4751,66 @@ details.race[open]>summary .pill::after{content:" ▴"}
 <li>[持ち越し信頼度: 低] 母父 エンパイアメーカー: 3着内2/5頭（40%）、2勝</li>
 </ul></div></details>
 </section>
+</div>
+<div class="view-panel" role="region" aria-label="結果とデータ">
+<section id="results" class="section">
+<h2>当日結果一覧</h2>
+<p class="small scroll-hint">表は横にスクロールできます</p>
+<div class="table-wrap">
+<table class="table results-table"><thead><tr><th scope="col">場</th><th class="num" scope="col">R</th><th scope="col">条件</th><th scope="col">勝ち馬</th><th class="num" scope="col">人気</th><th class="num" scope="col">三連複配当</th></tr></thead><tbody>
+<tr><td>札幌</td><td class="num">1</td><td>ダート稍重1700m</td><td>ベルアズーロ</td><td class="num">1</td><td class="num">53,710</td></tr>
+<tr><td>札幌</td><td class="num">2</td><td>芝稍重1500m</td><td>タプティ</td><td class="num">4</td><td class="num">8,100</td></tr>
+<tr><td>札幌</td><td class="num">3</td><td>芝稍重1800m</td><td>ロマノヴェリテ</td><td class="num">3</td><td class="num">4,470</td></tr>
+<tr><td>札幌</td><td class="num">4</td><td>ダート稍重1000m</td><td>アニマレイ</td><td class="num">4</td><td class="num">75,790</td></tr>
+<tr><td>札幌</td><td class="num">5</td><td>ダート稍重1700m</td><td>ユーフォナイト</td><td class="num">3</td><td class="num">43,510</td></tr>
+<tr><td>札幌</td><td class="num">6</td><td>芝稍重1500m</td><td>ペカリーナ</td><td class="num">1</td><td class="num">12,840</td></tr>
+<tr><td>札幌</td><td class="num">7</td><td>芝稍重1200m</td><td>ツルノマイハシ</td><td class="num">1</td><td class="num">176,230</td></tr>
+<tr><td>札幌</td><td class="num">8</td><td>ダート稍重1700m</td><td>スターオブロンドン</td><td class="num">5</td><td class="num">1,960</td></tr>
+<tr><td>札幌</td><td class="num">9</td><td>芝稍重1800m</td><td>アイドクレース</td><td class="num">1</td><td class="num">10,750</td></tr>
+<tr><td>札幌</td><td class="num">10</td><td>芝稍重1200m</td><td>ワールドエンジェル</td><td class="num">2</td><td class="num">15,330</td></tr>
+<tr><td>札幌</td><td class="num">11</td><td>芝稍重2000m</td><td>レジェンドシップ</td><td class="num">5</td><td class="num">25,940</td></tr>
+<tr><td>札幌</td><td class="num">12</td><td>ダート稍重1700m</td><td>オンザムービー</td><td class="num">1</td><td class="num">1,850</td></tr>
+<tr><td>新潟</td><td class="num">1</td><td>障害2850m</td><td>リッケンバッカー</td><td class="num">4</td><td class="num">5,050</td></tr>
+<tr><td>新潟</td><td class="num">2</td><td>ダート稍重1800m</td><td>アデルフィー</td><td class="num">4</td><td class="num">1,040</td></tr>
+<tr><td>新潟</td><td class="num">3</td><td>芝良1600m</td><td>キムケンシーサー</td><td class="num">5</td><td class="num">3,430</td></tr>
+<tr><td>新潟</td><td class="num">4</td><td>芝良1400m</td><td>エクラドリオン</td><td class="num">1</td><td class="num">19,340</td></tr>
+<tr><td>新潟</td><td class="num">5</td><td>芝稍重2200m</td><td>ヤマメホープ</td><td class="num">1</td><td class="num">2,700</td></tr>
+<tr><td>新潟</td><td class="num">6</td><td>ダート稍重1800m</td><td>ルーナディサングエ</td><td class="num">1</td><td class="num">3,650</td></tr>
+<tr><td>新潟</td><td class="num">7</td><td>芝稍重2000m</td><td>ボウウィンドウ</td><td class="num">1</td><td class="num">37,950</td></tr>
+<tr><td>新潟</td><td class="num">8</td><td>ダート稍重1800m</td><td>メイショウズイウン</td><td class="num">4</td><td class="num">2,140</td></tr>
+<tr><td>新潟</td><td class="num">9</td><td>芝稍重2200m</td><td>プレイザリード</td><td class="num">1</td><td class="num">1,600</td></tr>
+<tr><td>新潟</td><td class="num">10</td><td>芝稍重1400m</td><td>ライネリーベ</td><td class="num">1</td><td class="num">2,300</td></tr>
+<tr><td>新潟</td><td class="num">11</td><td>芝稍重2000m</td><td>ピースフルマインド</td><td class="num">11</td><td class="num">127,780</td></tr>
+<tr><td>新潟</td><td class="num">12</td><td>ダート稍重1200m</td><td>ロンバスブレス</td><td class="num">1</td><td class="num">780</td></tr>
+<tr><td>中京</td><td class="num">1</td><td>芝良2000m</td><td>マンナット</td><td class="num">2</td><td class="num">2,240</td></tr>
+<tr><td>中京</td><td class="num">2</td><td>ダート稍重1800m</td><td>オーリエイト</td><td class="num">1</td><td class="num">1,680</td></tr>
+<tr><td>中京</td><td class="num">3</td><td>芝良1400m</td><td>ビンチャリ</td><td class="num">4</td><td class="num">28,280</td></tr>
+<tr><td>中京</td><td class="num">4</td><td>芝良2200m</td><td>マイコンプリート</td><td class="num">1</td><td class="num">14,590</td></tr>
+<tr><td>中京</td><td class="num">5</td><td>芝良2000m</td><td>ビクスバイト</td><td class="num">1</td><td class="num">1,490</td></tr>
+<tr><td>中京</td><td class="num">6</td><td>ダート稍重1200m</td><td>フィドルファドル</td><td class="num">3</td><td class="num">8,450</td></tr>
+<tr><td>中京</td><td class="num">7</td><td>芝良1400m</td><td>ブルクトーア</td><td class="num">8</td><td class="num">5,290</td></tr>
+<tr><td>中京</td><td class="num">8</td><td>芝良1400m</td><td>トライアンフパス</td><td class="num">2</td><td class="num">9,750</td></tr>
+<tr><td>中京</td><td class="num">9</td><td>ダート稍重1800m</td><td>セレーノ</td><td class="num">2</td><td class="num">12,580</td></tr>
+<tr><td>中京</td><td class="num">10</td><td>ダート稍重1400m</td><td>ジャンヌドゥレーヴ</td><td class="num">2</td><td class="num">7,720</td></tr>
+<tr><td>中京</td><td class="num">11</td><td>芝良1600m</td><td>ヴォーカライズ</td><td class="num">2</td><td class="num">5,220</td></tr>
+<tr><td>中京</td><td class="num">12</td><td>ダート稍重1800m</td><td>トラッドロア</td><td class="num">10</td><td class="num">7,490</td></tr>
+</tbody></table></div>
+</section>
+<section id="scoreband" class="section">
+<h2>おすすめの過去成績</h2>
+<details class="race-group">
+<summary>過去のスコア帯別実績（馬券対象656件）</summary>
+<div class="race-group-body">
+<p class="sub">評価済みの馬券対象656件の後付け集計です。スコアが高い帯ほど複勝率が上がる傾向を確認できます。的中や利益を保証するものではありません。</p>
+<div class="table-wrap">
+<table class="table band-table"><thead><tr><th scope="col">スコア帯</th><th class="num" scope="col">件数</th><th class="num" scope="col">複勝率</th><th class="num" scope="col">複勝回収</th></tr></thead><tbody>
+<tr><td><strong>80-89点*</strong></td><td class="num">11</td><td class="num">36%</td><td class="num">76%</td></tr>
+<tr><td><strong>70-79点</strong></td><td class="num">152</td><td class="num">61%</td><td class="num">100%</td></tr>
+<tr><td><strong>62-69点</strong></td><td class="num">493</td><td class="num">42%</td><td class="num">80%</td></tr>
+</tbody></table></div>
+<p class="small">複勝回収は各推奨を複勝100円で買った場合の単純集計です。（* は件数15件未満の参考値）</p>
+</div></details>
+</section>
 <section id="training" class="section">
 <h2>最終追い切り傾向</h2>
 <p class="sub">区分: 結果確認 / 持ち越し対象外。当日3着内馬ベースの後付け集計で、翌日予測へ直接使う材料ではありません。</p>
@@ -4739,49 +4909,6 @@ details.race[open]>summary .pill::after{content:" ▴"}
 </ul></div></details>
 </article>
 </section>
-<section id="results" class="section">
-<h2>当日結果一覧</h2>
-<p class="small scroll-hint">表は横にスクロールできます</p>
-<div class="table-wrap">
-<table class="table"><thead><tr><th scope="col">場</th><th class="num" scope="col">R</th><th scope="col">条件</th><th scope="col">勝ち馬</th><th class="num" scope="col">人気</th><th class="num" scope="col">三連複配当</th></tr></thead><tbody>
-<tr><td>札幌</td><td class="num">1</td><td>ダート稍重1700m</td><td>ベルアズーロ</td><td class="num">1</td><td class="num">53,710</td></tr>
-<tr><td>札幌</td><td class="num">2</td><td>芝稍重1500m</td><td>タプティ</td><td class="num">4</td><td class="num">8,100</td></tr>
-<tr><td>札幌</td><td class="num">3</td><td>芝稍重1800m</td><td>ロマノヴェリテ</td><td class="num">3</td><td class="num">4,470</td></tr>
-<tr><td>札幌</td><td class="num">4</td><td>ダート稍重1000m</td><td>アニマレイ</td><td class="num">4</td><td class="num">75,790</td></tr>
-<tr><td>札幌</td><td class="num">5</td><td>ダート稍重1700m</td><td>ユーフォナイト</td><td class="num">3</td><td class="num">43,510</td></tr>
-<tr><td>札幌</td><td class="num">6</td><td>芝稍重1500m</td><td>ペカリーナ</td><td class="num">1</td><td class="num">12,840</td></tr>
-<tr><td>札幌</td><td class="num">7</td><td>芝稍重1200m</td><td>ツルノマイハシ</td><td class="num">1</td><td class="num">176,230</td></tr>
-<tr><td>札幌</td><td class="num">8</td><td>ダート稍重1700m</td><td>スターオブロンドン</td><td class="num">5</td><td class="num">1,960</td></tr>
-<tr><td>札幌</td><td class="num">9</td><td>芝稍重1800m</td><td>アイドクレース</td><td class="num">1</td><td class="num">10,750</td></tr>
-<tr><td>札幌</td><td class="num">10</td><td>芝稍重1200m</td><td>ワールドエンジェル</td><td class="num">2</td><td class="num">15,330</td></tr>
-<tr><td>札幌</td><td class="num">11</td><td>芝稍重2000m</td><td>レジェンドシップ</td><td class="num">5</td><td class="num">25,940</td></tr>
-<tr><td>札幌</td><td class="num">12</td><td>ダート稍重1700m</td><td>オンザムービー</td><td class="num">1</td><td class="num">1,850</td></tr>
-<tr><td>新潟</td><td class="num">1</td><td>障害2850m</td><td>リッケンバッカー</td><td class="num">4</td><td class="num">5,050</td></tr>
-<tr><td>新潟</td><td class="num">2</td><td>ダート稍重1800m</td><td>アデルフィー</td><td class="num">4</td><td class="num">1,040</td></tr>
-<tr><td>新潟</td><td class="num">3</td><td>芝良1600m</td><td>キムケンシーサー</td><td class="num">5</td><td class="num">3,430</td></tr>
-<tr><td>新潟</td><td class="num">4</td><td>芝良1400m</td><td>エクラドリオン</td><td class="num">1</td><td class="num">19,340</td></tr>
-<tr><td>新潟</td><td class="num">5</td><td>芝稍重2200m</td><td>ヤマメホープ</td><td class="num">1</td><td class="num">2,700</td></tr>
-<tr><td>新潟</td><td class="num">6</td><td>ダート稍重1800m</td><td>ルーナディサングエ</td><td class="num">1</td><td class="num">3,650</td></tr>
-<tr><td>新潟</td><td class="num">7</td><td>芝稍重2000m</td><td>ボウウィンドウ</td><td class="num">1</td><td class="num">37,950</td></tr>
-<tr><td>新潟</td><td class="num">8</td><td>ダート稍重1800m</td><td>メイショウズイウン</td><td class="num">4</td><td class="num">2,140</td></tr>
-<tr><td>新潟</td><td class="num">9</td><td>芝稍重2200m</td><td>プレイザリード</td><td class="num">1</td><td class="num">1,600</td></tr>
-<tr><td>新潟</td><td class="num">10</td><td>芝稍重1400m</td><td>ライネリーベ</td><td class="num">1</td><td class="num">2,300</td></tr>
-<tr><td>新潟</td><td class="num">11</td><td>芝稍重2000m</td><td>ピースフルマインド</td><td class="num">11</td><td class="num">127,780</td></tr>
-<tr><td>新潟</td><td class="num">12</td><td>ダート稍重1200m</td><td>ロンバスブレス</td><td class="num">1</td><td class="num">780</td></tr>
-<tr><td>中京</td><td class="num">1</td><td>芝良2000m</td><td>マンナット</td><td class="num">2</td><td class="num">2,240</td></tr>
-<tr><td>中京</td><td class="num">2</td><td>ダート稍重1800m</td><td>オーリエイト</td><td class="num">1</td><td class="num">1,680</td></tr>
-<tr><td>中京</td><td class="num">3</td><td>芝良1400m</td><td>ビンチャリ</td><td class="num">4</td><td class="num">28,280</td></tr>
-<tr><td>中京</td><td class="num">4</td><td>芝良2200m</td><td>マイコンプリート</td><td class="num">1</td><td class="num">14,590</td></tr>
-<tr><td>中京</td><td class="num">5</td><td>芝良2000m</td><td>ビクスバイト</td><td class="num">1</td><td class="num">1,490</td></tr>
-<tr><td>中京</td><td class="num">6</td><td>ダート稍重1200m</td><td>フィドルファドル</td><td class="num">3</td><td class="num">8,450</td></tr>
-<tr><td>中京</td><td class="num">7</td><td>芝良1400m</td><td>ブルクトーア</td><td class="num">8</td><td class="num">5,290</td></tr>
-<tr><td>中京</td><td class="num">8</td><td>芝良1400m</td><td>トライアンフパス</td><td class="num">2</td><td class="num">9,750</td></tr>
-<tr><td>中京</td><td class="num">9</td><td>ダート稍重1800m</td><td>セレーノ</td><td class="num">2</td><td class="num">12,580</td></tr>
-<tr><td>中京</td><td class="num">10</td><td>ダート稍重1400m</td><td>ジャンヌドゥレーヴ</td><td class="num">2</td><td class="num">7,720</td></tr>
-<tr><td>中京</td><td class="num">11</td><td>芝良1600m</td><td>ヴォーカライズ</td><td class="num">2</td><td class="num">5,220</td></tr>
-<tr><td>中京</td><td class="num">12</td><td>ダート稍重1800m</td><td>トラッドロア</td><td class="num">10</td><td class="num">7,490</td></tr>
-</tbody></table></div>
-</section>
 <section id="guide" class="section">
 <h2>このレポートの読み方</h2>
 <article class="card">
@@ -4793,4 +4920,5 @@ details.race[open]>summary .pill::after{content:" ▴"}
 </ul>
 </article>
 </section>
-</main></body></html>
+</div>
+</div></div></main></body></html>

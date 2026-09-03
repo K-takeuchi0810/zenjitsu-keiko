@@ -517,8 +517,7 @@ class RecommendationPrerequisiteTests(unittest.TestCase):
 
         self.assertIn("## 翌日おすすめ 前提データ", markdown)
         self.assertIn("推奨0件の理由", markdown)
-        self.assertIn('id="overview"', html)
-        self.assertIn("<h2>概要</h2>", html)
+        # 集計日はヒーローと前提データに載る（概要タイルは廃止）
         self.assertIn("<b>集計日</b>", html)
         self.assertIn("<b>推奨馬</b>", html)
         self.assertIn("<b>DM予想</b>", html)
@@ -529,8 +528,11 @@ class RecommendationPrerequisiteTests(unittest.TestCase):
         self.assertNotIn("全場合算傾向", html)
         self.assertNotIn('href="#summary"', html)
         self.assertNotIn('id="summary"', html)
-        self.assertLess(html.index('href="#picks"'), html.index('href="#track"'))
-        self.assertLess(html.index('id="overview"'), html.index('id="picks"'))
+        # 画面はタブ切替（おすすめ / 傾向 / 結果・データ）。おすすめが先頭タブ。
+        self.assertIn('<label for="view-1">おすすめ', html)
+        self.assertIn('<label for="view-2">傾向</label>', html)
+        self.assertIn('<label for="view-3">結果・データ</label>', html)
+        self.assertIn('id="picks"', html)
         self.assertLess(html.index('id="picks"'), html.index('id="track"'))
 
     def test_picks_stay_above_track_when_notice_present(self):

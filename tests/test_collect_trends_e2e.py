@@ -201,12 +201,10 @@ class CollectTrendsE2ETests(unittest.TestCase):
             self.assertTrue((report_dir / "races.csv").exists())
             self.assertIn("翌日おすすめ 前提データ", (report_dir / "trend.md").read_text(encoding="utf-8-sig"))
             mobile_html = (report_dir / "mobile.html").read_text(encoding="utf-8")
-            self.assertIn('id="overview"', mobile_html)
-            self.assertIn("<h2>概要</h2>", mobile_html)
+            self.assertIn('<label for="view-1">おすすめ', mobile_html)
             self.assertNotIn("全場合算傾向", mobile_html)
             self.assertNotIn('id="summary"', mobile_html)
             self.assertIn("前提データ", mobile_html)
-            self.assertLess(mobile_html.index('id="overview"'), mobile_html.index('id="picks"'))
             self.assertLess(mobile_html.index('id="picks"'), mobile_html.index('id="track"'))
 
             race_rows = self.read_csv_rows(report_dir / "races.csv")
